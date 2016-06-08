@@ -20,6 +20,14 @@ function NormalDistribution(mean, standardDeviation) {
         return coefficientOfE * Math.exp(powerOfE);
     };
 
+    /*
+     * Method which returns the percentile at a given
+     * value of x.
+     */
+    proto_.percentile = function (xValue) {
+        
+    };
+
 }(NormalDistribution, NormalDistribution.prototype));
 
 module.exports = NormalDistribution;
