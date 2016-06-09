@@ -36,10 +36,9 @@ function NormalDistribution(mean, standardDeviation) {
         var yStart = this.getYValue(xStart);
         var yEnd = this.getYValue(xEnd);
         var yValSum = 0;
-        var xVal;
-        var max;
+        var xVal = xStart + width;
 
-        for (xVal = xStart + width, max = xEnd; xVal < max; xVal += width) {
+        for (; xVal < xEnd; xVal += width) {
             yValSum += this.getYValue(xVal);
         }
         
