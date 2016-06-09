@@ -13,7 +13,7 @@ function NormalDistribution(mean, standardDeviation) {
      * Method which returns the x value at a point on
      * the curve.
      */
-    proto_.getXValue = function (xValue) {
+    proto_.getYValue = function (xValue) {
         var coefficientOfE = 1 / Math.sqrt(2 * Math.pow(this.standardDeviation, 2) * Math.PI);
         var powerOfE = - Math.pow(xValue - this.mean, 2) / (2 * Math.pow(this.standardDeviation, 2));
 
@@ -26,6 +26,24 @@ function NormalDistribution(mean, standardDeviation) {
      */
     proto_.percentile = function (xValue) {
         
+    };
+
+    /*
+     * Calculates the area under part of the normal
+     * curve.
+     */
+    proto_.trapeziumRule = function (xStart, xEnd, width) {
+        var yStart = this.getYValue(xStart);
+        var yEnd = this.getYValue(xEnd);
+        var yValSum = 0;
+        var xVal;
+        var max;
+
+        for (xVal = xStart + width, max = xEnd; xVal < max; xVal += width) {
+            yValSum += this.getYValue(xVal);
+        }
+        
+        return 0.5 * width * (yStart + yEnd + (2 * yValSum));
     };
 
 }(NormalDistribution, NormalDistribution.prototype));
