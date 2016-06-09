@@ -1,14 +1,16 @@
-var NormalDistribution = require('./js/NormalDistribution');
 var Match = require('./js/Match');
+var Team = require('./js/Team');
 
-var graph = new NormalDistribution(1.23, 1.04);
-var match = new Match('teamA', 'teamB');
+var teamA = new Team('England', 1947);
+var teamB = new Team('Russia', 1736);
+var match = new Match(teamA, teamB);
 
 
-//console.log(graph.getYValue(3));
-console.log(graph.trapeziumRule(-10, 0, 0.1));
+/*
+ * 211, 0.0025
+ */
 
-console.log(getCount());
+getCount();
 console.log(match.result());
 
 function getCount() {
@@ -16,12 +18,13 @@ function getCount() {
     var draws = 0;
     var wins = 0;
     var goals = 0;
-    var total = 1000;
+    var total = 10000;
     var drawPercent;
     var winPercent;
+    var losePercent;
     var result;
 
-    for (var i = 0; i < 1000; i += 1) {
+    for (var i = 0; i < total; i += 1) {
         var result = match.result();
 
         goals += result[0] + result[1];
@@ -30,13 +33,20 @@ function getCount() {
         if (result[0] === result[1]) {
             draws += 1;
         }
-        else {
+        else if (result[0] > result[1]) {
             wins += 1;
         }
     }
 
-    console.log(goals / total);
+    drawPercent = draws / total;
+    winPercent = wins / total;
+    losePercent = 1 - drawPercent - winPercent;
 
-    return draws / total;
+    console.log('Rating difference', match.ratingDifference);
+    console.log('Goals per game:', goals / total);
+    console.log('Draw odds:', drawPercent);
+    console.log('Team A win odds:', winPercent);
+    console.log('Team B win odds:', losePercent);
+    console.log('Team A win proportion:', winPercent / (winPercent + losePercent));
 }
 
