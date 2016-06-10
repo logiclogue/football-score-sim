@@ -3,6 +3,6 @@ var Match = require('./js/Match');
 
 
 module.exports = {
-    Team: Team.
+    Team: Team,
     Match: Match
 }
