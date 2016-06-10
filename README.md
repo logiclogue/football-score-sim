@@ -22,3 +22,11 @@ var match = new Match(derby, united);
 
 console.log(match.result());
 ```
+
+## Author
+
+Jordan Lord
+
+## License
+
+This project is licensed under the MIT license
