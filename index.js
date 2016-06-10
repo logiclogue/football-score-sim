@@ -1,9 +1,11 @@
 var Match = require('./js/Match');
 var Team = require('./js/Team');
 
-var teamA = new Team('England', 1947);
-var teamB = new Team('Russia', 1736);
-var match = new Match(teamA, teamB);
+var england = new Team('England', 1947);
+var russia = new Team('Russia', 1736);
+var wales = new Team('Wales', 1629);
+var slovakia = new Team('Slovakia', 1742);
+var match = new Match(england, wales);
 
 
 /*
