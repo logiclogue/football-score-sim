@@ -7,7 +7,11 @@ var wales = new Team('Wales', 1629);
 var slovakia = new Team('Slovakia', 1742);
 var derby = new Team('Derby County', 1544);
 var united = new Team('Manchester United', 1794);
-var match = new Match(derby, united);
+var match = new Match(derby, united, {
+    extraTime: true,
+    penalties: true
+});
+var result = match.result();
 
 
 /*
@@ -15,7 +19,8 @@ var match = new Match(derby, united);
  */
 
 getCount();
-console.log(match.result());
+console.log(result.text);
+console.log(result.penalties);
 
 function getCount() {
     var i;
@@ -29,7 +34,7 @@ function getCount() {
     var result;
 
     for (var i = 0; i < total; i += 1) {
-        var result = match.result();
+        var result = match.result().score;
 
         goals += result[0] + result[1];
 
