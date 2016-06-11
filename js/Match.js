@@ -46,10 +46,16 @@ function Match(teamA, teamB, options) {
             penalties = this._penalties();
         }
 
+
+        // Create the output text
         text = this.team[0].stringName + ' ' + teamAGoals + '-' + teamBGoals + ' ' + this.team[1].stringName;
 
         if (extraTime) {
             text += ' (aet)';
+        }
+        
+        if (penalties[0] !== null) {
+            text += ' (' + penalties[0] + '-' + penalties[1] + ')';
         }
 
         return {
