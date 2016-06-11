@@ -20,7 +20,6 @@ var result = match.result();
 
 getCount();
 console.log(result.text);
-console.log(result.penalties);
 
 function getCount() {
     var i;

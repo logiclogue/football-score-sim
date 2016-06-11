@@ -107,6 +107,11 @@ function Match(teamA, teamB, options) {
             if (this._penaltiesWon(goals, turns)) {
                 break;
             }
+
+            if (turns[0] === 0) {
+                turns[0] = 1;
+                turns[1] = 1;
+            }
         }
 
         return goals;
