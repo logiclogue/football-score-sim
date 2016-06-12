@@ -18,10 +18,15 @@ var Match = football.Match;
 var derby = new Team('Derby County', 1544);
 var united = new Team('Manchester United', 1794);
 
-var match = new Match(derby, united);
+var match = new Match(derby, united, {
+    extraTime: true,
+    penalties: true
+});
 
-console.log(match.result());
+console.log(match.result().text);
 ```
+output:
+`Derby County 0-0 Manchester United (aet) (4-5)`
 
 ## Author
 
