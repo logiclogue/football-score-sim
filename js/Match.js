@@ -15,6 +15,7 @@ function Match(teamA, teamB, options) {
     this.constant = 0.0025;
     this.extraTime = options.extraTime || false;
     this.penalties = options.penalties || false;
+    this.seed = options.seed;
 
     this.graph = [
         new NormalDistribution(this.mean + (this.ratingDifference * this.constant), this.sd),
@@ -31,6 +32,7 @@ function Match(teamA, teamB, options) {
         var teamAGoals = this._goalsScored(null, 0);
         var teamBGoals = this._goalsScored(null, 1);
         var penalties = [null, null];
+        var result;
         var extraTime = false;
         var text = '';
 
@@ -41,27 +43,37 @@ function Match(teamA, teamB, options) {
             teamBGoals += this._goalsScored(null, 1, 30);
         }
 
+        // Calculate result
+        if (teamAGoals > teamBGoals) {
+            result = 0;
+        }
+        else if (teamAGoals === teamBGoals) {
+            result = 0.5;
+        }
+        else {
+            result = 1;
+        }
+
         // If it's still and draw and penalties are enabled.
         if (this.penalties && teamAGoals === teamBGoals) {
             penalties = this._penalties();
         }
 
+        if (penalties[0] > penalties[1]) {
+            result = 0;
+        }
+        else if (penalties[1] > penalties[0]) {
+            result = 1;
+        }
 
         // Create the output text
-        text = this.team[0].stringName + ' ' + teamAGoals + '-' + teamBGoals + ' ' + this.team[1].stringName;
-
-        if (extraTime) {
-            text += ' (aet)';
-        }
-        
-        if (penalties[0] !== null) {
-            text += ' (' + penalties[0] + '-' + penalties[1] + ')';
-        }
+        text = this._outputText(teamAGoals, teamBGoals, extraTime, penalties);
 
         return {
             score: [teamAGoals, teamBGoals],
             penalties: penalties,
-            text: text
+            text: text,
+            result: result
         };
     };
 
@@ -90,6 +102,23 @@ function Match(teamA, teamB, options) {
         graph.standardDeviation = standardDeviation;
 
         return goals;
+    };
+
+    /*
+     * Method which generates the output string.
+     */
+    proto_._outputText = function (teamAGoals, teamBGoals, extraTime, penalties) {
+        var text = this.team[0].stringName + ' ' + teamAGoals + '-' + teamBGoals + ' ' + this.team[1].stringName;
+
+        if (extraTime) {
+            text += ' (aet)';
+        }
+
+        if (penalties[0] !== null) {
+            text += ' (' + penalties[0] + '-' + penalties[1] + ')';
+        }
+
+        return text;
     };
 
     /*

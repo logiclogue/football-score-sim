@@ -20,6 +20,7 @@ var result = match.result();
 
 getCount();
 console.log(result.text);
+console.log(result.result);
 
 function getCount() {
     var i;
@@ -33,15 +34,16 @@ function getCount() {
     var result;
 
     for (var i = 0; i < total; i += 1) {
-        var result = match.result().score;
+        var result = match.result();
+        var score = result.score;
 
-        goals += result[0] + result[1];
+        goals += score[0] + score[1];
 
         // If the game is a draw
-        if (result[0] === result[1]) {
+        if (result.result === 0.5) {
             draws += 1;
         }
-        else if (result[0] > result[1]) {
+        else if (result.result === 0) {
             wins += 1;
         }
     }
