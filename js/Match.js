@@ -16,6 +16,10 @@ function Match(teamA, teamB, options) {
     this.extraTime = options.extraTime || false;
     this.penalties = options.penalties || false;
     this.seed = options.seed;
+    this.goals = [];
+    this.penalties = [];
+    this.result;
+    this.text;
 
     this.graph = [
         new NormalDistribution(this.mean + (this.ratingDifference * this.constant), this.sd),
@@ -28,52 +32,50 @@ function Match(teamA, teamB, options) {
     /*
      * Generates a match score from the given seed.
      */
-    proto_.result = function () {
-        var teamAGoals = this._goalsScored(null, 0);
-        var teamBGoals = this._goalsScored(null, 1);
-        var penalties = [null, null];
-        var result;
+    proto_.simulate = function () {
+        this.goals[0] = this._goalsScored(null, 0);
+        this.goals[1] = this._goalsScored(null, 1);
+        this.penalties = [null, null];
         var extraTime = false;
-        var text = '';
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraTime && teamAGoals === teamBGoals) {
+        if (this.extraTime && this.goals[0] === this.goals[1]) {
             extraTime = true;
-            teamAGoals += this._goalsScored(null, 0, 30);
-            teamBGoals += this._goalsScored(null, 1, 30);
+            this.goals[0] += this._goalsScored(null, 0, 30);
+            this.goals[1] += this._goalsScored(null, 1, 30);
         }
 
         // Calculate result
-        if (teamAGoals > teamBGoals) {
-            result = 0;
+        if (this.goals[0] > this.goals[1]) {
+            this.result = 0;
         }
-        else if (teamAGoals === teamBGoals) {
-            result = 0.5;
+        else if (this.goals[0] === this.goals[1]) {
+            this.result = 0.5;
         }
         else {
-            result = 1;
+            this.result = 1;
         }
 
         // If it's still and draw and penalties are enabled.
-        if (this.penalties && teamAGoals === teamBGoals) {
-            penalties = this._penalties();
+        if (this.penalties && this.goals[0] === this.goals[1]) {
+            this.penalties = this._penalties();
         }
 
-        if (penalties[0] > penalties[1]) {
-            result = 0;
+        if (this.penalties[0] > this.penalties[1]) {
+            this.result = 0;
         }
-        else if (penalties[1] > penalties[0]) {
-            result = 1;
+        else if (this.penalties[1] > this.penalties[0]) {
+            this.result = 1;
         }
 
         // Create the output text
-        text = this._outputText(teamAGoals, teamBGoals, extraTime, penalties);
+        this.text = this._outputText(extraTime);
 
         return {
-            score: [teamAGoals, teamBGoals],
-            penalties: penalties,
-            text: text,
-            result: result
+            score: this.goals,
+            penalties: this.penalties,
+            text: this.text,
+            result: this.result
         };
     };
 
@@ -107,15 +109,15 @@ function Match(teamA, teamB, options) {
     /*
      * Method which generates the output string.
      */
-    proto_._outputText = function (teamAGoals, teamBGoals, extraTime, penalties) {
-        var text = this.team[0].stringName + ' ' + teamAGoals + '-' + teamBGoals + ' ' + this.team[1].stringName;
+    proto_._outputText = function (extraTime) {
+        var text = this.team[0].stringName + ' ' + this.goals[0] + '-' + this.goals[1] + ' ' + this.team[1].stringName;
 
         if (extraTime) {
             text += ' (aet)';
         }
 
-        if (penalties[0] !== null) {
-            text += ' (' + penalties[0] + '-' + penalties[1] + ')';
+        if (this.penalties[0] !== null) {
+            text += ' (' + this.penalties[0] + '-' + this.penalties[1] + ')';
         }
 
         return text;

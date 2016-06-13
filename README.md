@@ -23,7 +23,9 @@ var match = new Match(derby, united, {
     penalties: true
 });
 
-console.log(match.result().text);
+match.simulate();
+
+console.log(match.text);
 ```
 output:
 `Derby County 0-0 Manchester United (aet) (4-5)`

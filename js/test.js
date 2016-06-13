@@ -11,7 +11,7 @@ var match = new Match(england, russia, {
     extraTime: true,
     penalties: true
 });
-var result = match.result();
+var result = match.simulate();
 
 
 /*
@@ -34,7 +34,7 @@ function getCount() {
     var result;
 
     for (var i = 0; i < total; i += 1) {
-        var result = match.result();
+        var result = match.simulate();
         var score = result.score;
 
         goals += score[0] + score[1];
