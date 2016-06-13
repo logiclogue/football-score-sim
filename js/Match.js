@@ -14,7 +14,7 @@ function Match(teamA, teamB, options) {
     this.sd = 1.23;
     this.constant = 0.0025;
     this.extraTime = options.extraTime || false;
-    this.penalties = options.penalties || false;
+    this.penaltiesSet = options.penalties || false;
     this.seed = options.seed;
     this.goals = [];
     this.penalties = [];
@@ -57,7 +57,7 @@ function Match(teamA, teamB, options) {
         }
 
         // If it's still and draw and penalties are enabled.
-        if (this.penalties && this.goals[0] === this.goals[1]) {
+        if (this.penaltiesSet && this.goals[0] === this.goals[1]) {
             this.penalties = this._penalties();
         }
 
