@@ -1,6 +1,6 @@
 {
   "name": "football-score-sim",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Simulates football scores given a team's elo rating",
   "main": "index.js",
   "scripts": {
