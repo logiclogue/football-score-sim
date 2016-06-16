@@ -13,8 +13,8 @@ function Match(teamA, teamB, options) {
     this.mean = 1.58;
     this.sd = 1.23;
     this.constant = 0.0025;
-    this.extraTime = options.extraTime || false;
-    this.penaltiesSet = options.penalties || false;
+    this.extraTimeEnabled = options.extraTime || false;
+    this.penaltiesEnabled = options.penalties || false;
     this.seed = options.seed;
     this.goals = [];
     this.penalties = [];
@@ -39,7 +39,7 @@ function Match(teamA, teamB, options) {
         var extraTime = false;
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraTime && this.goals[0] === this.goals[1]) {
+        if (this.extraEnabled && this.goals[0] === this.goals[1]) {
             extraTime = true;
             this.goals[0] += this._goalsScored(null, 0, 30);
             this.goals[1] += this._goalsScored(null, 1, 30);
@@ -57,7 +57,7 @@ function Match(teamA, teamB, options) {
         }
 
         // If it's still and draw and penalties are enabled.
-        if (this.penaltiesSet && this.goals[0] === this.goals[1]) {
+        if (this.penaltiesEnabled && this.goals[0] === this.goals[1]) {
             this.penalties = this._penalties();
         }
 
