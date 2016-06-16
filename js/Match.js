@@ -8,6 +8,7 @@ function Match(teamA, teamB, options) {
     options = options || {};
 
     this.team = [teamA, teamB];
+    this.winner;
     this.ratingDifference = teamA.rating - teamB.rating;
 
     this.mean = 1.58;
@@ -68,6 +69,8 @@ function Match(teamA, teamB, options) {
             this.result = 1;
         }
 
+        this.winner = this._getWinner();
+
         // Create the output text
         this.text = this._outputText(extraTime);
 
@@ -104,6 +107,17 @@ function Match(teamA, teamB, options) {
         graph.standardDeviation = standardDeviation;
 
         return goals;
+    };
+
+    /*
+     * Gets winner.
+     */
+    proto_._getWinner = function () {
+        if (this.result !== 0.5) {
+            return this.team[this.result];
+        }
+
+        return null;
     };
 
     /*
