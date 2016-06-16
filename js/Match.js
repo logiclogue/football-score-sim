@@ -40,7 +40,7 @@ function Match(teamA, teamB, options) {
         var extraTime = false;
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraEnabled && this.goals[0] === this.goals[1]) {
+        if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
             extraTime = true;
             this.goals[0] += this._goalsScored(null, 0, 30);
             this.goals[1] += this._goalsScored(null, 1, 30);
