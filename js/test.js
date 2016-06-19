@@ -27,13 +27,18 @@ function getCount() {
     var draws = 0;
     var wins = 0;
     var goals = 0;
-    var total = 10000;
+    var total = 1000;
     var drawPercent;
     var winPercent;
     var losePercent;
     var result;
 
     for (var i = 0; i < total; i += 1) {
+        var match = new Match(england, russia, {
+            extraTime: true,
+            penalties: true
+        });
+
         var result = match.simulate();
         var score = result.score;
 

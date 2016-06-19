@@ -1,4 +1,5 @@
 var NormalDistribution = require('./NormalDistribution');
+var random = require('seeded-random');
 
 
 /*
@@ -15,7 +16,7 @@ function Match(teamA, teamB, options) {
     this.constant = 0.0025;
     this.extraTime = options.extraTime || false;
     this.penaltiesSet = options.penalties || false;
-    this.seed = options.seed;
+    this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.penalties = [];
     this.result;
@@ -33,19 +34,20 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
-        this.goals[0] = this._goalsScored(null, 0);
-        this.goals[1] = this._goalsScored(null, 1);
+        this.goals[0] = this._goalsScored(0);
+        this.goals[1] = this._goalsScored(1);
         this.penalties = [null, null];
         var extraTime = false;
 
         // If the match is a draw and extra time is enabled.
         if (this.extraTime && this.goals[0] === this.goals[1]) {
             extraTime = true;
-            this.goals[0] += this._goalsScored(null, 0, 30);
-            this.goals[1] += this._goalsScored(null, 1, 30);
+            this.goals[0] += this._goalsScored(0, 30);
+            this.goals[1] += this._goalsScored(1, 30);
         }
 
-        // Calculate result
+        // Calculate result. 1 = win, 0.5 = draw,
+        // 0 = loss.
         if (this.goals[0] > this.goals[1]) {
             this.result = 0;
         }
@@ -81,10 +83,10 @@ function Match(teamA, teamB, options) {
 
 
     /*
-     * Finds the number of goals scored.
+     * Finds the number of goals scored by a team.
      */
-    proto_._goalsScored = function (rand, team, time) {
-        rand = rand || Math.random();
+    proto_._goalsScored = function (team, time) {
+        rand = random.decimal(this.seed + ' ' + team + ' ' + time);
         time = time || 90;
 
         var graph = this.graph[team];

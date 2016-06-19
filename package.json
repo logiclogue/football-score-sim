@@ -16,7 +16,10 @@
   "author": "Jordan Lord",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/logiclogue/football-score-sim"
+    "type": "git",
+    "url": "https://github.com/logiclogue/football-score-sim"
+  },
+  "dependencies": {
+    "seeded-random": "^1.0.1"
   }
 }
