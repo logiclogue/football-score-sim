@@ -11,7 +11,7 @@ var match = new Match(england, russia, {
     extraTime: true,
     penalties: true
 });
-var result = match.simulate();
+match.simulate();
 
 
 /*
@@ -19,8 +19,9 @@ var result = match.simulate();
  */
 
 getCount();
-console.log(result.text);
-console.log(result.result);
+console.log(match.text);
+console.log(match.result);
+console.log(match.winner);
 
 function getCount() {
     var i;

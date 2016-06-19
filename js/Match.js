@@ -9,13 +9,14 @@ function Match(teamA, teamB, options) {
     options = options || {};
 
     this.team = [teamA, teamB];
+    this.winner;
     this.ratingDifference = teamA.rating - teamB.rating;
 
     this.mean = 1.58;
     this.sd = 1.23;
     this.constant = 0.0025;
-    this.extraTime = options.extraTime || false;
-    this.penaltiesSet = options.penalties || false;
+    this.extraTimeEnabled = options.extraTime || false;
+    this.penaltiesEnabled = options.penalties || false;
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.penalties = [];
@@ -40,7 +41,7 @@ function Match(teamA, teamB, options) {
         var extraTime = false;
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraTime && this.goals[0] === this.goals[1]) {
+        if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
             extraTime = true;
             this.goals[0] += this._goalsScored(0, 30);
             this.goals[1] += this._goalsScored(1, 30);
@@ -59,7 +60,7 @@ function Match(teamA, teamB, options) {
         }
 
         // If it's still and draw and penalties are enabled.
-        if (this.penaltiesSet && this.goals[0] === this.goals[1]) {
+        if (this.penaltiesEnabled && this.goals[0] === this.goals[1]) {
             this.penalties = this._penalties();
         }
 
@@ -69,6 +70,8 @@ function Match(teamA, teamB, options) {
         else if (this.penalties[1] > this.penalties[0]) {
             this.result = 1;
         }
+
+        this.winner = this._getWinner();
 
         // Create the output text
         this.text = this._outputText(extraTime);
@@ -106,6 +109,17 @@ function Match(teamA, teamB, options) {
         graph.standardDeviation = standardDeviation;
 
         return goals;
+    };
+
+    /*
+     * Gets winner.
+     */
+    proto_._getWinner = function () {
+        if (this.result !== 0.5) {
+            return this.team[this.result];
+        }
+
+        return null;
     };
 
     /*
