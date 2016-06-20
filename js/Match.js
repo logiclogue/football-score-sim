@@ -17,6 +17,7 @@ function Match(teamA, teamB, options) {
     this.constant = 0.0025;
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
+    this.timeElapsed = options.timeElapsed || 120;
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.penalties = [];
@@ -196,6 +197,19 @@ function Match(teamA, teamB, options) {
 
         return 0;
     };
+
+    /*
+     * Generates the times the goals were scored.
+     */
+    proto_._generateGoalTimes = function () {
+        this.goals.forEach(function (goals, index) {
+            var seed = this.seed + ' ' + goals + ' ' + index;
+
+            for (var i = 0; i < goals; i += 1) {
+                this.goalTimes[index].push(random.range(seed + ' ' + i, 0, 90));
+            }
+        }.bind(this));
+    }
 
 }(Match, Match.prototype));
 
