@@ -21,6 +21,7 @@ function Match(teamA, teamB, options) {
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.penalties = [];
+    this.goalTimes = [[], []];
     this.result;
     this.text;
 
@@ -40,6 +41,8 @@ function Match(teamA, teamB, options) {
         this.goals[1] = this._goalsScored(1);
         this.penalties = [null, null];
         var extraTime = false;
+
+        this._generateGoalTimes();
 
         // If the match is a draw and extra time is enabled.
         if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
