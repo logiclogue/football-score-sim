@@ -17,7 +17,6 @@ function Match(teamA, teamB, options) {
     this.constant = 0.0025;
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
-    this.timeElapsed = options.timeElapsed || 120;
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.penalties = [];
