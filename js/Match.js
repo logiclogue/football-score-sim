@@ -17,10 +17,11 @@ function Match(teamA, teamB, options) {
     this.constant = 0.0025;
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
-    this.timeElapsed = options.timeElapsed || 120;
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
+    this.goalsExtraTime = [];
     this.penalties = [];
+    this.goalTimes = [[], []];
     this.result;
     this.text;
 
@@ -41,11 +42,17 @@ function Match(teamA, teamB, options) {
         this.penalties = [null, null];
         var extraTime = false;
 
+        this._generateGoalTimes();
+
         // If the match is a draw and extra time is enabled.
         if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
             extraTime = true;
-            this.goals[0] += this._goalsScored(0, 30);
-            this.goals[1] += this._goalsScored(1, 30);
+            this.goalsExtraTime[0] = this._goalsScored(0, 30);
+            this.goalsExtraTime[1] = this._goalsScored(0, 30);
+            this.goals[0] += this.goalsExtraTime[0];
+            this.goals[1] += this.goalsExtraTime[1];
+
+            this._generateGoalTimes(91, 120, this.goalsExtraTime);
         }
 
         // Calculate result. 1 = win, 0.5 = draw,
@@ -201,12 +208,16 @@ function Match(teamA, teamB, options) {
     /*
      * Generates the times the goals were scored.
      */
-    proto_._generateGoalTimes = function () {
-        this.goals.forEach(function (goals, index) {
-            var seed = this.seed + ' ' + goals + ' ' + index;
+    proto_._generateGoalTimes = function (startTime, endTime, goalArray) {
+        startTime = startTime || 1;
+        endTime = endTime || 90;
+        goalArray = goalArray || this.goals;
+
+        goalArray.forEach(function (goals, index) {
+            var seed = this.seed + ' ' + goals + ' ' + index + ' ' + startTime + ' ' + endTime;
 
             for (var i = 0; i < goals; i += 1) {
-                this.goalTimes[index].push(random.range(seed + ' ' + i, 0, 90));
+                this.goalTimes[index].push(random.range(seed + ' ' + i, startTime, endTime));
             }
         }.bind(this));
     }
