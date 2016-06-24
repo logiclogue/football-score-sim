@@ -19,7 +19,8 @@ function Match(teamA, teamB, options) {
     this.penaltiesEnabled = options.penalties || false;
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
-    this.goalsExtraTime = [];
+    this.goalsFullTime = [null, null];
+    this.goalsExtraTime = [null, null];
     this.penalties = [];
     this.goalTimes = [[], []];
     this.result;
@@ -37,12 +38,10 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
-        this.goals[0] = this._goalsScored(0);
-        this.goals[1] = this._goalsScored(1);
+        this.goals[0] = this.goalsFullTime[0] = this._goalsScored(0);
+        this.goals[1] = this.goalsFullTime[1] = this._goalsScored(1);
         this.penalties = [null, null];
         var extraTime = false;
-
-        this._generateGoalTimes();
 
         // If the match is a draw and extra time is enabled.
         if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
@@ -51,8 +50,6 @@ function Match(teamA, teamB, options) {
             this.goalsExtraTime[1] = this._goalsScored(0, 30);
             this.goals[0] += this.goalsExtraTime[0];
             this.goals[1] += this.goalsExtraTime[1];
-
-            this._generateGoalTimes(91, 120, this.goalsExtraTime);
         }
 
         // Calculate result. 1 = win, 0.5 = draw,
@@ -204,23 +201,6 @@ function Match(teamA, teamB, options) {
 
         return 0;
     };
-
-    /*
-     * Generates the times the goals were scored.
-     */
-    proto_._generateGoalTimes = function (startTime, endTime, goalArray) {
-        startTime = startTime || 1;
-        endTime = endTime || 90;
-        goalArray = goalArray || this.goals;
-
-        goalArray.forEach(function (goals, index) {
-            var seed = this.seed + ' ' + goals + ' ' + index + ' ' + startTime + ' ' + endTime;
-
-            for (var i = 0; i < goals; i += 1) {
-                this.goalTimes[index].push(random.range(seed + ' ' + i, startTime, endTime));
-            }
-        }.bind(this));
-    }
 
 }(Match, Match.prototype));
 
