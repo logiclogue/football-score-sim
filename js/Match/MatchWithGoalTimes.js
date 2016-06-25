@@ -21,7 +21,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     proto_.simulate = function () {
         var returnVal = super_.simulate.call(this);
 
-        this._generateGoalTimes();
+        this._generateGoalTimes(0, 90, this.goalsFullTime);
 
         if (this.goalsExtraTime[0] !== undefined) {
             this._generateGoalTimes(90, 120, this.goalsExtraTime);
@@ -38,15 +38,13 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
      * Generates the times the goals were scored.
      */
     proto_._generateGoalTimes = function (startTime, endTime, goalArray) {
-        startTime = startTime || 1;
-        endTime = endTime || 90;
-        goalArray = goalArray || this.goalsFullTime;
+        var time = endTime - startTime;
 
         goalArray.forEach(function (goals, index) {
             var seed = this.seed + ' ' + goals + ' ' + index + ' ' + startTime + ' ' + endTime;
 
             for (var i = 0; i < goals; i += 1) {
-                this.goalTimes[index].push(random.range(seed + ' ' + i, startTime, endTime));
+                this.goalTimes[index].push((random.decimal(seed + ' ' + i) * time) + startTime);
             }
         }.bind(this));
     };
