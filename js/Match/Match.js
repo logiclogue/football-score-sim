@@ -1,4 +1,4 @@
-var NormalDistribution = require('./NormalDistribution');
+var NormalDistribution = require('../NormalDistribution');
 var random = require('seeded-random');
 
 

@@ -1,5 +1,5 @@
 //var Match = require('./Match');
-var Match = require('./MatchWithGoalTimes');
+var Match = require('./Match/MatchWithGoalTimes');
 var Team = require('./Team');
 
 var england = new Team('England', 1947);
