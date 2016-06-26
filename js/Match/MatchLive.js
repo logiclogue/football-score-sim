@@ -21,7 +21,7 @@ function MatchLive(teamA, teamB, options) {
         EXTRA_TIME_SECOND_HALF: 7,
         PRE_PENALTIES: 8,
         PENALTIES: 9,
-        fullTime: 10
+        FULL_TIME: 10
     };
     this.startTime = new Date(options.startTime);
     this.matchLength = options.matchLength || 90;
@@ -38,19 +38,58 @@ MatchLive.prototype = Object.create(MatchWithGoalTimes.prototype);
 (function (static_, proto_, super_) {
 
     /*
-     * Overrides the simulate method.
+     * Returns the current score.
      */
-    proto_.simulate = function () {
-        var returnVal = super_.simulate.call(this);
-
-        return returnVal;
+    proto_._simulateLive = function () {
+        
     };
 
 
     /*
+     * Gets the match time in minutes.
+     */
+    proto_._getTime = function () {
+        var currentPeriod = this._getPeriod();
+        var currentMatchTimeMilli = Date.now() - this.startTime.getTime();
+        var currentMatchTime = currentMatchTimeMilli / (1000 * 60);
+
+        switch (currentPeriod) {
+            case this.period.HALF_TIME:
+                currentMatchTime = 45;
+
+                break;
+
+            case this.period.SECOND_HALF:
+                currentMatchTime - 15;
+
+                break;
+
+            case this.period.PRE_EXTRA_TIME:
+                currentMatchTime = 90;
+
+                break;
+
+            case this.period.EXTRA_TIME_FIRST_HALF:
+                currentMatchTime - 20;
+
+                break;
+
+            case this.period.EXTRA_TIME_HALF_TIME:
+                currentMatchTime = 105;
+
+                break;
+
+            case this.period.EXTRA_TIME_SECOND_HALF:
+                currentMatchTime - 25;
+
+                break;
+        }
+    };
+
+    /*
      * Calculates what period of the game it is.
      */
-    proto_._calculatePeriod = function () {
+    proto_._getPeriod = function () {
         var currentTime = new Date();
         var currentTimeMilli = currentTime.getTime();
         var startTimeMilli = this.startTime.getTime();
@@ -117,7 +156,7 @@ MatchLive.prototype = Object.create(MatchWithGoalTimes.prototype);
         }
 
         // Full time.
-        if (currentTimeMilli > testTime) {
+        if (currentTimeMilli >= testTime) {
             return this.period.FULL_TIME;
         }
     };
