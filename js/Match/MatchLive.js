@@ -10,19 +10,6 @@ var MatchWithGoalTimes = require('./MatchWithGoalTimes');
 function MatchLive(teamA, teamB, options) {
     MatchWithGoalTimes.apply(this, arguments);
 
-    this.period = {
-        PRE_KICK_OFF: 0,
-        FIRST_HALF: 1,
-        HALF_TIME: 2,
-        SECOND_HALF: 3,
-        PRE_EXTRA_TIME: 4,
-        EXTRA_TIME_FIRST_HALF: 5,
-        EXTRA_TIME_HALF_TIME: 6,
-        EXTRA_TIME_SECOND_HALF: 7,
-        PRE_PENALTIES: 8,
-        PENALTIES: 9,
-        FULL_TIME: 10
-    };
     this.startTime = new Date(options.startTime);
     this.matchLength = options.matchLength || 90;
     this.currentPeriod = this.period.PRE_KICK_OFF;
