@@ -27,15 +27,18 @@ function Match(teamA, teamB, options) {
 
     this.mean = 1.58;
     this.sd = 1.23;
-    this.constant = 0.0025;
+    this.constant = 0.0033;
+
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
+
     this.seed = options.seed || Math.random() + '';
     this.goals = [];
     this.goalsFullTime = [null, null];
     this.goalsExtraTime = [null, null];
     this.penalties = [];
     this.goalTimes = [[], []];
+    // 0 = team A win, 0.5 = draw, 1 = team B win.
     this.result;
     this.text;
 
@@ -64,7 +67,6 @@ function Match(teamA, teamB, options) {
             this.goals[0] += this.goalsExtraTime[0];
             this.goals[1] += this.goalsExtraTime[1];
         }
-
         // Calculate result. 1 = win, 0.5 = draw,
         // 0 = loss.
         if (this.goals[0] > this.goals[1]) {
@@ -112,8 +114,8 @@ function Match(teamA, teamB, options) {
 
         var graph = this.graph[team];
         var goals = 0;
-        var xValue = -10;
         var mean = graph.mean;
+        var xValue = -10 + mean;
         var standardDeviation = graph.standardDeviation;
 
         graph.mean = mean * (time / 90);

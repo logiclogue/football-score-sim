@@ -39,8 +39,8 @@ function getCount() {
 
     for (var i = 0; i < total; i += 1) {
         var match = new Match(england, russia, {
-            extraTime: true,
-            penalties: true
+            extraTime: false,
+            penalties: false
         });
 
         var result = match.simulate();
