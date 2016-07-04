@@ -33,11 +33,10 @@ function Match(teamA, teamB, options) {
     this.penaltiesEnabled = options.penalties || false;
 
     this.seed = options.seed || Math.random() + '';
-    this.goals = [];
+    this.goals = [[], []];
     this.goalsFullTime = [null, null];
     this.goalsExtraTime = [null, null];
     this.penalties = [];
-    this.goalTimes = [[], []];
     // 0 = team A win, 0.5 = draw, 1 = team B win.
     this.result;
     this.text;
@@ -54,6 +53,10 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
+        //this.goals[0][this.period.FIRST_HALF] = this._goalsScored(0, 45);
+        //this.goals[0][this.period.SECOND_HALF] this._goalsScored(0, 45);
+        //this.goals[1][this.period.FIRST_HALF] = this._goalsScored(1, 45);
+        //this.goals[1][this.period.SECOND_HALF] = this._goalsScored(1, 45);
         this.goals[0] = this.goalsFullTime[0] = this._goalsScored(0);
         this.goals[1] = this.goalsFullTime[1] = this._goalsScored(1);
         this.penalties = [null, null];
@@ -79,7 +82,7 @@ function Match(teamA, teamB, options) {
             this.result = 1;
         }
 
-        // If it's still and draw and penalties are enabled.
+        // If it's still a draw and penalties are enabled.
         if (this.penaltiesEnabled && this.goals[0] === this.goals[1]) {
             this.penalties = this._penalties();
         }
