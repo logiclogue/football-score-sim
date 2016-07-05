@@ -53,10 +53,10 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
-        //this.goals[0][this.period.FIRST_HALF] = this._goalsScored(0, 45);
-        //this.goals[0][this.period.SECOND_HALF] this._goalsScored(0, 45);
-        //this.goals[1][this.period.FIRST_HALF] = this._goalsScored(1, 45);
-        //this.goals[1][this.period.SECOND_HALF] = this._goalsScored(1, 45);
+        //this.goals[0][this.period.FIRST_HALF] = this._goalsScored(0, 0, 45);
+        //this.goals[0][this.period.SECOND_HALF] this._goalsScored(0, 45, 90);
+        //this.goals[1][this.period.FIRST_HALF] = this._goalsScored(1, 0, 45);
+        //this.goals[1][this.period.SECOND_HALF] = this._goalsScored(1, 45, 90);
         this.goals[0] = this.goalsFullTime[0] = this._goalsScored(0);
         this.goals[1] = this.goalsFullTime[1] = this._goalsScored(1);
         this.penalties = [null, null];
@@ -65,8 +65,8 @@ function Match(teamA, teamB, options) {
         // If the match is a draw and extra time is enabled.
         if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
             extraTime = true;
-            this.goalsExtraTime[0] = this._goalsScored(0, 30);
-            this.goalsExtraTime[1] = this._goalsScored(0, 30);
+            this.goalsExtraTime[0] = this._goalsScored(0, 0, 30);
+            this.goalsExtraTime[1] = this._goalsScored(0, 0, 30);
             this.goals[0] += this.goalsExtraTime[0];
             this.goals[1] += this.goalsExtraTime[1];
         }
@@ -111,9 +111,9 @@ function Match(teamA, teamB, options) {
     /*
      * Finds the number of goals scored by a team.
      */
-    proto_._goalsScored = function (team, time) {
-        rand = random.decimal(this.seed + ' ' + team + ' ' + time);
-        time = time || 90;
+    proto_._goalsScored = function (team, startTime, endTime) {
+        rand = random.decimal(this.seed + ' ' + team + ' ' + startTime + ' ' + endTime);
+        time = endTime - startTime || 90;
 
         var graph = this.graph[team];
         var goals = 0;
