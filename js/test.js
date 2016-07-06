@@ -1,6 +1,6 @@
 //var Match = require('./Match');
 //var Match = require('./Match/MatchWithGoalTimes');
-var Match = require('./Match/MatchLive');
+var Match = require('./Match/Match');
 var Team = require('./Team');
 
 var england = new Team('England', 1947);
@@ -44,15 +44,18 @@ function getCount() {
         });
 
         var result = match.simulate();
-        var score = result.score;
+        var score = [
+            match.goals[0][match.period.FULL_TIME],
+            match.goals[1][match.period.FULL_TIME]
+        ];
 
         goals += score[0] + score[1];
 
         // If the game is a draw
-        if (result.result === 0.5) {
+        if (match.result === 0.5) {
             draws += 1;
         }
-        else if (result.result === 0) {
+        else if (match.result === 0) {
             wins += 1;
         }
     }

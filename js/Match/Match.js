@@ -34,9 +34,6 @@ function Match(teamA, teamB, options) {
 
     this.seed = options.seed || Math.random() + '';
     this.goals = [[], []];
-    this.goalsFullTime = [null, null];
-    this.goalsExtraTime = [null, null];
-    this.penalties = [];
     // 0 = team A win, 0.5 = draw, 1 = team B win.
     this.result;
     this.text;
@@ -53,29 +50,38 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
-        //this.goals[0][this.period.FIRST_HALF] = this._goalsScored(0, 0, 45);
-        //this.goals[0][this.period.SECOND_HALF] this._goalsScored(0, 45, 90);
-        //this.goals[1][this.period.FIRST_HALF] = this._goalsScored(1, 0, 45);
-        //this.goals[1][this.period.SECOND_HALF] = this._goalsScored(1, 45, 90);
-        this.goals[0] = this.goalsFullTime[0] = this._goalsScored(0);
-        this.goals[1] = this.goalsFullTime[1] = this._goalsScored(1);
-        this.penalties = [null, null];
+        this.goals[0][this.period.PENALTIES] = null;
+        this.goals[1][this.period.PENALTIES] = null;
+
         var extraTime = false;
+        var penalties = this._penalties();
+
+        // Loop through all of the teams and set
+        // their goals scored.
+        for (var i = 0; i < 2; i += 1) {
+            this.goals[i][this.period.FIRST_HALF] = this._goalsScored(i, 0, 45);
+            this.goals[i][this.period.SECOND_HALF] = this._goalsScored(i, 45, 90);
+            this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
+            this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
+            this.goals[i][this.period.PENALTIES] = penalties[i];
+
+            this.goals[i][this.period.FULL_TIME] = this.goals[i][this.period.FIRST_HALF] + this.goals[i][this.period.SECOND_HALF];
+        }
+
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraTimeEnabled && this.goals[0] === this.goals[1]) {
+        if (this.extraTimeEnabled && this.goals[0][this.PRE_EXTRA_TIME] === this.goals[1][this.PRE_EXTRA_TIME]) {
             extraTime = true;
-            this.goalsExtraTime[0] = this._goalsScored(0, 0, 30);
-            this.goalsExtraTime[1] = this._goalsScored(0, 0, 30);
-            this.goals[0] += this.goalsExtraTime[0];
-            this.goals[1] += this.goalsExtraTime[1];
+
+            this.goals[0][this.period.FULL_TIME] += this.goals[0][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[0][this.period.EXTRA_TIME_SECOND_HALF];
+            this.goals[1][this.period.FULL_TIME] += this.goals[1][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[1][this.period.EXTRA_TIME_SECOND_HALF];
         }
         // Calculate result. 1 = win, 0.5 = draw,
         // 0 = loss.
-        if (this.goals[0] > this.goals[1]) {
+        if (this.goals[0][this.period.FULL_TIME] > this.goals[1][this.period.FULL_TIME]) {
             this.result = 0;
         }
-        else if (this.goals[0] === this.goals[1]) {
+        else if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
             this.result = 0.5;
         }
         else {
@@ -83,28 +89,20 @@ function Match(teamA, teamB, options) {
         }
 
         // If it's still a draw and penalties are enabled.
-        if (this.penaltiesEnabled && this.goals[0] === this.goals[1]) {
-            this.penalties = this._penalties();
+        if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+            if (this.goals[0][this.period.PENALTIES] > this.goals[1][this.period.PENALTIES]) {
+                this.result = 0;
+            }
+            else {
+                this.result = 1;
+            }
         }
-
-        if (this.penalties[0] > this.penalties[1]) {
-            this.result = 0;
-        }
-        else if (this.penalties[1] > this.penalties[0]) {
-            this.result = 1;
-        }
+        
 
         this.winner = this._getWinner();
 
         // Create the output text
         this.text = this._outputText(extraTime);
-
-        return {
-            score: this.goals,
-            penalties: this.penalties,
-            text: this.text,
-            result: this.result
-        };
     };
 
 
@@ -149,14 +147,14 @@ function Match(teamA, teamB, options) {
      * Method which generates the output string.
      */
     proto_._outputText = function (extraTime) {
-        var text = this.team[0].stringName + ' ' + this.goals[0] + '-' + this.goals[1] + ' ' + this.team[1].stringName;
+        var text = this.team[0].stringName + ' ' + this.goals[0][this.period.FULL_TIME] + '-' + this.goals[1][this.period.FULL_TIME] + ' ' + this.team[1].stringName;
 
         if (extraTime) {
             text += ' (aet)';
         }
 
-        if (this.penalties[0] !== null) {
-            text += ' (' + this.penalties[0] + '-' + this.penalties[1] + ')';
+        if (this.goals[0][this.period.PENALTIES] !== null) {
+            text += ' (' + this.goals[0][this.period.PENALTIES] + '-' + this.goals[1][this.period.PENALTIES] + ')';
         }
 
         return text;
