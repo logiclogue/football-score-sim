@@ -1,4 +1,3 @@
-//var Match = require('./Match');
 //var Match = require('./Match/MatchWithGoalTimes');
 var Match = require('./Match/Match');
 var Team = require('./Team');

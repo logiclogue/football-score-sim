@@ -31,7 +31,6 @@ function Match(teamA, teamB, options) {
 
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
-    this.stage = this.period.PRE_EXTRA_TIME;
 
     this.seed = options.seed || Math.random() + '';
     this.goals = [[], []];
@@ -62,21 +61,16 @@ function Match(teamA, teamB, options) {
         for (var i = 0; i < 2; i += 1) {
             this.goals[i][this.period.FIRST_HALF] = this._goalsScored(i, 0, 45);
             this.goals[i][this.period.SECOND_HALF] = this._goalsScored(i, 45, 90);
-            this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
-            this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
             this.goals[i][this.period.PENALTIES] = penalties[i];
-
             this.goals[i][this.period.FULL_TIME] = this.goals[i][this.period.FIRST_HALF] + this.goals[i][this.period.SECOND_HALF];
-        }
 
-
-        // If the match is a draw and extra time is enabled.
-        if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
-            extraTime = true;
-            this.stage = this.period.PRE_PENALTIES;
-
-            this.goals[0][this.period.FULL_TIME] += this.goals[0][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[0][this.period.EXTRA_TIME_SECOND_HALF];
-            this.goals[1][this.period.FULL_TIME] += this.goals[1][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[1][this.period.EXTRA_TIME_SECOND_HALF];
+            // If the match is a draw and extra time is enabled.
+            if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+                extraTime = true;
+                this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
+                this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
+                this.goals[i][this.period.FULL_TIME += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF]];
+            }
         }
 
         // Calculate result. 1 = win, 0.5 = draw,
@@ -93,8 +87,6 @@ function Match(teamA, teamB, options) {
 
         // If it's still a draw and penalties are enabled.
         if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
-            this.stage = this.period.PENALTIES;
-
             if (this.goals[0][this.period.PENALTIES] > this.goals[1][this.period.PENALTIES]) {
                 this.result = 0;
             }
@@ -158,7 +150,7 @@ function Match(teamA, teamB, options) {
             text += ' (aet)';
         }
 
-        if (this.stage === this.period.PENALTIES) {
+        if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
             text += ' (' + this.goals[0][this.period.PENALTIES] + '-' + this.goals[1][this.period.PENALTIES] + ')';
         }
 

@@ -21,7 +21,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     proto_.simulate = function () {
         var returnVal = super_.simulate.call(this);
 
-        this._generateGoalTimes(0, 90, this.goalsFullTime);
+        this._generateGoalTimes(0, 90, [this.goals[0][this.period.FULL_TIME], this.goals[1][this.period.FULL_TIME]]);
 
         if (this.goalsExtraTime[0] !== undefined) {
             this._generateGoalTimes(90, 120, this.goalsExtraTime);
