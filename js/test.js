@@ -24,7 +24,7 @@ getCount();
 console.log(match.text);
 console.log(match.result);
 console.log(match.winner);
-console.log(match.goalTimes);
+console.log(match.goals);
 
 function getCount() {
     var i;

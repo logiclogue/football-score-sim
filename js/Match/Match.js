@@ -27,10 +27,11 @@ function Match(teamA, teamB, options) {
 
     this.mean = 1.58;
     this.sd = 1.23;
-    this.constant = 0.0033;
+    this.constant = 0.00245;
 
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltiesEnabled = options.penalties || false;
+    this.stage = this.period.PRE_EXTRA_TIME;
 
     this.seed = options.seed || Math.random() + '';
     this.goals = [[], []];
@@ -70,12 +71,14 @@ function Match(teamA, teamB, options) {
 
 
         // If the match is a draw and extra time is enabled.
-        if (this.extraTimeEnabled && this.goals[0][this.PRE_EXTRA_TIME] === this.goals[1][this.PRE_EXTRA_TIME]) {
+        if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
             extraTime = true;
+            this.stage = this.period.PRE_PENALTIES;
 
             this.goals[0][this.period.FULL_TIME] += this.goals[0][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[0][this.period.EXTRA_TIME_SECOND_HALF];
             this.goals[1][this.period.FULL_TIME] += this.goals[1][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[1][this.period.EXTRA_TIME_SECOND_HALF];
         }
+
         // Calculate result. 1 = win, 0.5 = draw,
         // 0 = loss.
         if (this.goals[0][this.period.FULL_TIME] > this.goals[1][this.period.FULL_TIME]) {
@@ -89,7 +92,9 @@ function Match(teamA, teamB, options) {
         }
 
         // If it's still a draw and penalties are enabled.
-        if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+        if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+            this.stage = this.period.PENALTIES;
+
             if (this.goals[0][this.period.PENALTIES] > this.goals[1][this.period.PENALTIES]) {
                 this.result = 0;
             }
@@ -153,7 +158,7 @@ function Match(teamA, teamB, options) {
             text += ' (aet)';
         }
 
-        if (this.goals[0][this.period.PENALTIES] !== null) {
+        if (this.stage === this.period.PENALTIES) {
             text += ' (' + this.goals[0][this.period.PENALTIES] + '-' + this.goals[1][this.period.PENALTIES] + ')';
         }
 
