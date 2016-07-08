@@ -9,7 +9,7 @@ var slovakia = new Team('Slovakia', 1742);
 var derby = new Team('Derby County', 1544);
 var united = new Team('Manchester United', 1794);
 var match = new Match(england, russia, {
-    extraTime: true,
+    extraTime: false,
     penalties: true
 });
 match.simulate();

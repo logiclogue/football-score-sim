@@ -94,6 +94,10 @@ function Match(teamA, teamB, options) {
                 this.result = 1;
             }
         }
+        else {
+            delete this.goals[0][this.period.PENALTIES];
+            delete this.goals[1][this.period.PENALTIES];
+        }
         
 
         this.winner = this._getWinner();
