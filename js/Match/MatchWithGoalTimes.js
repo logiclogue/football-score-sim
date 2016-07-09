@@ -23,7 +23,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
 
         this._generateGoalTimes(0, 90, [this.goals[0][this.period.FULL_TIME], this.goals[1][this.period.FULL_TIME]]);
 
-        if (this.goalsExtraTime[0] !== undefined) {
+        if (this.goals[0][this.period.EXTRA_TIME_FIRST_HALF] !== undefined) {
             this._generateGoalTimes(90, 120, this.goalsExtraTime);
         }
 
