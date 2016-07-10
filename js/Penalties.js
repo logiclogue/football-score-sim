@@ -18,12 +18,12 @@ function Penalties(seed) {
      * penalty shootout.
      */
     proto_.simulate = function () {
-        while (true) {
-            var won = false;
-            var i;
-            var goal;
+        var won = false;
+        var i;
+        var goal;
 
-            for (i = 0; i < 2; i += 1) {
+        while (!won) {
+            for (i = 0; i < 2 && !won; i += 1) {
                 goal = this._takePenalty();
 
                 this.goals[i] += goal;
@@ -31,19 +31,11 @@ function Penalties(seed) {
                 this.goalOrder[i].push(goal === 1);
 
                 won = this._won();
-
-                if (won) {
-                    break;
-                }
             }
 
-            if (won) {
-                break;
-            }
-
-            if (turns[0] === 0) {
-                turns[0] = 1;
-                turns[1] = 1;
+            if (this.turns[0] === 0) {
+                this.turns[0] = 1;
+                this.turns[1] = 1;
             }
         }
     };
