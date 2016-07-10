@@ -9,6 +9,8 @@ function MatchWithGoalTimes() {
     Match.apply(this, arguments);
 
     this.goalTimes = [[], []];
+    this.periodLength = [, 45, , 45, , 15, , 15, , , ];
+    this.addedTime = [];
 }
 
 MatchWithGoalTimes.prototype = Object.create(Match.prototype);
@@ -47,6 +49,15 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
                 this.goalTimes[index].push((random.decimal(seed + ' ' + i) * time) + startTime);
             }
         }.bind(this));
+    };
+
+    /*
+     * Calculates added times.
+     */
+    proto_._calculateAddedTimes = function () {
+        this.periodLength.forEach(function () {
+            
+        });
     };
 
     /*
