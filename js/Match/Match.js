@@ -1,4 +1,5 @@
 var NormalDistribution = require('../NormalDistribution');
+var Penalties = require('../Penalties');
 var random = require('seeded-random');
 
 
@@ -42,6 +43,7 @@ function Match(teamA, teamB, options) {
         new NormalDistribution(this.mean + (this.ratingDifference * this.constant), this.sd),
         new NormalDistribution(this.mean - (this.ratingDifference * this.constant), this.sd)
     ];
+    this.penalties = new Penalties(this.seed);
 }
 
 (function (static_, proto_) {
@@ -50,23 +52,22 @@ function Match(teamA, teamB, options) {
      * Generates a match score from the given seed.
      */
     proto_.simulate = function () {
-        this.goals[0][this.period.PENALTIES] = null;
-        this.goals[1][this.period.PENALTIES] = null;
-
         var extraTime = false;
-        var penalties = this._penalties();
+
+        this.penalties.simulate();
 
         // Loop through all of the teams and set
         // their goals scored.
         for (var i = 0; i < 2; i += 1) {
             this.goals[i][this.period.FIRST_HALF] = this._goalsScored(i, 0, 45);
             this.goals[i][this.period.SECOND_HALF] = this._goalsScored(i, 45, 90);
-            this.goals[i][this.period.PENALTIES] = penalties[i];
+            this.goals[i][this.period.PENALTIES] = this.penalties.goals[i];
             this.goals[i][this.period.FULL_TIME] = this.goals[i][this.period.FIRST_HALF] + this.goals[i][this.period.SECOND_HALF];
 
             // If the match is a draw and extra time is enabled.
             if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
                 extraTime = true;
+
                 this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
                 this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
                 this.goals[i][this.period.FULL_TIME += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF]];
