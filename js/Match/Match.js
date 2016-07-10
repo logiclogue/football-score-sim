@@ -161,64 +161,6 @@ function Match(teamA, teamB, options) {
         return text;
     };
 
-    /*
-     * Penalty shootout simulation.
-     */
-    proto_._penalties = function () {
-        var goals = [0, 0];
-        var turns = [5, 5];
-
-        while (true) {
-            goals[0] += this._takePenalty();
-            turns[0] -= 1;
-
-            if (this._penaltiesWon(goals, turns)) {
-                break;
-            }
-
-            goals[1] += this._takePenalty();
-            turns[1] -= 1;
-
-            if (this._penaltiesWon(goals, turns)) {
-                break;
-            }
-
-            if (turns[0] === 0) {
-                turns[0] = 1;
-                turns[1] = 1;
-            }
-        }
-
-        return goals;
-    };
-
-    /*
-     * Checks to see if the penalty shootout has
-     * ended.
-     */
-    proto_._penaltiesWon = function (goals, turns) {
-        if (goals[0] - goals[1] > turns[1] || goals[1] - goals[0] > turns[0]) {
-            return true;
-        }
-
-        return false;
-    };
-
-    /*
-     * Gets a penalty goal.
-     */
-    proto_._takePenalty = function (rand) {
-        rand = rand || Math.random();
-        
-        var threshold = 0.75;
-
-        if (rand < threshold) {
-            return 1;
-        }
-
-        return 0;
-    };
-
 }(Match, Match.prototype));
 
 module.exports = Match;
