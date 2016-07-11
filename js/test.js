@@ -10,7 +10,8 @@ var derby = new Team('Derby County', 1544);
 var united = new Team('Manchester United', 1794);
 var match = new Match(england, russia, {
     extraTime: false,
-    penalties: true
+    penalties: true,
+    seed: Date.now()
 });
 match.simulate();
 
@@ -21,10 +22,12 @@ match.simulate();
 
 getCount();
 console.log(match.text);
+console.log('Seed:', match.seed);
 console.log(match.result);
 console.log(match.winner);
 console.log(match.goals);
-console.log(match.penalties.goalOrder)
+console.log(match.penalties.goalOrder);
+console.log(match.goalTimes);
 
 function getCount() {
     var i;

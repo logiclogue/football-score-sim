@@ -23,14 +23,21 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     proto_.simulate = function () {
         var returnVal = super_.simulate.call(this);
 
-        this._generateGoalTimes(0, 90, [this.goals[0][this.period.FULL_TIME], this.goals[1][this.period.FULL_TIME]]);
+        var startTime;
+        var team;
 
-        if (this.goals[0][this.period.EXTRA_TIME_FIRST_HALF] !== undefined) {
-            this._generateGoalTimes(90, 120, this.goalsExtraTime);
+        for (team = 0; team < 2; team += 1) {
+            startTime = 0;
+
+            this.periodLength.forEach(function (period, index) {
+                var endTime = startTime + period;
+                var goalTimes = this._generateGoalTimes(startTime, endTime, this.goals[team][index], team);
+
+                this.goalTimes[team][index] = goalTimes;
+
+                startTime = endTime;
+            }.bind(this));
         }
-
-        this.goalTimes[0] = this.goalTimes[0].sort(this._compareFunction);
-        this.goalTimes[1] = this.goalTimes[1].sort(this._compareFunction);
 
         return returnVal;
     };
@@ -39,25 +46,23 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     /*
      * Generates the times the goals were scored.
      */
-    proto_._generateGoalTimes = function (startTime, endTime, goalArray) {
-        var time = endTime - startTime;
+    proto_._generateGoalTimes = function (startTime, endTime, goalCount, team) {
+        var periodLength = endTime - startTime;
+        var array = [];
 
-        goalArray.forEach(function (goals, index) {
-            var seed = this.seed + ' ' + goals + ' ' + index + ' ' + startTime + ' ' + endTime;
+        var i;
 
-            for (var i = 0; i < goals; i += 1) {
-                this.goalTimes[index].push((random.decimal(seed + ' ' + i) * time) + startTime);
-            }
-        }.bind(this));
-    };
+        for (i = 0; i < goalCount; i += 1) {
+            var seed = this.seed + ' ' + goalCount + ' ' + i + ' ' + startTime + ' ' + endTime + ' ' + team;
+            var decimal = random.decimal(seed + ' ' + i);
+            var time = (decimal * periodLength) + startTime;
 
-    /*
-     * Calculates added times.
-     */
-    proto_._calculateAddedTimes = function () {
-        this.periodLength.forEach(function () {
-            
-        });
+            array.push(time);
+        }
+
+        array = array.sort(this._compareFunction);
+
+        return array;
     };
 
     /*
