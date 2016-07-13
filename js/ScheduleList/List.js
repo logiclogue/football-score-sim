@@ -42,7 +42,7 @@ function List() {
      * passed.
      */
     proto_._forEachItemRun = function (item) {
-        if (item.startTime < this.currentTime) {
+        if (item.startTime < this.currentTime && !item.executed) {
             item.callback();
 
             item.executed = true;
