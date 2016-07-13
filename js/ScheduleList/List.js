@@ -27,6 +27,15 @@ function List() {
         this.items.forEach(this._forEachItemRun.bind(this));
     };
 
+    /*
+     * Resets all item executed booleans.
+     */
+    proto_.reset = function () {
+        this.items.forEach(function (item) {
+            item.executed = false;
+        });
+    };
+
 
     /*
      * For each item execute it if the time has
