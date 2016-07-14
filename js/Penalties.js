@@ -1,12 +1,17 @@
+var random = require('seeded-random');
+
+
 /*
  * Simulates the penalty shootout.
  */
 function Penalties(seed) {
     this.seed = seed || Math.random();
+    this.seed += ' penalties';
 
     this.goals = [0, 0];
     this.goalOrder = [[], []];
     this.turns = [5, 5];
+    this._count = 0;
 
     this.constant = 0.75
 }
@@ -44,12 +49,13 @@ function Penalties(seed) {
     /*
      * Simulates a single penalty kick.
      */
-    proto_._takePenalty = function (rand) {
-        rand = rand || Math.random();
+    proto_._takePenalty = function () {
+        var rand = random.decimal(this.seed + ' ' + this._count);
 
-        if (rand < this.constant) {
+        this._count += 1;
+
+        if (rand < this.constant)
             return 1;
-        }
 
         return 0;
     };
@@ -59,9 +65,8 @@ function Penalties(seed) {
      * been won.
      */
     proto_._won = function () {
-        if (this.goals[0] - this.goals[1] > this.turns[1] || this.goals[1] - this.goals[0] > this.turns[0]) {
+        if (this.goals[0] - this.goals[1] > this.turns[1] || this.goals[1] - this.goals[0] > this.turns[0])
             return true;
-        }
 
         return false;
     };
