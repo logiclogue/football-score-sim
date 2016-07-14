@@ -71,7 +71,7 @@ function Match(teamA, teamB, options) {
             for (var i = 0; i < 2; i += 1) {
                 this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
                 this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
-                this.period.FULL_TIME += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF];
+                this.goals[i][this.period.FULL_TIME] += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF];
             }
         }
 
