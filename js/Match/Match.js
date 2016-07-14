@@ -63,14 +63,15 @@ function Match(teamA, teamB, options) {
             this.goals[i][this.period.SECOND_HALF] = this._goalsScored(i, 45, 90);
             this.goals[i][this.period.PENALTIES] = this.penalties.goals[i];
             this.goals[i][this.period.FULL_TIME] = this.goals[i][this.period.FIRST_HALF] + this.goals[i][this.period.SECOND_HALF];
+        }
+        // If the match is a draw and extra time is enabled.
+        if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+            extraTime = true;
 
-            // If the match is a draw and extra time is enabled.
-            if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
-                extraTime = true;
-
+            for (var i = 0; i < 2; i += 1) {
                 this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
                 this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
-                this.goals[i][this.period.FULL_TIME += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF]];
+                this.period.FULL_TIME += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF];
             }
         }
 
