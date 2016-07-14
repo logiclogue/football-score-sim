@@ -20,7 +20,8 @@ var united = new Team('Manchester United', 1794);
 
 var match = new Match(derby, united, {
     extraTime: true,
-    penalties: true
+    penalties: true,
+    seed: 'example'
 });
 
 match.simulate();
@@ -28,7 +29,7 @@ match.simulate();
 console.log(match.text);
 ```
 output:
-`Derby County 0-0 Manchester United (aet) (4-5)`
+`Derby County 1-2 Manchester United`
 
 ## Author
 
