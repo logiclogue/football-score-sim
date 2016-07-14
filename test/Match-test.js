@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Match = require('../js/Match/Match');
+var Match = require('../js/Match/MatchWithGoalTimes');
 var Team = require('../js/Team');
 
 
@@ -125,6 +125,25 @@ describe('Match', function () {
                     assert.equal(match.penalties.goals[i], total[i]);
                 }
             });
+        });
+    });
+});
+
+describe('MatchWithGoalTimes', function () {
+    var match = matchNormalTime;
+
+    describe('#simulate()', function () {
+        match.simulate();
+
+        it('should have correct number of goals with goal times', function () {
+            for (var i = 0; i < 2; i += 1) {
+                match.goals[i].forEach(function (goals, index) {
+                    if (index === match.period.FULL_TIME || index === match.period.PENALTIES)
+                        return;
+
+                    assert.equal(match.goalTimes[i][index].length, goals);
+                });
+            }
         });
     });
 });
