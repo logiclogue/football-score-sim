@@ -1,4 +1,6 @@
 var MatchWithGoalTimes = require('./MatchWithGoalTimes');
+var List = require('../ScheduleList/List');
+var Item = require('../ScheduleList/Item');
 
 
 /*
@@ -13,6 +15,8 @@ function MatchLive(teamA, teamB, options) {
     this.startTime = new Date(options.startTime);
     this.matchLength = options.matchLength || 90;
     this.currentPeriod = this.period.PRE_KICK_OFF;
+
+    this._periodTimes = [0, 45, 15, 45, 5, 15, 5, 15, 5, 0, 0];
     
     // Overrides:
     this.goals;

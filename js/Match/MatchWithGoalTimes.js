@@ -8,8 +8,14 @@ var random = require('seeded-random');
 function MatchWithGoalTimes() {
     Match.apply(this, arguments);
 
+    // As a decimal of the period length.
+    this.decimalGoalTimes = [[], []];
+    // In actual minutes since the match started excluding breaks.
     this.goalTimes = [[], []];
-    this.periodLength = [, 45, , 45, , 15, , 15, , , ];
+    // In actual minutes since the match started including break time.
+    this.actualGoalTimes = [[], []];
+    this._inPlayPeriodLength = [, 45, , 45, , 15, , 15, , , ];
+    this._breakPeriodLength = [, , 15, , 5, , 5, , , , ];
     this.addedTime = [];
 }
 
@@ -29,11 +35,15 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         for (team = 0; team < 2; team += 1) {
             startTime = 0;
 
-            this.periodLength.forEach(function (period, index) {
-                var endTime = startTime + period;
-                var goalTimes = this._generateGoalTimes(startTime, endTime, this.goals[team][index], team);
+            this._inPlayPeriodLength.forEach(function (periodLength, index) {
+                var endTime = startTime + periodLength;
+                var goals = this.goals[team][index];
+                var decimalGoalTimes = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
+                var goalTimes = this._generateGoalTimes(startTime, endTime, decimalGoalTimes);
+                var actualGoalTimes = this._generateActualGoalTimes(decimalGoalTimes, periodLength, index);
 
                 this.goalTimes[team][index] = goalTimes;
+                this.decimalGoalTimes[team][index] = decimalGoalTimes;
 
                 startTime = endTime;
             }.bind(this));
@@ -43,10 +53,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     };
 
 
-    /*
-     * Generates the times the goals were scored.
-     */
-    proto_._generateGoalTimes = function (startTime, endTime, goalCount, team) {
+    proto_._generateDecimalGoalTimes = function (startTime, endTime, goalCount, team) {
         var periodLength = endTime - startTime;
         var array = [];
 
@@ -55,10 +62,29 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         for (i = 0; i < goalCount; i += 1) {
             var seed = this.seed + ' ' + goalCount + ' ' + i + ' ' + startTime + ' ' + endTime + ' ' + team;
             var decimal = random.decimal(seed + ' ' + i);
+
+            array.push(decimal);
+        }
+
+        array = array.sort(this._compareFunction);
+
+        return array;
+    };
+
+    /*
+     * Generates the times the goals were scored.
+     */
+    proto_._generateGoalTimes = function (startTime, endTime, decimalGoalTimes) {
+        var periodLength = endTime - startTime;
+        var array = [];
+
+        var i;
+
+        decimalGoalTimes.forEach(function (decimal) {
             var time = (decimal * periodLength) + startTime;
 
             array.push(time);
-        }
+        });
 
         array = array.sort(this._compareFunction);
 

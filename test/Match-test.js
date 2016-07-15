@@ -1,5 +1,5 @@
 var assert = require('chai').assert;
-var Match = require('../js/Match/MatchWithGoalTimes');
+var Match = require('../js/Match/MatchLive');
 var Team = require('../js/Team');
 
 
