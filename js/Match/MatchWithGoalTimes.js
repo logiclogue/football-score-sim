@@ -40,7 +40,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
                 var goals = this.goals[team][index];
                 var decimalGoalTimes = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
                 var goalTimes = this._generateGoalTimes(startTime, endTime, decimalGoalTimes);
-                var actualGoalTimes = this._generateActualGoalTimes(decimalGoalTimes, periodLength, index);
+                //var actualGoalTimes = this._generateActualGoalTimes(decimalGoalTimes, periodLength, index);
 
                 this.goalTimes[team][index] = goalTimes;
                 this.decimalGoalTimes[team][index] = decimalGoalTimes;
