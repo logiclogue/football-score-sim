@@ -12,11 +12,7 @@ function MatchWithGoalTimes() {
     this.decimalGoalTimes = [[], []];
     // In actual minutes since the match started excluding breaks.
     this.goalTimes = [[], []];
-    // In actual minutes since the match started including break time.
-    this.actualGoalTimes = [[], []];
     this._inPlayPeriodLength = [, 45, , 45, , 15, , 15, , , ];
-    this._breakPeriodLength = [, , 15, , 5, , 5, , , , ];
-    this.addedTime = [];
 }
 
 MatchWithGoalTimes.prototype = Object.create(Match.prototype);
@@ -32,18 +28,23 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         var startTime;
         var team;
 
+        var goalTimes;
+        var decimalGoalTimes;
+
         for (team = 0; team < 2; team += 1) {
             startTime = 0;
+            goalTimes = this.goalTimes[team];
+            decimalGoalTimes = this.decimalGoalTimes[team];
 
             this._inPlayPeriodLength.forEach(function (periodLength, index) {
                 var endTime = startTime + periodLength;
                 var goals = this.goals[team][index];
-                var decimalGoalTimes = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
-                var goalTimes = this._generateGoalTimes(startTime, endTime, decimalGoalTimes);
-                //var actualGoalTimes = this._generateActualGoalTimes(decimalGoalTimes, periodLength, index);
 
-                this.goalTimes[team][index] = goalTimes;
-                this.decimalGoalTimes[team][index] = decimalGoalTimes;
+                var decimalGoalTimesPeriod = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
+                var goalTimesPeriod = this._generateGoalTimes(startTime, endTime, decimalGoalTimesPeriod);
+
+                goalTimes[index] = goalTimesPeriod;
+                decimalGoalTimes[index] = decimalGoalTimesPeriod;
 
                 startTime = endTime;
             }.bind(this));
@@ -52,7 +53,10 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         return returnVal;
     };
 
-
+    /*
+     * Generate times for each goal, in minutes,
+     * relative to the start of the match.
+     */
     proto_._generateDecimalGoalTimes = function (startTime, endTime, goalCount, team) {
         var periodLength = endTime - startTime;
         var array = [];
