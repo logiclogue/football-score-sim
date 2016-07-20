@@ -159,13 +159,19 @@ function Match(teamA, teamB, options) {
      * 0 = Team A win, 0.5 = Draw, 1 = Team B win
      */
     proto_._calculateResult = function () {
-        if (this.goals[0][this.period.FULL_TIME] > this.goals[1][this.period.FULL_TIME]) {
+        var goalsA = this.goals[0][this.period.FULL_TIME];
+        var goalsB = this.goals[1][this.period.FULL_TIME];
+
+        // Team A win
+        if (goalsA > goalsB) {
             return 0;
         }
-        else if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+        // Draw
+        else if (goalsA === goalsB) {
             return 0.5;
         }
 
+        // Team B win
         return 1;
     };
 
