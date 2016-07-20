@@ -75,17 +75,8 @@ function Match(teamA, teamB, options) {
             }
         }
 
-        // Calculate result. 1 = win, 0.5 = draw,
-        // 0 = loss.
-        if (this.goals[0][this.period.FULL_TIME] > this.goals[1][this.period.FULL_TIME]) {
-            this.result = 0;
-        }
-        else if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
-            this.result = 0.5;
-        }
-        else {
-            this.result = 1;
-        }
+        // Calculate result.
+        this.result = this._calculateResult();
 
         // If it's still a draw and penalties are enabled.
         if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
@@ -161,6 +152,21 @@ function Match(teamA, teamB, options) {
         }
 
         return text;
+    };
+
+    /*
+     * Calculates the result of the match.
+     * 0 = Team A win, 0.5 = Draw, 1 = Team B win
+     */
+    proto_._calculateResult = function () {
+        if (this.goals[0][this.period.FULL_TIME] > this.goals[1][this.period.FULL_TIME]) {
+            return 0;
+        }
+        else if (this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+            return 0.5;
+        }
+
+        return 1;
     };
 
 }(Match, Match.prototype));
