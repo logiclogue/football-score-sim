@@ -39,9 +39,11 @@ function Match(teamA, teamB, options) {
     this.result;
     this.text;
 
+    var prodRatingDiffConstant = this.ratingDifference * this.constant;
+
     this.graph = [
-        new NormalDistribution(this.mean + (this.ratingDifference * this.constant), this.sd),
-        new NormalDistribution(this.mean - (this.ratingDifference * this.constant), this.sd)
+        new NormalDistribution(this.mean + prodRatingDiffConstant, this.sd),
+        new NormalDistribution(this.mean - prodRatingDiffConstant, this.sd)
     ];
     this.penalties = new Penalties(this.seed);
 }
@@ -78,19 +80,7 @@ function Match(teamA, teamB, options) {
         // Calculate result.
         this.result = this._calculateResult();
 
-        // If it's still a draw and penalties are enabled.
-        if (this._isDrawAndPenaltiesEnabled()) {
-            if (this.goals[0][this.period.PENALTIES] > this.goals[1][this.period.PENALTIES]) {
-                this.result = 0;
-            }
-            else {
-                this.result = 1;
-            }
-        }
-        else {
-            delete this.goals[0][this.period.PENALTIES];
-            delete this.goals[1][this.period.PENALTIES];
-        }
+        
         
 
         this.winner = this._getWinner();
@@ -161,18 +151,38 @@ function Match(teamA, teamB, options) {
     proto_._calculateResult = function () {
         var goalsA = this.goals[0][this.period.FULL_TIME];
         var goalsB = this.goals[1][this.period.FULL_TIME];
+        var penaltiesA = this.goals[0][this.period.PENALTIES];
+        var penaltiesB = this.goals[1][this.period.PENALTIES];
+        var result;
 
         // Team A win
         if (goalsA > goalsB) {
-            return 0;
+            result = 0;
         }
         // Draw
         else if (goalsA === goalsB) {
-            return 0.5;
+            result = 0.5;
+        }
+        // Loss
+        else {
+            result = 1;
+        }
+        
+        // If it's still a draw and penalties are enabled.
+        if (this._isDrawAndPenaltiesEnabled()) {
+            if (penaltiesA > penaltiesB) {
+                result = 0;
+            }
+            else {
+                result = 1;
+            }
+        }
+        else {
+            delete this.goals[0][this.period.PENALTIES];
+            delete this.goals[1][this.period.PENALTIES];
         }
 
-        // Team B win
-        return 1;
+        return result;
     };
 
     proto_._isDrawAndPenaltiesEnabled = function () {
