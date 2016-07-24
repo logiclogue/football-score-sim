@@ -80,9 +80,7 @@ function Match(teamA, teamB, options) {
         // Calculate result.
         this.result = this._calculateResult();
 
-        
-        
-
+        // Gets winner of the match.
         this.winner = this._getWinner();
 
         // Create the output text
@@ -94,7 +92,9 @@ function Match(teamA, teamB, options) {
      * Finds the number of goals scored by a team.
      */
     proto_._goalsScored = function (team, startTime, endTime) {
-        rand = random.decimal(this.seed + ' ' + team + ' ' + startTime + ' ' + endTime);
+        var seed = this.seed + ' ' + team + ' ' + startTime + ' ' + endTime;
+
+        rand = random.decimal(seed);
         time = endTime - startTime || 90;
 
         var graph = this.graph[team];
@@ -131,14 +131,21 @@ function Match(teamA, teamB, options) {
      * Method which generates the output string.
      */
     proto_._outputText = function (extraTime) {
-        var text = this.team[0].stringName + ' ' + this.goals[0][this.period.FULL_TIME] + '-' + this.goals[1][this.period.FULL_TIME] + ' ' + this.team[1].stringName;
+        var goalsA = this.goals[0][this.period.FULL_TIME];
+        var goalsB = this.goals[1][this.period.FULL_TIME];
+        var pensA = this.goals[0][this.period.PENALTIES];
+        var pensB = this.goals[1][this.period.PENALTIES];
+        var nameA = this.team[0].stringName;
+        var nameB = this.team[1].stringName;
+        
+        var text = nameA + ' ' + goalsA + '-' + goalsB + ' ' + nameB;
 
         if (extraTime) {
             text += ' (aet)';
         }
 
-        if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
-            text += ' (' + this.goals[0][this.period.PENALTIES] + '-' + this.goals[1][this.period.PENALTIES] + ')';
+        if (this._isDrawAndPenaltiesEnabled()) {
+            text += ' (' + pensA + '-' + pensB + ')';
         }
 
         return text;
