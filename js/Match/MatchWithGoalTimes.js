@@ -23,7 +23,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
      * Overrides the simulate method.
      */
     proto_.simulate = function () {
-        var returnVal = super_.simulate.apply(this, arguments);
+        super_.simulate.apply(this, arguments);
 
         var startTime;
         var team;
@@ -49,8 +49,6 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
                 startTime = endTime;
             }.bind(this));
         }
-
-        return returnVal;
     };
 
     /*
