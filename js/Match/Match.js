@@ -79,7 +79,7 @@ function Match(teamA, teamB, options) {
         this.result = this._calculateResult();
 
         // If it's still a draw and penalties are enabled.
-        if (this.penaltiesEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+        if (this._isDrawAndPenaltiesEnabled()) {
             if (this.goals[0][this.period.PENALTIES] > this.goals[1][this.period.PENALTIES]) {
                 this.result = 0;
             }
@@ -173,6 +173,14 @@ function Match(teamA, teamB, options) {
 
         // Team B win
         return 1;
+    };
+
+    proto_._isDrawAndPenaltiesEnabled = function () {
+        var goalsA = this.goals[0][this.period.FULL_TIME];
+        var goalsB = this.goals[1][this.period.FULL_TIME];
+        var isDraw = goalsA === goalsB;
+
+        return this.penaltiesEnabled && isDraw;
     };
 
 }(Match, Match.prototype));
