@@ -60,21 +60,13 @@ function Match(teamA, teamB, options) {
 
         // Loop through all of the teams and set
         // their goals scored.
-        for (var i = 0; i < 2; i += 1) {
-            this.goals[i][this.period.FIRST_HALF] = this._goalsScored(i, 0, 45);
-            this.goals[i][this.period.SECOND_HALF] = this._goalsScored(i, 45, 90);
-            this.goals[i][this.period.PENALTIES] = this.penalties.goals[i];
-            this.goals[i][this.period.FULL_TIME] = this.goals[i][this.period.FIRST_HALF] + this.goals[i][this.period.SECOND_HALF];
-        }
+        this._forEachTeam(this._setNormalTimeGoals.bind(this));
+
         // If the match is a draw and extra time is enabled.
-        if (this.extraTimeEnabled && this.goals[0][this.period.FULL_TIME] === this.goals[1][this.period.FULL_TIME]) {
+        if (this.extraTimeEnabled && this._isDraw()) {
             extraTime = true;
 
-            for (var i = 0; i < 2; i += 1) {
-                this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] = this._goalsScored(i, 90, 105);
-                this.goals[i][this.period.EXTRA_TIME_SECOND_HALF] = this._goalsScored(i, 105, 120);
-                this.goals[i][this.period.FULL_TIME] += this.goals[i][this.period.EXTRA_TIME_FIRST_HALF] + this.goals[i][this.period.EXTRA_TIME_SECOND_HALF];
-            }
+            this._forEachTeam(this._setExtraTimeGoals.bind(this));
         }
 
         // Calculate result.
@@ -87,6 +79,31 @@ function Match(teamA, teamB, options) {
         this.text = this._outputText(extraTime);
     };
 
+
+    /*
+     * Calculates and sets the normal times goals.
+     */
+    proto_._setNormalTimeGoals = function (i, goals) {
+        var goalsFirstHalf = this._goalsScored(i, 0, 45);
+        var goalsSecondHalf = this._goalsScored(i, 45, 90);
+
+        goals[this.period.FIRST_HALF] = goalsFirstHalf;
+        goals[this.period.SECOND_HALF] = goalsSecondHalf;
+        goals[this.period.PENALTIES] = this.penalties.goals[i];
+        goals[this.period.FULL_TIME] = goalsFirstHalf + goalsSecondHalf;
+    };
+
+    /*
+     * Calculates and sets the extra time goals.
+     */
+    proto_._setExtraTimeGoals = function (i, goals) {
+        var firstHalfGoals = this._goalsScored(i, 90, 105);
+        var secondHalfGoals = this._goalsScored(i, 105, 120);
+
+        goals[this.period.EXTRA_TIME_FIRST_HALF] = firstHalfGoals;
+        goals[this.period.EXTRA_TIME_SECOND_HALF] = secondHalfGoals;
+        goals[this.period.FULL_TIME] += firstHalfGoals + secondHalfGoals;
+    };
 
     /*
      * Finds the number of goals scored by a team.
@@ -191,13 +208,35 @@ function Match(teamA, teamB, options) {
 
         return result;
     };
-
-    proto_._isDrawAndPenaltiesEnabled = function () {
+    
+    /*
+     * Checks to see if the match is a draw.
+     */
+    proto_._isDraw = function () {
         var goalsA = this.goals[0][this.period.FULL_TIME];
         var goalsB = this.goals[1][this.period.FULL_TIME];
-        var isDraw = goalsA === goalsB;
 
-        return this.penaltiesEnabled && isDraw;
+        return goalsA === goalsB;
+    };
+
+    /*
+     * Returns boolean whether the match is a draw
+     * and penalties are enabled.
+     */
+    proto_._isDrawAndPenaltiesEnabled = function () {
+        return this.penaltiesEnabled && this._isDraw();
+    };
+
+    /*
+     * For loop which loops through the two teams
+     * providing the index, team, and goals scored.
+     */
+    proto_._forEachTeam = function (callback) {
+        var i;
+
+        for (i = 0; i < 2; i += 1) {
+            callback(i, this.goals[i], this.team[i]);
+        }
     };
 
 }(Match, Match.prototype));
