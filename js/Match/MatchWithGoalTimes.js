@@ -1,4 +1,5 @@
 var Match = require('./Match');
+var GoalTimes = require('../GoalTimes');
 var random = require('seeded-random');
 
 
