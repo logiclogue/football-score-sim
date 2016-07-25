@@ -10,7 +10,8 @@ function MatchWithGoalTimes() {
 
     // As a decimal of the period length.
     this.decimalGoalTimes = [[], []];
-    // In actual minutes since the match started excluding breaks.
+    // In actual minutes since the match started
+    // excluding breaks.
     this.goalTimes = [[], []];
     this._inPlayPeriodLength = [, 45, , 45, , 15, , 15, , , ];
 }
@@ -22,7 +23,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     /*
      * Overrides the simulate method.
      */
-    proto_.simulate = function () {
+    proto_.simulate = function (team) {
         super_.simulate.apply(this, arguments);
 
         var startTime;
@@ -31,14 +32,14 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         var goalTimes;
         var decimalGoalTimes;
 
-        for (team = 0; team < 2; team += 1) {
+        this._forEachTeam(function (team, goalsT) {
             startTime = 0;
             goalTimes = this.goalTimes[team];
             decimalGoalTimes = this.decimalGoalTimes[team];
 
             this._inPlayPeriodLength.forEach(function (periodLength, index) {
                 var endTime = startTime + periodLength;
-                var goals = this.goals[team][index];
+                var goals = goalsT[index];
 
                 var decimalGoalTimesPeriod = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
                 var goalTimesPeriod = this._generateGoalTimes(startTime, endTime, decimalGoalTimesPeriod);
@@ -48,8 +49,9 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
 
                 startTime = endTime;
             }.bind(this));
-        }
+        }.bind(this));
     };
+
 
     /*
      * Generate times for each goal, in minutes,
