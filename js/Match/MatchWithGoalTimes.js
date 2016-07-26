@@ -30,6 +30,14 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     proto_.simulate = function () {
         super_.simulate.apply(this, arguments);
 
+        this._generateAllGoalTimes();
+    };
+
+
+    /*
+     * Generates all the goal times for each team.
+     */
+    proto_._generateAllGoalTimes = function () {
         var genGoalTimes = this._generateDecimalGoalTimes;
 
         this._forEachTeam(function (team) {
@@ -43,7 +51,6 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
             }.bind(this));
         }.bind(this));
     };
-
 
     /*
      * Generate times for each goal, in minutes,

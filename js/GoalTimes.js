@@ -2,9 +2,11 @@
  * Class which manages the goal times array.
  * Converts into other useful types.
  */
-function GoalTimes(goalTimes, periodTimes) {
+function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
     this.decimalGoalTimes = goalTimes || [];
     this.periodTimes = periodTimes || [];
+    this.playablePeriods = playablePeriods || [];
+    this.startTimeMilli = startTimeMilli || Date.now();
 }
 
 (function (static_, proto_) {
