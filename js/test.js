@@ -28,8 +28,8 @@ console.log(match.result);
 console.log(match.winner);
 console.log(match.goals);
 console.log(match.penalties.goalOrder);
-console.log(match.goalTimes[0].decimalGoalTimes);
-console.log(match.goalTimes[1].decimalGoalTimes);
+console.log(match.goalTimes[0].getMilliTimes());
+console.log(match.goalTimes[1].getMilliTimes());
 
 function getCount() {
     var i;

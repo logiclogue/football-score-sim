@@ -14,10 +14,12 @@ function GoalTimes(goalTimes, periodTimes) {
      * minutes.
      */
     proto_.getMinuteTimes = function () {
-        return this.decimalGoalTimes.map(function (time, index) {
+        return this.decimalGoalTimes.map(function (times, index) {
             var periodTime = this.periodTimes[index];
 
-            return this._convertDecimalToMinutes(time, periodTime);
+            return times.map(function (time) {
+                return this._convertDecimalToMinutes(time, periodTime);
+            }.bind(this));
         }.bind(this));
     };
 
@@ -28,7 +30,9 @@ function GoalTimes(goalTimes, periodTimes) {
     proto_.getMilliTimes = function () {
         var minuteTimes = this.getMinuteTimes();
 
-        return minuteTimes.map(this._convertMinutesToMilli);
+        return minuteTimes.map(function (times) {
+            return times.map(this._convertMinutesToMilli);
+        }.bind(this));
     };
 
 
