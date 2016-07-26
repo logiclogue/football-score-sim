@@ -58,6 +58,15 @@ function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
         return time * 60 * 1000;
     };
 
+    /*
+     * For loop which calls back for each previous period.
+     */
+    proto_._forEachPreviousPeriod = function (period, callback) {
+        for (; period >= 0; period -= 1) {
+            callback(period);
+        }
+    };
+
 }(GoalTimes, GoalTimes.prototype));
 
 module.exports = GoalTimes;
