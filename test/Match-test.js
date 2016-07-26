@@ -141,7 +141,7 @@ describe('MatchWithGoalTimes', function () {
                     if (index === match.period.FULL_TIME || index === match.period.PENALTIES)
                         return;
 
-                    assert.equal(match.goalTimes[i][index].length, goals);
+                    assert.equal(match.goalTimes[i].decimalGoalTimes[index].length, goals);
                 });
             }
         });

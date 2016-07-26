@@ -11,10 +11,13 @@ function MatchWithGoalTimes() {
 
     // As a decimal of the period length.
     this.decimalGoalTimes = [[], []];
+    this._inPlayPeriodLength = [, 45, , 45, , 15, , 15, , , ];
     // In actual minutes since the match started
     // excluding breaks.
-    this.goalTimes = [[], []];
-    this._inPlayPeriodLength = [, 45, , 45, , 15, , 15, , , ];
+    this.goalTimes = [
+        new GoalTimes([], this._inPlayPeriodLength),
+        new GoalTimes([], this._inPlayPeriodLength)
+    ];
 }
 
 MatchWithGoalTimes.prototype = Object.create(Match.prototype);
@@ -24,31 +27,19 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     /*
      * Overrides the simulate method.
      */
-    proto_.simulate = function (team) {
+    proto_.simulate = function () {
         super_.simulate.apply(this, arguments);
 
-        var startTime;
-        var team;
+        var genGoalTimes = this._generateDecimalGoalTimes;
 
-        var goalTimes;
-        var decimalGoalTimes;
+        this._forEachTeam(function (team) {
+            var goalTimes = this.goalTimes[team];
+            var decGoalTimes = goalTimes.decimalGoalTimes;
 
-        this._forEachTeam(function (team, goalsT) {
-            startTime = 0;
-            goalTimes = this.goalTimes[team];
-            decimalGoalTimes = this.decimalGoalTimes[team];
+            this._forEachPeriod(this.goals[team], function (period, goals) {
+                console.log('test', period, goals);
 
-            this._inPlayPeriodLength.forEach(function (periodLength, index) {
-                var endTime = startTime + periodLength;
-                var goals = goalsT[index];
-
-                var decimalGoalTimesPeriod = this._generateDecimalGoalTimes(startTime, endTime, goals, team);
-                var goalTimesPeriod = this._generateGoalTimes(startTime, endTime, decimalGoalTimesPeriod);
-
-                goalTimes[index] = goalTimesPeriod;
-                decimalGoalTimes[index] = decimalGoalTimesPeriod;
-
-                startTime = endTime;
+                decGoalTimes[period] = genGoalTimes(period, goals, team);
             }.bind(this));
         }.bind(this));
     };
@@ -58,15 +49,20 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
      * Generate times for each goal, in minutes,
      * relative to the start of the match.
      */
-    proto_._generateDecimalGoalTimes = function (startTime, endTime, goalCount, team) {
-        var periodLength = endTime - startTime;
+    proto_._generateDecimalGoalTimes = function (period, goalCount, team) {
         var array = [];
 
         var i;
+        var seed;
+        var decimal;
 
         for (i = 0; i < goalCount; i += 1) {
-            var seed = this.seed + ' ' + goalCount + ' ' + i + ' ' + startTime + ' ' + endTime + ' ' + team;
-            var decimal = random.decimal(seed + ' ' + i);
+            seed = this.seed;
+            seed += ' ' + goalCount;
+            seed += ' ' + i;
+            seed += ' ' + period;
+            seed += ' ' + team;
+            decimal = random.decimal(seed);
 
             array.push(decimal);
         }
@@ -77,23 +73,20 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
     };
 
     /*
-     * Generates the times the goals were scored.
+     * Calls the callback for each period except
+     * penalties and full time.
      */
-    proto_._generateGoalTimes = function (startTime, endTime, decimalGoalTimes) {
-        var periodLength = endTime - startTime;
-        var array = [];
+    proto_._forEachPeriod = function (goalPeriods, callback) {
+        goalPeriods.forEach(function (goals, period) {
+            var isFullTime = period === this.period.FULL_TIME;
+            var isPenalties = period === this.period.PENALTIES;
 
-        var i;
+            if (isFullTime || isPenalties) {
+                return;
+            }
 
-        decimalGoalTimes.forEach(function (decimal) {
-            var time = (decimal * periodLength) + startTime;
-
-            array.push(time);
-        });
-
-        array = array.sort(this._compareFunction);
-
-        return array;
+            callback(period, goals);
+        }.bind(this));
     };
 
     /*

@@ -1,6 +1,6 @@
 //var Match = require('./Match/MatchWithGoalTimes');
-var Match = require('./Match/MatchLive');
-//var Match = require('./Match/Match');
+var MatchLive = require('./Match/MatchLive');
+var Match = require('./Match/Match');
 var Team = require('./Team');
 
 var england = new Team('England', 1947);
@@ -9,8 +9,8 @@ var wales = new Team('Wales', 1629);
 var slovakia = new Team('Slovakia', 1742);
 var derby = new Team('Derby County', 1544);
 var united = new Team('Manchester United', 1794);
-var match = new Match(england, russia, {
-    extraTime: false,
+var match = new MatchLive(england, russia, {
+    extraTime: true,
     penalties: true,
     seed: Date.now()
 });
@@ -28,7 +28,8 @@ console.log(match.result);
 console.log(match.winner);
 console.log(match.goals);
 console.log(match.penalties.goalOrder);
-console.log(match.goalTimes);
+console.log(match.goalTimes[0].decimalGoalTimes);
+console.log(match.goalTimes[1].decimalGoalTimes);
 
 function getCount() {
     var i;
