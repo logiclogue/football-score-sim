@@ -2,10 +2,9 @@
  * Class which manages the goal times array.
  * Converts into other useful types.
  */
-function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
+function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     this.decimalGoalTimes = goalTimes || [];
     this.periodTimes = periodTimes || [];
-    this.playablePeriods = playablePeriods || [];
     this.startTimeMilli = startTimeMilli || Date.now();
 }
 
@@ -31,9 +30,10 @@ function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
      */
     proto_.getMilliTimes = function () {
         var minuteTimes = this.getMinuteTimes();
+        var convert = this._convertMinutesToMilli.bind(this);
 
         return minuteTimes.map(function (times) {
-            return times.map(this._convertMinutesToMilli);
+            return times.map(convert);
         }.bind(this));
     };
 
@@ -42,7 +42,7 @@ function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
      * Converts a decimal time to minutes
      */
     proto_._convertDecimalToMinutes = function (time, periodLength) {
-        if (time === undefined)
+        if (time === undefined || periodLength === undefined)
             return;
 
         return time * periodLength;
@@ -54,8 +54,11 @@ function GoalTimes(goalTimes, periodTimes, playablePeriods, startTimeMilli) {
     proto_._convertMinutesToMilli = function (time) {
         if (time === undefined)
             return;
+        
+        time *= 60000;
+        time += this.startTimeMilli;
 
-        return time * 60 * 1000;
+        return time;
     };
 
     /*
