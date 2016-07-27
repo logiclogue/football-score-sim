@@ -15,11 +15,13 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      * minutes.
      */
     proto_.getMinuteTimes = function () {
+        var convert = this._convertDecimalToMinutes;
+
         return this.decimalGoalTimes.map(function (times, index) {
             var periodTime = this.periodTimes[index];
 
             return times.map(function (time) {
-                return this._convertDecimalToMinutes(time, periodTime);
+                return convert(time, periodTime);
             }.bind(this));
         }.bind(this));
     };
@@ -32,7 +34,9 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
         var minuteTimes = this.getMinuteTimes();
         var convert = this._convertMinutesToMilli.bind(this);
 
-        return minuteTimes.map(function (times) {
+        return minuteTimes.map(function (times, period) {
+            console.log(period);
+
             return times.map(convert);
         }.bind(this));
     };
@@ -60,6 +64,36 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
 
         return time;
     };
+
+    /*
+     * For loop, for each previous in play period it
+     * calls back.
+     */
+    proto_._forEachPreviousInPlayPeriod = function (period, callback) {
+        for (; period >= 0; period -= 1) {
+            if (this.decimalGoalTimes[period] !== undefined)
+                callback(period);
+        }
+    };
+
+    /*
+     * For loop, for each previous out of play period
+     * it calls back.
+     */
+    proto_._forEachPreviousNonPlayPeriod = function (period, callback) {
+        var isPeriodTimeUndefined;
+        var isDecimalTimeUndefined;
+        var periodTimes = this.periodTimes;
+        var decimalTimes = this.decimalGoalTimes;
+
+        for (; period >= 0; period -= 1) {
+            isPeriodTimeUndefined = periodTimes[period] === undefined;
+            isDecimalTimeUndefined = decimalTimes[period] === undefined;
+
+            if (isPeriodTimeUndefined && !isDecimalTimeUndefined)
+                callback(period);
+        }
+    }
 
     /*
      * For loop which calls back for each previous period.
