@@ -46,8 +46,6 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
             var decGoalTimes = goalTimes.decimalGoalTimes;
 
             this._forEachPeriod(this.goals[team], function (period, goals) {
-                console.log('test', period, goals);
-
                 decGoalTimes[period] = genGoalTimes(period, goals, team);
             }.bind(this));
         }.bind(this));
