@@ -66,6 +66,45 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     };
 
     /*
+     * Total of in play time before current period.
+     */
+    proto_._totalTimeInPlay = function (period) {
+        var total = 0;
+
+        this._forEachPreviousInPlayPeriod(function () {
+            total += 1;
+        });
+
+        return total;
+    };
+
+    /*
+     * Total time before current period.
+     */
+    proto_._totalTime = function () {
+        var total = 0;
+
+        this._forEachPreviousPeriod(function () {
+            total += 1;
+        });
+
+        return total;
+    };
+
+    /*
+     * Total time in breaks before current period.
+     */
+    proto_._totalTimeNonPlay = function () {
+        var total = 0;
+
+        this._forEachPreviousNonPlayPeriod(function () {
+            total += 1;
+        });
+
+        return total;
+    };
+
+    /*
      * For loop, for each previous in play period it
      * calls back.
      */
