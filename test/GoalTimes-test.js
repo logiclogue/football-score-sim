@@ -35,6 +35,30 @@ describe('GoalTimes', function () {
             assert.deepEqual(milliTimes, times);
         });
     });
+
+    describe('#_totalTime', function () {
+        it('should total up all the previous in play times', function () {
+            var time = goalTimes._totalTime(2);
+            
+            assert.equal(time, 15);
+        });
+    });
+
+    describe('#_totalTimeInPlay', function () {
+        it('should total up all the previous times that are in play', function () {
+            var time = goalTimes_totalTimeInPlay(2);
+
+            assert.equal(time, 10);
+        });
+    });
+
+    describe('#_totalTimeNonPlay', function () {
+        it('should total up all the previous times that are non play', function () {
+            var time = goalTimes._totalTimeNonPlay(2);
+
+            assert.equal(time, 5);
+        });
+    });
 });
 
 
