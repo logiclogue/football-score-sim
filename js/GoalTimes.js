@@ -71,9 +71,9 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     proto_._totalTimeInPlay = function (period) {
         var total = 0;
 
-        this._forEachPreviousInPlayPeriod(function () {
-            total += 1;
-        });
+        this._forEachPreviousInPlayPeriod(period, function (i) {
+            total += this.periodTimes[i];
+        }.bind(this));
 
         return total;
     };
@@ -81,12 +81,12 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     /*
      * Total time in breaks before current period.
      */
-    proto_._totalTimeNonPlay = function () {
+    proto_._totalTimeNonPlay = function (period) {
         var total = 0;
 
-        this._forEachPreviousNonPlayPeriod(function () {
-            total += 1;
-        });
+        this._forEachPreviousNonPlayPeriod(period, function (i) {
+            total += this.periodTimes[i];
+        }.bind(this));
 
         return total;
     };
@@ -109,7 +109,7 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      * calls back.
      */
     proto_._forEachPreviousInPlayPeriod = function (period, callback) {
-        for (; period >= 0; period -= 1) {
+        for (period -= 1; period >= 0; period -= 1) {
             if (this.decimalGoalTimes[period] !== undefined)
                 callback(period);
         }
@@ -125,11 +125,11 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
         var periodTimes = this.periodTimes;
         var decimalTimes = this.decimalGoalTimes;
 
-        for (; period >= 0; period -= 1) {
+        for (period -= 1; period >= 0; period -= 1) {
             isPeriodTimeUndefined = periodTimes[period] === undefined;
             isDecimalTimeUndefined = decimalTimes[period] === undefined;
 
-            if (isPeriodTimeUndefined && !isDecimalTimeUndefined)
+            if (!isPeriodTimeUndefined && isDecimalTimeUndefined)
                 callback(period);
         }
     }

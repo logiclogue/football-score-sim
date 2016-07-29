@@ -46,7 +46,7 @@ describe('GoalTimes', function () {
 
     describe('#_totalTimeInPlay', function () {
         it('should total up all the previous times that are in play', function () {
-            var time = goalTimes_totalTimeInPlay(2);
+            var time = goalTimes._totalTimeInPlay(2);
 
             assert.equal(time, 10);
         });
