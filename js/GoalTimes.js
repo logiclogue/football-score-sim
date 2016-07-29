@@ -66,6 +66,19 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     };
 
     /*
+     * Total time before current period.
+     */
+    proto_._totalTime = function (period) {
+        var total = 0;
+
+        this._forEachPreviousPeriod(period, function (i) {
+            total += this.periodTimes[i];
+        }.bind(this));
+
+        return total;
+    };
+
+    /*
      * Total of in play time before current period.
      */
     proto_._totalTimeInPlay = function (period) {
@@ -92,16 +105,12 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     };
     
     /*
-     * Total time before current period.
+     * For loop which calls back for each previous period.
      */
-    proto_._totalTime = function (period) {
-        var total = 0;
-
-        this._forEachPreviousPeriod(period, function (i) {
-            total += this.periodTimes[i];
-        }.bind(this));
-
-        return total;
+    proto_._forEachPreviousPeriod = function (period, callback) {
+        for (period -= 1; period >= 0; period -= 1) {
+            callback(period);
+        }
     };
 
     /*
@@ -133,15 +142,6 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
                 callback(period);
         }
     }
-
-    /*
-     * For loop which calls back for each previous period.
-     */
-    proto_._forEachPreviousPeriod = function (period, callback) {
-        for (period -= 1; period >= 0; period -= 1) {
-            callback(period);
-        }
-    };
 
 }(GoalTimes, GoalTimes.prototype));
 
