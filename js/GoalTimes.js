@@ -69,41 +69,41 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      * Total time before current period.
      */
     proto_._totalTime = function (period) {
-        var total = 0;
+        var method = this._forEachPreviousPeriod;
 
-        this._forEachPreviousPeriod(period, function (i) {
-            total += this.periodTimes[i];
-        }.bind(this));
-
-        return total;
+        return this._totalPrevious.call(this, period, method);
     };
 
     /*
      * Total of in play time before current period.
      */
     proto_._totalTimeInPlay = function (period) {
-        var total = 0;
+        var method = this._forEachPreviousInPlayPeriod;
 
-        this._forEachPreviousInPlayPeriod(period, function (i) {
-            total += this.periodTimes[i];
-        }.bind(this));
-
-        return total;
+        return this._totalPrevious.call(this, period, method);
     };
 
     /*
      * Total time in breaks before current period.
      */
     proto_._totalTimeNonPlay = function (period) {
+        var method = this._forEachPreviousNonPlayPeriod;
+
+        return this._totalPrevious.call(this, period, method);
+    };
+
+    proto_._totalPrevious = function (period, method) {
         var total = 0;
 
-        this._forEachPreviousNonPlayPeriod(period, function (i) {
+        method = method.bind(this);
+
+        method(period, function (i) {
             total += this.periodTimes[i];
         }.bind(this));
 
         return total;
     };
-    
+
     /*
      * For loop which calls back for each previous period.
      */
