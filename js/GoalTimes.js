@@ -15,13 +15,14 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      * minutes.
      */
     proto_.getMinuteTimes = function () {
-        var convert = this._convertDecimalToMinutes;
+        //var convert = this._convertDecimalToMinutes;
+        var convert = this._getMinuteTime.bind(this);
 
         return this.decimalGoalTimes.map(function (times, index) {
             var periodTime = this.periodTimes[index];
 
             return times.map(function (time) {
-                return convert(time, periodTime);
+                return convert(time, periodTime, index);
             }.bind(this));
         }.bind(this));
     };
@@ -31,16 +32,43 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      * milliseconds.
      */
     proto_.getMilliTimes = function () {
-        var minuteTimes = this.getMinuteTimes();
-        var convert = this._convertMinutesToMilli.bind(this);
+        var convertMins = this._convert
+        var convert = this._getMilliTime.bind(this);
 
-        return minuteTimes.map(function (times, period) {
-            console.log(period);
+        return this.decimalGoalTimes.map(function (times, period) {
+            var periodTime = this.periodTimes[period];
 
-            return times.map(convert);
+            return times.map(function (time) {
+                return convert(time, periodTime, period);
+            });
         }.bind(this));
     };
 
+
+    proto_._getMinuteTime = function (time, periodTime, period) {
+        var convert = this._convertDecimalToMinutes.bind(this);
+
+        time = convert(time, periodTime);
+        time += this._totalTimeInPlay(period);
+
+        return time;
+    }
+
+    /*
+     * Gets the time in milliseconds of the given
+     * time and period.
+     */
+    proto_._getMilliTime = function (time, periodTime, period) {
+        var convertDecimal = this._convertDecimalToMinutes;
+        var convert = this._convertMinutesToMilli.bind(this);
+
+        time = convertDecimal(time, periodTime);
+        time = convert(time);
+        time += convert(this._totalTime(period));
+        time += this.startTimeMilli;
+
+        return time;
+    };
 
     /*
      * Converts a decimal time to minutes
@@ -58,9 +86,8 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
     proto_._convertMinutesToMilli = function (time) {
         if (time === undefined)
             return;
-        
+
         time *= 60000;
-        time += this.startTimeMilli;
 
         return time;
     };

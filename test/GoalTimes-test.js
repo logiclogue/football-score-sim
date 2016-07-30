@@ -14,7 +14,7 @@ describe('GoalTimes', function () {
         it('should convert to minutes correctly', function () {
             var minuteTimes = goalTimes.getMinuteTimes();
 
-            assert.deepEqual(minuteTimes, [[5, 6], , [17]]);
+            assert.deepEqual(minuteTimes, [[5, 6], , [12]]);
         });
     });
     
@@ -28,7 +28,7 @@ describe('GoalTimes', function () {
                 ],
                 ,
                 [
-                    calculateTime(912000)
+                    calculateTime(1020000)
                 ]
             ];
 
