@@ -46,7 +46,7 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
 
 
     proto_._getMinuteTime = function (time, periodTime, period) {
-        var convert = this._convertDecimalToMinutes.bind(this);
+        var convert = this._convertDecimalToMinutes;
 
         time = convert(time, periodTime);
         time += this._totalTimeInPlay(period);
@@ -60,11 +60,12 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      */
     proto_._getMilliTime = function (time, periodTime, period) {
         var convertDecimal = this._convertDecimalToMinutes;
-        var convert = this._convertMinutesToMilli.bind(this);
+        var convertMins = this._convertMinutesToMilli;
+        var totalTime = this._totalTime(period);
 
         time = convertDecimal(time, periodTime);
-        time = convert(time);
-        time += convert(this._totalTime(period));
+        time = convertMins(time);
+        time += convertMins(totalTime);
         time += this.startTimeMilli;
 
         return time;
