@@ -12,12 +12,11 @@ function MatchWithGoalTimes() {
     // As a decimal of the period length.
     this.decimalGoalTimes = [[], []];
     this.periodLengths = [, 45, 15, 45, 5, 15, 5, 15, , , ];
-    this.inPlayPeriods = [, true, , true, , true, , true];
     // In actual minutes since the match started
     // excluding breaks.
     this.goalTimes = [
-        new GoalTimes([], this.periodLengths, this.inPlayPeriods),
-        new GoalTimes([], this.periodLengths, this.inPlayPeriods)
+        new GoalTimes([], this.periodLengths),
+        new GoalTimes([], this.periodLengths)
     ];
 }
 

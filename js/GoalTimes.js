@@ -137,7 +137,8 @@ function GoalTimes(goalTimes, periodTimes, startTimeMilli) {
      */
     proto_._forEachPreviousPeriod = function (period, callback) {
         for (period -= 1; period >= 0; period -= 1) {
-            callback(period);
+            if (this.periodTimes[period] !== undefined)
+                callback(period);
         }
     };
 
