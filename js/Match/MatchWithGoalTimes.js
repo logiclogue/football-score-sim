@@ -29,7 +29,6 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         super_.simulate.apply(this, arguments);
 
         this._generateAllGoalTimes();
-
     };
 
 
