@@ -9,11 +9,9 @@ var random = require('seeded-random');
 function MatchWithGoalTimes() {
     Match.apply(this, arguments);
 
-    // As a decimal of the period length.
-    this.decimalGoalTimes = [[], []];
     this.periodLengths = [, 45, 15, 45, 5, 15, 5, 15, , , ];
-    // In actual minutes since the match started
-    // excluding breaks.
+    this.minuteGoalTimes = [[], []];
+    this.decimalGoalTimes = [[], []];
     this.goalTimes = [
         new GoalTimes([], this.periodLengths),
         new GoalTimes([], this.periodLengths)
@@ -31,6 +29,7 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
         super_.simulate.apply(this, arguments);
 
         this._generateAllGoalTimes();
+
     };
 
 
@@ -47,6 +46,9 @@ MatchWithGoalTimes.prototype = Object.create(Match.prototype);
             this._forEachPeriod(this.goals[team], function (period, goals) {
                 decGoalTimes[period] = genGoalTimes(period, goals, team);
             }.bind(this));
+
+            this.minuteGoalTimes[team] = goalTimes.getMinuteTimes();
+            this.decimalGoalTimes[team] = goalTimes.getMilliTimes();
         }.bind(this));
     };
 
