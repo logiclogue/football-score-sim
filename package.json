@@ -4,7 +4,7 @@
   "description": "Simulates football scores given a team's elo rating",
   "main": "index.js",
   "scripts": {
-    "test": "node js/test.js"
+    "test": "mocha"
   },
   "keywords": [
     "football",
@@ -23,6 +23,7 @@
     "seeded-random": "^1.0.1"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2"
   }
 }
