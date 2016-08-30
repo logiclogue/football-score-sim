@@ -1,6 +1,6 @@
-var Team = require('./js/Team');
-//var Match = require('./js/Match/Match');
-var Match = require('./js/Match/MatchWithGoalTimes');
+var Team = require('./src/Team');
+//var Match = require('./src/Match/Match');
+var Match = require('./src/Match/MatchWithGoalTimes');
 
 
 module.exports = {
