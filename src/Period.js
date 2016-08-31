@@ -2,6 +2,7 @@ function Period(options) {
     this.options = options;
     this.options.period = this;
 
+this.period = options.period;
     if (typeof options.Goal === 'undefined') {
         throw new TypeError('Goal is undefined');
     }
