@@ -1,3 +1,6 @@
+/*
+ * Generates the number of goals scored by a team in a match.
+ */
 function GoalGenerator(options) {
     // Classes
     this.Goal = options.Goal;
@@ -14,6 +17,9 @@ function GoalGenerator(options) {
 
 (function (proto_) {
 
+    /*
+     * Returns the number of goals that that team will score.
+     */
     proto_.generate = function () {
 
     };
