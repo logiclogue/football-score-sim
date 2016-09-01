@@ -18,10 +18,18 @@ function GoalGenerator(options) {
 (function (proto_) {
 
     /*
-     * Returns the number of goals that that team will score.
+     * Returns an array with the goals that the team have scored.
      */
     proto_.generate = function () {
+        var seed = this.seed + ' ' + team + ' ' + this.seed.startTime + ' ' + this.seed.length;
+    };
 
+
+    /*
+     * Returns the rating difference between the two teams.
+     */
+    proto_._getRatingDifference = function () {
+        return this.teamScoring.rating - this.teamConceding.rating;
     };
 
 }(GoalGenerator.prototype));
