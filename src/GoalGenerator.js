@@ -9,6 +9,7 @@ function GoalGenerator(options) {
     this.period = options.period;
     this.teamScoring = options.teamScoring;
     this.teamConceding = options.teamConceding;
+    this.random = options.random;
 
     // Variables
     this.seed = options.seed;
@@ -21,7 +22,13 @@ function GoalGenerator(options) {
      * Returns an array with the goals that the team have scored.
      */
     proto_.generate = function () {
-        var seed = this.seed + ' ' + team + ' ' + this.seed.startTime + ' ' + this.seed.length;
+        var seed = this.seed + ' ' +
+            this.team + ' ' +
+            this.seed.startTime + ' ' +
+            this.seed.length;
+        var length = this.period.length;
+        var ratingDifference = this._getRatingDifference();
+        var rand = this.random.decimal(seed);
     };
 
 
