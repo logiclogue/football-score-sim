@@ -1,5 +1,6 @@
 var Goal = require('./Goal');
 var NormalDistribution = require('./NormalDistribution');
+var random = require('seeded-random');
 
 
 /*
@@ -14,7 +15,7 @@ function GoalGenerator(options) {
     this.period = options.period;
     this.teamScoring = options.teamScoring;
     this.teamConceding = options.teamConceding;
-    this.random = options.random;
+    this.random = options.random || random;
     this.graph;
 
     // Variables
@@ -75,7 +76,7 @@ function GoalGenerator(options) {
 
         this.graph = new this.NormalDistribution(mean, this.standardDeviation);
         this.graph.mean = mean * decimal;
-        this.graph.standardDeviation = standardDeviation * decimal;
+        this.graph.standardDeviation = this.standardDeviation * decimal;
     };
 
 }(GoalGenerator.prototype));
