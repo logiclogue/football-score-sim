@@ -19,7 +19,6 @@ function GoalGenerator(options) {
 
     // Variables
     this.seed = options.seed;
-    this.ratingDifference = options.ratingDifference;
     this.mean = 1.58;
     this.standardDeviation = 1.23;
     this.constant = 0.00245;
@@ -39,9 +38,21 @@ function GoalGenerator(options) {
             this.seed.startTime + ' ' +
             this.seed.length;
         var length = this.period.length;
-        var ratingDifference = this._getRatingDifference();
         var rand = this.random.decimal(seed);
+        var xValue = this.graph.mean - 10;
         var goals = 0;
+        var goalsArray = [];
+
+        while (rand > this.graph.trapeziumRule(xValue, goals + 0.5, 0.1)) {
+            goals += 1;
+
+            goalsArray.push(new this.Goal({
+                period: this.period,
+                team: this.teamScoring
+            }));
+        }
+
+        return goalsArray;
     };
 
 
@@ -56,10 +67,15 @@ function GoalGenerator(options) {
      * Calculates the graph.
      */
     proto_._calculateGraph = function () {
-        var prodRatingDiffConstant = this.ratingDifference * this.constant;
+        var ratingDifference = this._getRatingDifference();
+        var prodRatingDiffConstant = ratingDifference * this.constant;
         var mean = this.mean + prodRatingDiffConstant;
+        var ninetyMinsMs = 5400000; // 90 minutes in milliseconds
+        var decimal = this.period.length / ninetyMinsMs;
 
         this.graph = new this.NormalDistribution(mean, this.standardDeviation);
+        this.graph.mean = mean * decimal;
+        this.graph.standardDeviation = standardDeviation * decimal;
     };
 
 }(GoalGenerator.prototype));
