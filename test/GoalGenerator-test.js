@@ -13,7 +13,7 @@ describe('GoalGenerator', function () {
         period: common.fullMatchPeriod
     });
 
-    describe('#generator()', function () {
+    describe('#generate()', function () {
         var goals = goalGenerator.generate();
 
         it('should return 1 goal with seed ' + seed, function () {
