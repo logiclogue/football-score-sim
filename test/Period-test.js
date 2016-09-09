@@ -10,4 +10,10 @@ describe('Period', function () {
     });
 
     period.simulate();
+
+    describe('#simulate()', function () {
+        it('shouldn\'t return anything', function () {
+            assert.isUndefined(period.simulate());
+        });
+    });
 });
