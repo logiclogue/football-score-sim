@@ -19,6 +19,9 @@ function Period(options) {
 
 (function (proto_) {
 
+    /*
+     * Simulates the period, populating the goals that have been scored.
+     */
     proto_.simulate = function () {
         var goalGeneratorA = new this.GoalGenerator({
             Goal: this.Goal,
