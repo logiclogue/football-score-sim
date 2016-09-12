@@ -35,9 +35,8 @@ function GoalGenerator(options) {
      */
     proto_.generate = function () {
         var seed = this.seed + ' ' +
-            this.team + ' ' +
-            this.seed.startTime + ' ' +
-            this.seed.length;
+            this.period.startTime + ' ' +
+            this.period.length;
         var length = this.period.length;
         var rand = this.random.decimal(seed);
         var xValue = this.graph.mean - 10;
