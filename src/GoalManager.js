@@ -48,6 +48,17 @@ function GoalManager(options) {
         this.addGoals(1, goalManager.goals[1]);
     };
 
+    /*
+     * Returns the score of the match as an array: [team A goals, team B
+     * goals].
+     */
+    proto_.getScore = function () {
+        return [
+            this.goals[0].length,
+            this.goals[1].length
+        ];
+    };
+
 }(GoalManager.prototype));
 
 module.exports = GoalManager;

@@ -59,4 +59,15 @@ describe('GoalManager', function () {
             assert.throws(append, ReferenceError);
         });
     });
+
+    describe('#getScore()', function () {
+        it('should return the correct score as array [goals, goals]',
+        function () {
+            var score = goalManager.getScore();
+
+            assert.isArray(score);
+            assert.equal(score[0], 2);
+            assert.equal(score[1], 0);
+        });
+    });
 });
