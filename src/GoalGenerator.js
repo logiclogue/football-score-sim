@@ -36,6 +36,8 @@ function GoalGenerator(options) {
     proto_.generate = function () {
         var seed = this.seed + ' ' +
             this.period.startTime + ' ' +
+            this.teamScoring.name + ' ' +
+            this.teamConceding.name + ' ' +
             this.period.length;
         var length = this.period.length;
         var rand = this.random.decimal(seed);
