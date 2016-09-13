@@ -10,22 +10,16 @@ describe('GoalManager', function () {
     describe('#constructor(options)', function () {
         goalManager = new GoalManager({
             teamA: common.teamEngland,
-            teamB: common.teamSlovakia,
-            period: common.fullMatchPeriod
+            teamB: common.teamSlovakia
         });
         goalManager2 = new GoalManager({
             teamA: common.teamSlovakia,
-            teamB: common.teamEngland,
-            period: common.fullMatchPeriod
+            teamB: common.teamEngland
         });
 
         it('should set teams correctly', function () {
             assert.equal(goalManager.teams[0], common.teamEngland);
             assert.equal(goalManager.teams[1], common.teamSlovakia);
-        });
-
-        it('should set period correctly', function () {
-            assert.equal(goalManager.period, common.fullMatchPeriod);
         });
     });
 

@@ -14,8 +14,7 @@ function Period(options) {
     this.teamB = options.teamB;
     this.goalManager = options.goalManager || new this.GoalManager({
         teamA: this.teamA,
-        teamB: this.teamB,
-        period: this
+        teamB: this.teamB
     });
 
     // Variables
