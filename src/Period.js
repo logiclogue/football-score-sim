@@ -32,12 +32,14 @@ function Period(options) {
         var goalGeneratorA = new this.GoalGenerator({
             period: this,
             teamScoring: this.teamA,
-            teamConceding: this.teamB
+            teamConceding: this.teamB,
+            seed: this.seed + ' A'
         });
         var goalGeneratorB = new this.GoalGenerator({
             period: this,
             teamScoring: this.teamB,
-            teamConceding: this.teamA
+            teamConceding: this.teamA,
+            seed: this.seed + ' B'
         });
         var addGoals = this.goalManager.addGoals.bind(this.goalManager);
 

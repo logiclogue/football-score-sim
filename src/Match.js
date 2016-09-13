@@ -7,8 +7,8 @@ var GoalManager = require('./GoalManager');
  */
 function Match(options) {
     // Classes
-    this.Period = options.Period;
-    this.GoalManager = options.GoalManager;
+    this.Period = options.Period || Period;
+    this.GoalManager = options.GoalManager || GoalManager;
     
     // Instances
     this.teamA = options.teamA;
@@ -20,7 +20,7 @@ function Match(options) {
     this.firstHalf = new this.Period({
         teamA: options.teamA,
         teamB: options.teamB,
-        length: 45 * 60000
+        length: 45 * 60000,
         seed: 'firstHalf'
     });
     this.secondHalf = new this.Period({
