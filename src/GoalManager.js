@@ -14,7 +14,6 @@ function GoalManager(options) {
         [],
         []
     ];
-    this.period = options.period;
 
     // Variables
 }
