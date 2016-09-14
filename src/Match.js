@@ -14,38 +14,30 @@ function Match(options) {
     this.teamA = options.teamA;
     this.teamB = options.teamB;
     this.goalManager = new this.GoalManager({
-        teamA: options.teamA,
-        teamB: options.teamB
+        teamA: this.teamA,
+        teamB: this.teamB
     });
-    this.firstHalf = new this.Period({
-        teamA: options.teamA,
-        teamB: options.teamB,
-        length: 45 * 60000,
-        seed: 'firstHalf'
+    this.normalTimeGoals = new this.GoalManager({
+        teamA: this.teamA,
+        teamB: this.teamB
     });
-    this.secondHalf = new this.Period({
-        teamA: options.teamA,
-        teamB: options.teamB,
-        length: 45 * 60000,
-        seed: 'secondHalf'
+    this.extraTimeGoals = new this.GoalManager({
+        teamA: this.teamA,
+        teamB: this.teamB
     });
-    this.extraTimeFirstHalf = new this.Period({
-        teamA: options.teamA,
-        teamB: options.teamB,
-        length: 15 * 60000,
-        seed: 'extraTime firstHalf'
-    });
-    this.extraTimeSecondHalf = new this.Period({
-        teamA: options.teamA,
-        teamB: options.teamB,
-        length: 15 * 60000,
-        seed: 'extraTime secondHalf'
-    });
+    this.firstHalf; // Period
+    this.secondHalf; // Period
+    this.extraTimeFirstHalf; // Period
+    this.extraTimeSecondHalf; // Period
+
     
     // Variables
     this.extraTime = options.extraTime || false;
     this.penalties = options.penalties || false;
     this.seed = options.seed;
+
+    //
+    this._createHalfInstances();
 }
 
 (function (proto_) {
@@ -60,12 +52,51 @@ function Match(options) {
         this.extraTimeFirstHalf.simulate();
         this.extraTimeSecondHalf.simulate();
 
-        this.goalManager.append(this.firstHalf.goalManager);
-        this.goalManager.append(this.secondHalf.goalManager);
-        this.goalManager.append(this.extraTimeFirstHalf.goalManager);
-        this.goalManager.append(this.extraTimeSecondHalf.goalManager);
+        this.normalTimeGoals.append(this.firstHalf.goalManager);
+        this.normalTimeGoals.append(this.secondHalf.goalManager);
+        this.extraTimeGoals.append(this.extraTimeFirstHalf.goalManager);
+        this.extraTimeGoals.append(this.extraTimeSecondHalf.goalManager);
+
+        this.goalManager.append(this.normalTimeGoals);
+
+        if (this.extraTime && this._isDraw()) {
+            this.goalManager.append(this.extraTimeGoals);
+        }
 
         return this.goalManager.getScore();
+    };
+
+
+    /*
+     * Creates the instances for each half in the game.
+     */
+    proto_._createHalfInstances = function () {
+        this.firstHalf = this._newHalf('firstHalf', 45);
+        this.secondHalf = this._newHalf('secondHalf', 45);
+        this.extraTimeFirstHalf = this._newHalf('extraTimeFirstHalf', 15);
+        this.extraTimeSecondHalf = this._newHalf('extraTimeSecondHalf', 15);
+    };
+
+    /*
+     * Creates a new half (instance of Period).
+     */
+    proto_._newHalf = function (seed, minLength) {
+        return new this.Period({
+            teamA: this.teamA,
+            teamB: this.teamB,
+            length: minLength * 60000,
+            seed: this.seed + ' ' + seed,
+            startTime: 1000
+        });
+    };
+
+    /*
+     * Returns a boolean, whether the match is a draw or not.
+     */
+    proto_._isDraw = function () {
+        var score = this.goalManager.getScore();
+
+        return score[0] === score[1];
     };
 
 }(Match.prototype));
