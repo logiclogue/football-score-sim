@@ -35,6 +35,7 @@ function Match(options) {
     this.extraTime = options.extraTime || false;
     this.penalties = options.penalties || false;
     this.seed = options.seed;
+    this.wentToExtraTime = false;
 
     //
     this._createHalfInstances();
@@ -60,6 +61,7 @@ function Match(options) {
         this.goalManager.append(this.normalTimeGoals);
 
         if (this.extraTime && this._isDraw()) {
+            this.wentToExtraTime = true;
             this.goalManager.append(this.extraTimeGoals);
         }
 
