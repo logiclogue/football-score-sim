@@ -34,7 +34,7 @@ function Match(options) {
     // Variables
     this.extraTime = options.extraTime || false;
     this.penalties = options.penalties || false;
-    this.seed = options.seed;
+    this.seed = options.seed || Date.now();
     this.wentToExtraTime = false;
 
     //
