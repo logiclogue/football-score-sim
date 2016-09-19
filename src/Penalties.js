@@ -51,13 +51,12 @@ function Penalties(options) {
                 won = this.hasFinished();
             }
 
-            if (this.turnsLeft[0] === 0) {
+            if (this.turnsLeft[0] === 0 && !won) {
                 this.turnsLeft[0] = 1;
                 this.turnsLeft[1] = 1;
             }
         }
     };
-
 
     /*
      * Simulates a single penalty kick.
@@ -112,6 +111,7 @@ function Penalties(options) {
     proto_.hasFinished = function () {
         var teamAWon = this.hasTeamWon(0);
         var teamBWon = this.hasTeamWon(1);
+        console.log(teamAWon, teamBWon);
 
         return teamAWon || teamBWon;
     };
@@ -125,14 +125,14 @@ function Penalties(options) {
         var goalDifference;
         var teamGoals;
         var otherGoals;
+        var score;
 
         if (teamIndex === 0) {
             otherIndex = 1;
         }
 
-        teamGoals = this.goalManager.goals[teamIndex];
-        otherGoals = this.goalManager.goals[otherIndex];
-        goalDifference = teamGoals - otherGoals;
+        score = this.goalManager.getScore();
+        goalDifference = score[teamIndex] - score[otherIndex];
 
         return goalDifference > this.turnsLeft[otherIndex];
     };
