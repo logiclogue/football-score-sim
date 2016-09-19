@@ -43,8 +43,6 @@ function Penalties(options) {
         var turn = 0;
 
         while (!won) {
-            turn += 1;
-
             for (i = 0; i < 2 && !won; i += 1) {
                 this.takePenalty(i, turn);
 
@@ -55,6 +53,8 @@ function Penalties(options) {
                 this.turnsLeft[0] = 1;
                 this.turnsLeft[1] = 1;
             }
+
+            turn += 1;
         }
     };
 
@@ -76,6 +76,7 @@ function Penalties(options) {
 
         // Penalty is missed
         this.missPenalty(teamIndex, turn);
+
 
         return false;
     };
@@ -111,7 +112,6 @@ function Penalties(options) {
     proto_.hasFinished = function () {
         var teamAWon = this.hasTeamWon(0);
         var teamBWon = this.hasTeamWon(1);
-        console.log(teamAWon, teamBWon);
 
         return teamAWon || teamBWon;
     };
