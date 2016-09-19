@@ -27,7 +27,6 @@ function Penalties(options) {
     this.goalOrder = [[], []];
     this.turnsLeft = [5, 5];
     this.constant = 0.75;
-    this._count = 0;
 }
 
 (function (static_, proto_) {
@@ -66,7 +65,6 @@ function Penalties(options) {
         var seed = this.seed + ' ' + teamIndex + ' ' + turn;
         var rand = this.random.decimal(seed);
 
-        this._count += 1; // !!!!
         this.turnsLeft[teamIndex] -= 1;
         
         // Penalty is scored
