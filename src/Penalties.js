@@ -12,6 +12,7 @@ function Penalties(options) {
     this.Goal = options.Goal || Goal;
     
     // Instances
+    this.random = options.random || random;
     this.goalManager = new this.GoalManager({
         teamA: options.teamA,
         teamB: options.teamB
@@ -84,7 +85,7 @@ function Penalties(options) {
      * Scores a goal for the team selected by the teamIndex.
      */
     proto_.scorePenalty = function (teamIndex, turn) {
-        var team = this.team[teamIndex];
+        var team = this.teams[teamIndex];
         var goal = new this.Goal({
             time: Date.now(), // !!!!
             team: team,
@@ -122,12 +123,16 @@ function Penalties(options) {
     proto_.hasTeamWon = function (teamIndex) {
         var otherIndex = 0;
         var goalDifference;
+        var teamGoals;
+        var otherGoals;
 
         if (teamIndex === 0) {
             otherIndex = 1;
         }
 
-        goalDifference = this.goals[teamIndex] - this.goals[otherIndex];
+        teamGoals = this.goalManager.goals[teamIndex];
+        otherGoals = this.goalManager.goals[otherIndex];
+        goalDifference = teamGoals - otherGoals;
 
         return goalDifference > this.turnsLeft[otherIndex];
     };
