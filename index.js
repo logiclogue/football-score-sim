@@ -1,9 +1,10 @@
 var Team = require('./src/Team');
-//var Match = require('./src/Match/Match');
-var Match = require('./src/Match/MatchWithGoalTimes');
+var Match = require('./src/Match');
+var MatchOutputter = require('./src/MatchOutputter');
 
 
 module.exports = {
     Team: Team,
-    Match: Match
+    Match: Match,
+    MatchOutputter: MatchOutputter
 }

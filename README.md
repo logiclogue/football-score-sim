@@ -13,23 +13,36 @@ normal distribution and the given elo ratings.
 var football = require('football-score-sim');
 var Team = football.Team;
 var Match = football.Match;
+var MatchOutputter = football.MatchOutputter;
 
 
-var derby = new Team('Derby County', 1544);
-var united = new Team('Manchester United', 1794);
+var derby = new Team({
+    name: 'Derby County',
+    rating: 1544
+});
+var united = new Team({
+    name: 'Manchester United',
+    rating: 1794
+});
 
-var match = new Match(derby, united, {
+var match = new Match({
+    teamA: derby,
+    teamB: united,
     extraTime: true,
     penalties: true,
     seed: 'example'
 });
 
+var outputter = new MatchOutputter({
+    match: match
+});
+
 match.simulate();
 
-console.log(match.text);
+console.log(outputter.basicScore());
 ```
 output:
-`Derby County 1-2 Manchester United`
+`Derby County 2-2 Manchester United (aet) (5-3)`
 
 ## Author
 
