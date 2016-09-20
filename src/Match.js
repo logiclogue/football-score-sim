@@ -1,5 +1,6 @@
 var Period = require('./Period');
 var GoalManager = require('./GoalManager');
+var Penalties = require('./Penalties');
 
 
 /*
@@ -9,6 +10,7 @@ function Match(options) {
     // Classes
     this.Period = options.Period || Period;
     this.GoalManager = options.GoalManager || GoalManager;
+    this.Penalties = options.Penalties || Penalties;
     
     // Instances
     this.teamA = options.teamA;
@@ -29,13 +31,18 @@ function Match(options) {
     this.secondHalf; // Period
     this.extraTimeFirstHalf; // Period
     this.extraTimeSecondHalf; // Period
-
+    this.penalties = new this.Penalties({
+        teamA: this.teamA,
+        teamB: this.teamB,
+        seed: options.seed
+    });
     
     // Variables
-    this.extraTime = options.extraTime || false;
-    this.penalties = options.penalties || false;
+    this.extraTimeEnabled = options.extraTime || false;
+    this.penaltiesEnabled = options.penalties || false;
     this.seed = options.seed || Date.now();
     this.wentToExtraTime = false;
+    this.wentToPenalties = false;
 
     //
     this._createHalfInstances();
@@ -60,9 +67,15 @@ function Match(options) {
 
         this.goalManager.append(this.normalTimeGoals);
 
-        if (this.extraTime && this._isDraw()) {
+        if (this.extraTimeEnabled && this._isDraw()) {
             this.wentToExtraTime = true;
             this.goalManager.append(this.extraTimeGoals);
+        }
+
+        if (this.penaltiesEnabled && this._isDraw()) {
+            this.penalties.simulate();
+
+            this.wentToPenalties = true;
         }
 
         return this.goalManager.getScore();

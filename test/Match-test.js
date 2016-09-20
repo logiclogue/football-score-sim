@@ -7,7 +7,8 @@ describe('Match', function () {
     var match = new Match({
         teamA: common.teamEngland,
         teamB: common.teamSlovakia,
-        extraTime: true
+        extraTime: true,
+        penalties: true
     });
     var outputter = new MatchOutputter({
         match: match
