@@ -45,6 +45,7 @@ function Match(options) {
     this.wentToPenalties = false;
     this.score = [];
     this.penaltiesScore = [];
+    this.winner = null; // Team or  null if draw
 
     //
     this._createHalfInstances();
@@ -59,16 +60,7 @@ function Match(options) {
     proto_.simulate = function () {
         this._simulateHalfs();
         this._appendGoals();
-
-        if (this.extraTimeEnabled && this._isDraw()) {
-            this.wentToExtraTime = true;
-            this.goalManager.append(this.extraTimeGoals);
-        }
-
-        if (this.penaltiesEnabled && this._isDraw()) {
-            this.wentToPenalties = true;
-            this.penalties.simulate();
-        }
+        this._checkOtherPeriods();
 
         this.score = this.goalManager.getScore();
         this.penaltiesScore = this.penalties.goalManager.getScore();
@@ -76,6 +68,29 @@ function Match(options) {
         return this.goalManager.getScore();
     };
 
+
+    /*
+     * Checks to see if the match is a draw and the other periods are enabled.
+     * If so, it'll attach the goals of those periods onto the match.
+     */
+    proto_._checkOtherPeriods = function () {
+        this._checkExtraTime();
+        this._checkPenalties();
+    };
+
+    proto_._checkExtraTime = function () {
+        if (this.extraTimeEnabled && this._isDraw()) {
+            this.wentToExtraTime = true;
+            this.goalManager.append(this.extraTimeGoals);
+        }
+    };
+
+    proto_._checkPenalties = function () {
+        if (this.penaltiesEnabled && this._isDraw()) {
+            this.wentToPenalties = true;
+            this.penalties.simulate();
+        }
+    };
 
     /*
      * Runs the simulate method on each half.
@@ -98,6 +113,14 @@ function Match(options) {
 
         this.goalManager.append(this.normalTimeGoals);
     };
+
+    /*
+     * Finds the winner of the match and puts their Team object in #winner.
+     * Remains at null if it's a draw.
+     */
+    proto_._calculateWinner = function () {
+
+    }:
 
     /*
      * Creates the instances for each half in the game.
