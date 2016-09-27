@@ -3,10 +3,10 @@
  * Callback gets executed when startTime is
  * passed.
  */
-function Item(startTime, callback) {
+function ScheduleListItem(startTime, callback) {
     this.executed = false;
     this.startTime = startTime;
     this.callback = callback;
 }
 
-module.exports = Item;
+module.exports = ScheduleListItem;

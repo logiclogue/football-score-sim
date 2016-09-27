@@ -1,7 +1,7 @@
 /*
  * Create a list with manages list items.
  */
-function List() {
+function ScheduleList() {
     this.items = [];
     this.currentTime = Date.now();
 }
@@ -59,6 +59,6 @@ function List() {
         return false;
     };
 
-}(List, List.prototype));
+}(ScheduleList, ScheduleList.prototype));
 
-module.exports = List;
+module.exports = ScheduleList;
