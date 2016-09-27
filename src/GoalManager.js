@@ -3,8 +3,6 @@
  * teams. Team A index 0, and Team B index 1.
  */
 function GoalManager(options) {
-    // Classes
-    
     // Instances
     this.teams = [
         options.teamA,
@@ -14,8 +12,6 @@ function GoalManager(options) {
         [],
         []
     ];
-
-    // Variables
 }
 
 (function (proto_) {
@@ -56,6 +52,21 @@ function GoalManager(options) {
             this.goals[0].length,
             this.goals[1].length
         ];
+    };
+
+    /*
+     * Gets the winner, returning their Team object. Returns null is draw.
+     */
+    proto_.getWinner = function () {
+        var goals = this.goals;
+
+        if (goals[0] > goals[1]) {
+            return this.teams[0];
+        } else if (goals[1] > goals[0]) {
+            return this.teams[1];
+        }
+
+        return null;
     };
 
 }(GoalManager.prototype));

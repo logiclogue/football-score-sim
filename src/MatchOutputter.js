@@ -65,7 +65,7 @@ function MatchOutputter(options) {
 
     proto_._getPenaltiesOutput = function () {
         var penalties = this.match.penalties;
-        var score = penaltiesScore;
+        var score = this.match.penaltiesScore;
         var output = 'Penalties: ' + score[0] + '-' + score[1] + '\n';
 
         return output;

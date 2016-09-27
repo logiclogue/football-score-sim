@@ -13,20 +13,19 @@ function Match(options) {
     this.Penalties = options.Penalties || Penalties;
     
     // Instances
-    this.teamA = options.teamA;
-    this.teamB = options.teamB;
-    this.goalManager = new this.GoalManager({
+    this.teamA = options.teamA; // Team
+    this.teamB = options.teamB; // Team
+
+    var paramsGoalManager = {
         teamA: this.teamA,
         teamB: this.teamB
-    });
-    this.normalTimeGoals = new this.GoalManager({
-        teamA: this.teamA,
-        teamB: this.teamB
-    });
-    this.extraTimeGoals = new this.GoalManager({
-        teamA: this.teamA,
-        teamB: this.teamB
-    });
+    };
+
+    this.goalManager = new this.GoalManager(paramsGoalManager);
+    this.normalTimeGoals = new this.GoalManager(paramsGoalManager);
+    this.extraTimeGoals = new this.GoalManager(paramsGoalManager);
+    this._everyGoal = new this.GoalManager(paramsGoalManager);
+
     this.firstHalf; // Period
     this.secondHalf; // Period
     this.extraTimeFirstHalf; // Period
@@ -45,7 +44,7 @@ function Match(options) {
     this.wentToPenalties = false;
     this.score = [];
     this.penaltiesScore = [];
-    this.winner = null; // Team or  null if draw
+    this.winner = null; // Team or null if draw
 
     //
     this._createHalfInstances();
@@ -62,6 +61,7 @@ function Match(options) {
         this._appendGoals();
         this._checkOtherPeriods();
         this._setScores();
+        this._calculateWinner();
 
         return this.score;
     };
@@ -73,6 +73,8 @@ function Match(options) {
     proto_._setScores = function () {
         this.score = this.goalManager.getScore();
         this.penaltiesScore = this.penalties.goalManager.getScore();
+
+        this._everyGoal.append(this.goalManager);
     };
 
     /*
@@ -95,6 +97,7 @@ function Match(options) {
         if (this.penaltiesEnabled && this._isDraw()) {
             this.wentToPenalties = true;
             this.penalties.simulate();
+            this._everyGoal.append(this.penalties.goalManager);
         }
     };
 
@@ -125,7 +128,7 @@ function Match(options) {
      * Remains at null if it's a draw.
      */
     proto_._calculateWinner = function () {
-
+        this.winner = this._everyGoal.getWinner();
     };
 
     /*
