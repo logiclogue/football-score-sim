@@ -61,13 +61,19 @@ function Match(options) {
         this._simulateHalfs();
         this._appendGoals();
         this._checkOtherPeriods();
+        this._setScores();
 
-        this.score = this.goalManager.getScore();
-        this.penaltiesScore = this.penalties.goalManager.getScore();
-
-        return this.goalManager.getScore();
+        return this.score;
     };
 
+
+    /*
+     * Sets the local score properties with the scores from the goal managers.
+     */
+    proto_._setScores = function () {
+        this.score = this.goalManager.getScore();
+        this.penaltiesScore = this.penalties.goalManager.getScore();
+    };
 
     /*
      * Checks to see if the match is a draw and the other periods are enabled.
