@@ -126,7 +126,7 @@ function Match(options) {
      */
     proto_._calculateWinner = function () {
 
-    }:
+    };
 
     /*
      * Creates the instances for each half in the game.
