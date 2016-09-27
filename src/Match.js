@@ -43,6 +43,8 @@ function Match(options) {
     this.seed = options.seed || Date.now();
     this.wentToExtraTime = false;
     this.wentToPenalties = false;
+    this.score = [];
+    this.penaltiesScore = [];
 
     //
     this._createHalfInstances();
@@ -55,17 +57,8 @@ function Match(options) {
      * Returns the match score.
      */
     proto_.simulate = function () {
-        this.firstHalf.simulate();
-        this.secondHalf.simulate();
-        this.extraTimeFirstHalf.simulate();
-        this.extraTimeSecondHalf.simulate();
-
-        this.normalTimeGoals.append(this.firstHalf.goalManager);
-        this.normalTimeGoals.append(this.secondHalf.goalManager);
-        this.extraTimeGoals.append(this.extraTimeFirstHalf.goalManager);
-        this.extraTimeGoals.append(this.extraTimeSecondHalf.goalManager);
-
-        this.goalManager.append(this.normalTimeGoals);
+        this._simulateHalfs();
+        this._appendGoals();
 
         if (this.extraTimeEnabled && this._isDraw()) {
             this.wentToExtraTime = true;
@@ -73,14 +66,38 @@ function Match(options) {
         }
 
         if (this.penaltiesEnabled && this._isDraw()) {
-            this.penalties.simulate();
-
             this.wentToPenalties = true;
+            this.penalties.simulate();
         }
+
+        this.score = this.goalManager.getScore();
+        this.penaltiesScore = this.penalties.goalManager.getScore();
 
         return this.goalManager.getScore();
     };
 
+
+    /*
+     * Runs the simulate method on each half.
+     */
+    proto_._simulateHalfs = function () {
+        this.firstHalf.simulate();
+        this.secondHalf.simulate();
+        this.extraTimeFirstHalf.simulate();
+        this.extraTimeSecondHalf.simulate();
+    };
+
+    /*
+     * Appends the goals from each half, to their respective goal managers.
+     */
+    proto_.appendGoals = function () {
+        this.normalTimeGoals.append(this.firstHalf.goalManager);
+        this.normalTimeGoals.append(this.secondHalf.goalManager);
+        this.extraTimeGoals.append(this.extraTimeFirstHalf.goalManager);
+        this.extraTimeGoals.append(this.extraTimeSecondHalf.goalManager);
+
+        this.goalManager.append(this.normalTimeGoals);
+    };
 
     /*
      * Creates the instances for each half in the game.
