@@ -12,8 +12,8 @@ function MatchOutputter(options) {
         var match = this.match;
         var teamA = match.teamA.name;
         var teamB = match.teamB.name;
-        var score = match.goalManager.getScore();
-        var penalties = match.penalties.goalManager.getScore();
+        var score = match.score;
+        var penalties = match.penaltiesScore;
         var aet = '';
         var penaltyScore = '';
         var output = teamA + ' ' + score[0] + '-' + score[1] + ' ' + teamB;
@@ -65,7 +65,7 @@ function MatchOutputter(options) {
 
     proto_._getPenaltiesOutput = function () {
         var penalties = this.match.penalties;
-        var score = penalties.goalManager.getScore();
+        var score = penaltiesScore;
         var output = 'Penalties: ' + score[0] + '-' + score[1] + '\n';
 
         return output;
