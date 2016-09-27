@@ -90,7 +90,7 @@ function Match(options) {
     /*
      * Appends the goals from each half, to their respective goal managers.
      */
-    proto_.appendGoals = function () {
+    proto_._appendGoals = function () {
         this.normalTimeGoals.append(this.firstHalf.goalManager);
         this.normalTimeGoals.append(this.secondHalf.goalManager);
         this.extraTimeGoals.append(this.extraTimeFirstHalf.goalManager);
