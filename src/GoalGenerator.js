@@ -50,13 +50,29 @@ function GoalGenerator(options) {
 
             goalsArray.push(new this.Goal({
                 period: this.period,
-                team: this.teamScoring
+                team: this.teamScoring,
+                time: this._getGoalTime(seed)
             }));
         }
 
         return goalsArray;
     };
 
+
+    /*
+     * Returns the time the goal was scored, from the given seed, in
+     * milliseconds.
+     */
+    proto_._getGoalTime = function (seed) {
+        seed += ' goaltime';
+
+        var startTime = this.period.startTime;
+        var length = this.period.length;
+        var decimal = this.random.decimal(seed);
+        var time = startTime + (decimal * length);
+
+        return time;
+    };
 
     /*
      * Returns the rating difference between the two teams.
