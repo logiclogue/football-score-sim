@@ -27,9 +27,19 @@ var goalGenerator = new GoalGenerator({
     seed: 'test'
 });
 
+
+var matchParams = {
+    teamA: teamEngland,
+    teamB: teamSlovakia,
+    extraTime: true,
+    penalties: true
+};
+
+
 module.exports = {
     teamEngland: teamEngland,
     teamSlovakia: teamSlovakia,
     fullMatchPeriod: fullMatchPeriod,
-    goalGenerator: goalGenerator
+    goalGenerator: goalGenerator,
+    matchParams: matchParams
 };

@@ -4,12 +4,7 @@ var common = require('./common');
 
 
 describe('Match', function () {
-    var match = new Match({
-        teamA: common.teamEngland,
-        teamB: common.teamSlovakia,
-        extraTime: true,
-        penalties: true
-    });
+    var match = new Match(common.matchParams);
     var outputter = new MatchOutputter({
         match: match
     });
