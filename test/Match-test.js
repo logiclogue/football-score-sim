@@ -5,7 +5,6 @@ var common = require('./common');
 
 
 describe('Match', function () {
-    common.teamSlovakia.rating = 1000;
     var match = new Match(common.matchParams);
     var outputter = new MatchOutputter({
         match: match

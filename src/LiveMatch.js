@@ -15,6 +15,8 @@ function LiveMatch(options) {
     this.goalList = new this.ScheduleList();
 
     // Variables
+    this.score = [];
+    this.penaltiesScore = [];
 }
 
 LiveMatch.prototype = Object.create(Match.prototype);
@@ -22,7 +24,9 @@ LiveMatch.prototype = Object.create(Match.prototype);
 (function (proto_, super_) {
 
     proto_.simulate = function () {
-        return super_.simulate.call(this);
+        var returnVal = super_.simulate.call(this);
+
+        return returnVal;
     };
 
 }(LiveMatch.prototype, Match.prototype));

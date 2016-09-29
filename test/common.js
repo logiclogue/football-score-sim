@@ -32,7 +32,8 @@ var matchParams = {
     teamA: teamEngland,
     teamB: teamSlovakia,
     extraTime: true,
-    penalties: true
+    penalties: true,
+    seed: 'test'
 };
 
 
