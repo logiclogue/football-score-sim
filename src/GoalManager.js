@@ -55,7 +55,7 @@ function GoalManager(options) {
     };
 
     /*
-     * Gets the winner, returning their Team object. Returns null is draw.
+     * Gets the winner, returning their Team object. Returns null if draw.
      */
     proto_.getWinner = function () {
         var goals = this.goals;
