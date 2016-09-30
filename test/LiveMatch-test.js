@@ -5,7 +5,6 @@ var common = require('./common');
 
 describe('LiveMatch', function () {
     var matchParams = Object.create(common.matchParams);
-    matchParams.startTime = 
 
     var match = new LiveMatch(matchParams);
 
