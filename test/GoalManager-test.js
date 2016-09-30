@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var common = require('./common');
-var GoalManager = require('../src/GoalManager');
+var GoalManager = require('../src/GoalManagerLive');
 
 
 describe('GoalManager', function () {
