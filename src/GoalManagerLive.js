@@ -1,17 +1,13 @@
 var GoalManager = require('./GoalManager');
-var ScheduleList = require('./ScheduleList');
-var ScheduleListItem = require('./ScheduleListItem');
+var List = require('./ScheduleList');
+var Item = require('./ScheduleListItem');
 
 
 function GoalManagerLive(options) {
     GoalManager.apply(this, arguments);
 
-    // Classes
-    this.List = ScheduleList || options.ScheduleList;
-    this.Item = ScheduleListItem || options.ScheduleListItem;
-
     // Instances
-    this.list = new this.List();
+    this.list = new List();
 
     // Variables
     this.liveGoals = [
@@ -28,7 +24,7 @@ GoalManagerLive.prototype = Object.create(GoalManager.prototype);
         super_.addGoals.apply(this, arguments);
 
         goals.forEach(function (goal) {
-            this.list.addItem(new this.Item(goal.time, function () {
+            this.list.addItem(new Item(goal.time, function () {
                 console.log('here');
                 this.liveGoals[teamIndex].push(goal);
             }.bind(this)));

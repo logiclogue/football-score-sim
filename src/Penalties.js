@@ -7,13 +7,9 @@ var Goal = require('./Goal');
  * Simulates the penalty shootout.
  */
 function Penalties(options) {
-    // Classes
-    this.GoalManager = options.GoalManager || GoalManager;
-    this.Goal = options.Goal || Goal;
-    
     // Instances
     this.random = options.random || random;
-    this.goalManager = new this.GoalManager({
+    this.goalManager = new GoalManager({
         teamA: options.teamA,
         teamB: options.teamB
     });
@@ -86,7 +82,7 @@ function Penalties(options) {
      */
     proto_.scorePenalty = function (teamIndex, turn) {
         var team = this.teams[teamIndex];
-        var goal = new this.Goal({
+        var goal = new Goal({
             time: Date.now(), // !!!!
             team: team,
             period: this

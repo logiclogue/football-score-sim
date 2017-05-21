@@ -7,11 +7,6 @@ var Penalties = require('./Penalties');
  * All encompassing class to create a football match.
  */
 function Match(options) {
-    // Classes
-    this.Period = options.Period || Period;
-    this.GoalManager = options.GoalManager || GoalManager;
-    this.Penalties = options.Penalties || Penalties;
-    
     // Instances
     this.teamA = options.teamA; // Team
     this.teamB = options.teamB; // Team
@@ -21,16 +16,16 @@ function Match(options) {
         teamB: this.teamB
     };
 
-    this.goalManager = new this.GoalManager(paramsGoalManager);
-    this.normalTimeGoals = new this.GoalManager(paramsGoalManager);
-    this.extraTimeGoals = new this.GoalManager(paramsGoalManager);
-    this._everyGoal = new this.GoalManager(paramsGoalManager);
+    this.goalManager = new GoalManager(paramsGoalManager);
+    this.normalTimeGoals = new GoalManager(paramsGoalManager);
+    this.extraTimeGoals = new GoalManager(paramsGoalManager);
+    this._everyGoal = new GoalManager(paramsGoalManager);
 
     this.firstHalf; // Period
     this.secondHalf; // Period
     this.extraTimeFirstHalf; // Period
     this.extraTimeSecondHalf; // Period
-    this.penalties = new this.Penalties({
+    this.penalties = new Penalties({
         teamA: this.teamA,
         teamB: this.teamB,
         seed: options.seed
@@ -145,7 +140,7 @@ function Match(options) {
      * Creates a new half (instance of Period).
      */
     proto_._newHalf = function (seed, minLength) {
-        return new this.Period({
+        return new Period({
             teamA: this.teamA,
             teamB: this.teamB,
             length: minLength * 60000,
