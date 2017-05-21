@@ -7,10 +7,6 @@ var random = require('seeded-random');
  * Generates the number of goals scored by a team in a match.
  */
 function GoalGenerator(options) {
-    // Classes
-    this.Goal = options.Goal || Goal;
-    this.NormalDistribution = options.NormalDistribution || NormalDistribution;
-
     // Instances
     this.period = options.period;
     this.teamScoring = options.teamScoring;
@@ -48,7 +44,7 @@ function GoalGenerator(options) {
         while (rand > this.graph.trapeziumRule(xValue, goals + 0.5, 0.1)) {
             goals += 1;
 
-            goalsArray.push(new this.Goal({
+            goalsArray.push(new Goal({
                 period: this.period,
                 team: this.teamScoring,
                 time: this._getGoalTime(seed)
@@ -91,7 +87,7 @@ function GoalGenerator(options) {
         var ninetyMinsMs = 5400000; // 90 minutes in milliseconds
         var decimal = this.period.length / ninetyMinsMs;
 
-        this.graph = new this.NormalDistribution(mean, this.standardDeviation);
+        this.graph = new NormalDistribution(mean, this.standardDeviation);
         this.graph.mean = mean * decimal;
         this.graph.standardDeviation = this.standardDeviation * decimal;
     };
