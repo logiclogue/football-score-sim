@@ -66,8 +66,9 @@ function GoalGenerator(options) {
         var length = this.period.length;
         var decimal = this.random.decimal(seed);
         var time = startTime + (decimal * length);
+        var date = new Date(time);
 
-        return time;
+        return date;
     };
 
     /*

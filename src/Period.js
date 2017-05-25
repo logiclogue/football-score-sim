@@ -14,7 +14,7 @@ function Period(options) {
 
     // Variables
     this.length = options.length || 2700000; // or 45 minutes in milliseconds
-    this.startTime = options.startTime || Date.now();
+    this.startTime = options.startTime || new Date();
     this.seed = options.seed;
 }
 

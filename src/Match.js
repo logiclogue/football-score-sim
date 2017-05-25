@@ -145,7 +145,7 @@ function Match(options) {
             teamB: this.teamB,
             length: minLength * 60000,
             seed: this.seed + ' ' + seed,
-            startTime: 1000
+            startTime: new Date()
         });
     };
 
