@@ -15,9 +15,4 @@ describe('Match', function () {
             assert.equal(match.simulate(), match.score);
         });
     });
-    console.log(match.simulate());
-    console.log(match.wentToExtraTime);
-    console.log(match.winner);
-    console.log(outputter.basicScore());
-    console.log(outputter.scoreEachHalf());
 });
