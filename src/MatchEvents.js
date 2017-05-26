@@ -1,6 +1,7 @@
 function MatchEvents(match) {
     // Instances
     this.match = match;
+    this.goalManager = match.goalManager;
 
     // Variables
     this.onGoalCallback = function () {};
@@ -10,6 +11,10 @@ function MatchEvents(match) {
 
     proto_.onGoal = function (callback) {
         this.onGoalCallback = callback;
+
+        this.goalManager.forEach(function (goal) {
+            console.log(goal);
+        });
     };
     
 }(MatchEvents.prototype, MatchEvents));
