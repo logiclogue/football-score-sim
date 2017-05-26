@@ -1,6 +1,7 @@
 var assert = require('chai').assert;
 var common = require('./common');
 var GoalManager = require('../src/GoalManagerLive');
+var Goal = require('../src/Goal');
 
 
 describe('GoalManager', function () {
@@ -62,6 +63,26 @@ describe('GoalManager', function () {
             assert.isArray(score);
             assert.equal(score[0], 2);
             assert.equal(score[1], 0);
+        });
+    });
+
+    describe('#forEach()', function () {
+        it('should callback on each goal', function () {
+            var count = 0;
+            var score = goalManager.getScore();
+            var totalGoals = score[0] + score[1];
+
+            goalManager.forEach(function () {
+                count += 1;
+            });
+
+            assert(count === totalGoals);
+        });
+
+        it('should callback with type Goal', function () {
+            goalManager.forEach(function (goal) {
+                assert.instanceOf(goal, Goal);
+            });
         });
     });
 });

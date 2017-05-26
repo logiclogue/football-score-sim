@@ -69,6 +69,14 @@ function GoalManager(options) {
         return null;
     };
 
+    /*
+     * For each loop for every goal scored.
+     */
+    proto_.forEach = function (callback) {
+        this.goals[0].forEach(callback);
+        this.goals[1].forEach(callback);
+    };
+
 }(GoalManager.prototype));
 
 module.exports = GoalManager;
