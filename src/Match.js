@@ -40,6 +40,7 @@ function Match(options) {
     this.score = [];
     this.penaltiesScore = [];
     this.winner = null; // Team or null if draw
+    this.startTime = options.startTime || new Date();
 
     //
     this._createHalfInstances();
@@ -145,7 +146,7 @@ function Match(options) {
             teamB: this.teamB,
             length: minLength * 60000,
             seed: this.seed + ' ' + seed,
-            startTime: new Date()
+            startTime: this.startTime
         });
     };
 

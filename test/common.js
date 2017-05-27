@@ -33,7 +33,8 @@ var matchParams = {
     teamB: teamSlovakia,
     extraTime: true,
     penalties: true,
-    seed: 'test'
+    seed: 'test',
+    startTime: new Date()
 };
 
 
