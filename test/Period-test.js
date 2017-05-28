@@ -16,4 +16,24 @@ describe('Period', function () {
             assert.isUndefined(period.simulate());
         });
     });
+
+    describe('#getFinishTime()', function () {
+        it('should return start time + length', function () {
+            var startTime = period.startTime.getTime();
+            var length = period.length;
+            var expectedFinishTime = startTime + length;
+            var actualFinishTime = period.getFinishTime().getTime();
+
+            assert.equal(expectedFinishTime, actualFinishTime);
+        });
+    });
+
+    describe('#finishTime', function () {
+        it('should set #finishTime to return of #getFinishTime', function () {
+            var expectedFinishTime = period.getFinishTime().getTime();
+            var actualFinishTime = period.finishTime.getTime();
+
+            assert.equal(expectedFinishTime, actualFinishTime);
+        })
+    });
 });

@@ -15,6 +15,7 @@ function Period(options) {
     // Variables
     this.length = options.length || 2700000; // or 45 minutes in milliseconds
     this.startTime = options.startTime || new Date();
+    this.finishTime = this.getFinishTime();
     this.seed = options.seed;
 }
 
@@ -40,6 +41,17 @@ function Period(options) {
 
         addGoals(0, goalGeneratorA.generate());
         addGoals(1, goalGeneratorB.generate());
+    };
+
+    /*
+     * Returns the finish time.
+     */
+    proto_.getFinishTime = function () {
+        var startTime = this.startTime.getTime();
+        var finishTimeMilli = startTime + this.length;
+        var finishTime = new Date(finishTimeMilli);
+
+        return finishTime;
     };
 
 }(Period.prototype));
