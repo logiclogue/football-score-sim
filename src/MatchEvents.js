@@ -24,7 +24,10 @@ function MatchEvents(options) {
      * Call the callback when the match kicks off.
      */
     proto_.onKickOff = function (callback) {
-        
+        var startTime = this.match.startTime.getTime();
+        var timeDiff = startTime - Date.now();
+
+        setTimeout(callback, timeDiff);
     };
 
     /*
