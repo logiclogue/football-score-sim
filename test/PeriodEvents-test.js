@@ -31,7 +31,7 @@ describe('PeriodEvents', function () {
         it('should callback when period starts', function (done) {
             var finishTime = new Date();
 
-            finishTime.setMilliseconds(finishTime.getMilliseconds() + 1);
+            finishTime.setMilliseconds(finishTime.getMilliseconds() + 100);
 
             period.finishTime = finishTime;
 
