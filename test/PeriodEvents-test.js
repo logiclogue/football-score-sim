@@ -17,13 +17,13 @@ describe('PeriodEvents', function () {
         it('should callback when period starts', function (done) {
             var startTime = new Date();
 
-            startTime.setSeconds(startTime.getSeconds() + 1);
+            startTime.setMilliseconds(startTime.getMilliseconds() + 100);
 
             period.startTime = startTime;
 
-            events.onStart(function () {
-                done();
-            });
+            this.timeout(200);
+            this.slow(200);
+            events.onStart(done);
         });
     });
 
@@ -31,13 +31,13 @@ describe('PeriodEvents', function () {
         it('should callback when period starts', function (done) {
             var finishTime = new Date();
 
-            finishTime.setSeconds(finishTime.getSeconds() + 1);
+            finishTime.setMilliseconds(finishTime.getMilliseconds() + 1);
 
             period.finishTime = finishTime;
 
-            events.onFinish(function () {
-                done();
-            });
+            this.timeout(200);
+            this.slow(200);
+            events.onFinish(done);
         });
     });
 });
