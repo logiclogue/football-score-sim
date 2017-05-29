@@ -15,7 +15,9 @@ function TimeEvents() {
         var time = date.getTime();
         var timeDiff = time - timeNow;
 
-        setTimeout(callback, timeDiff);
+        if (timeDiff >= 0) {
+            setTimeout(callback, timeDiff);
+        }
     };
     
 }(TimeEvents.prototype));
