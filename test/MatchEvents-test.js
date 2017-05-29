@@ -30,9 +30,33 @@ describe('MatchEvents', function () {
                 if (goalDate === date) {
                     done();
                 }
-            }
+            };
 
             events.onGoal(function () {});
+        });
+
+        it('should callback with the goal', function () {
+            events.timeEvents.onDate = function (callback, date) {
+                callback();
+            };
+
+            events.onGoal(function (goal) {
+                assert.instanceOf(goal, Goal);
+            });
+        });
+
+        it('should callback with each goal different', function () {
+            var goals = [];
+
+            events.timeEvents.onDate = function (callback, date) {
+                callback();
+            };
+
+            events.onGoal(function (goal) {
+                assert.notInclude(goals, goal);
+
+                goals.push(goal);
+            });
         });
     });
 
@@ -42,7 +66,7 @@ describe('MatchEvents', function () {
                 if (date === match.startTime) {
                     done();
                 }
-            }
+            };
 
             events.onKickOff(function () {});
         });
