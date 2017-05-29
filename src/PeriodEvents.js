@@ -1,8 +1,10 @@
 var Period = require('./Period');
+var TimeEvents = require('./TimeEvents');
 
 function PeriodEvents(options) {
     // Instances
     this.period = options.period;
+    this.timeEvents = options.timeEvents || new TimeEvents();
 }
 
 (function (proto_) {
@@ -11,20 +13,14 @@ function PeriodEvents(options) {
      * Calls the callback when the period starts.
      */
     proto_.onStart = function (callback) {
-        var startTime = this.period.startTime.getTime();
-        var timeDiff = startTime - Date.now();
-
-        setTimeout(callback, timeDiff);
+        this.timeEvents.onDate(callback, this.period.startTime);
     };
 
     /*
      * Calls the callback when the period ends.
      */
     proto_.onFinish = function (callback) {
-        var finishTime = this.period.finishTime.getTime();
-        var timeDiff = finishTime - Date.now();
-
-        setTimeout(callback, timeDiff);
+        this.timeEvents.onDate(callback, this.period.finishTime);
     };
     
 }(PeriodEvents.prototype));

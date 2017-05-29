@@ -14,30 +14,30 @@ describe('PeriodEvents', function () {
     });
 
     describe('#onStart()', function () {
-        it('should callback when period starts', function (done) {
-            var startTime = new Date();
+        it('should call timeEvents.onDate', function (done) {
+            events.period.startTime = new Date(0);
 
-            startTime.setMilliseconds(startTime.getMilliseconds() + 100);
+            events.timeEvents.onDate = function (callback, date) {
+                if (date === events.period.startTime) {
+                    done();
+                }
+            };
 
-            period.startTime = startTime;
-
-            this.timeout(200);
-            this.slow(200);
-            events.onStart(done);
+            events.onStart(function () {});
         });
     });
 
     describe('#onFinish()', function () {
-        it('should callback when period starts', function (done) {
-            var finishTime = new Date();
+        it('should call timeEvents.onDate', function (done) {
+            events.period.finishTime = new Date(0);
 
-            finishTime.setMilliseconds(finishTime.getMilliseconds() + 100);
+            events.timeEvents.onDate = function (callback, date) {
+                if (date === events.period.finishTime) {
+                    done();
+                }
+            };
 
-            period.finishTime = finishTime;
-
-            this.timeout(200);
-            this.slow(200);
-            events.onFinish(done);
+            events.onFinish(function () {});
         });
     });
 });
