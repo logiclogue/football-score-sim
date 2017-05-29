@@ -23,35 +23,28 @@ describe('MatchEvents', function () {
     });
 
     describe('#onGoal()', function () {
-        it('should wait the correct amount of time', function (done) {
+        it('should call onDate', function (done) {
             var hasCalledDone = false;
 
-            events.onGoal(function () {
-                if (!hasCalledDone) {
+            events.timeEvents.onDate = function (callback, goalDate) {
+                if (goalDate === date) {
                     done();
-
-                    hasCalledDone = true;
                 }
-            });
+            }
+
+            events.onGoal(function () {});
         });
     });
 
     describe('#onKickoff()', function () {
-        it('should wait the correct amount of time', function (done) {
-            var startTime = new Date();
+        it('should call onDate', function (done) {
+            events.timeEvents.onDate = function (callback, date) {
+                if (date === match.startTime) {
+                    done();
+                }
+            }
 
-            startTime.setSeconds(startTime.getSeconds() + 1);
-
-            common.matchParams.startTime = startTime;
-            
-            var match = new Match(common.matchParams);
-            var events = new MatchEvents({
-                match: match
-            });
-
-            events.onKickOff(function () {
-                done();
-            });
+            events.onKickOff(function () {});
         });
     });
 });

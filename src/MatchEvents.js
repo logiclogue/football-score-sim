@@ -1,7 +1,10 @@
+var TimeEvents = require('./TimeEvents');
+
 function MatchEvents(options) {
     // Instances
     this.match = options.match;
     this.goalManager = this.match.goalManager;
+    this.timeEvents = options.timeEvents || new TimeEvents();
 }
 
 (function (proto_, static_) {
@@ -13,21 +16,15 @@ function MatchEvents(options) {
         var dateNow = Date.now();
 
         this.goalManager.forEach(function (goal) {
-            var goalTime = goal.time.getTime();
-            var timeDiff = goalTime - dateNow;
-
-            setTimeout(callback, timeDiff);
-        });
+            this.timeEvents.onDate(callback, goal.time);
+        }.bind(this));
     };
 
     /*
      * Call the callback when the match kicks off.
      */
     proto_.onKickOff = function (callback) {
-        var startTime = this.match.startTime.getTime();
-        var timeDiff = startTime - Date.now();
-
-        setTimeout(callback, timeDiff);
+        this.timeEvents.onDate(callback, this.match.startTime);
     };
 
     /*
