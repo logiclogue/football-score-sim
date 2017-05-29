@@ -16,9 +16,9 @@ function MatchEvents(options) {
         var dateNow = Date.now();
 
         this.goalManager.forEach(function (goal) {
-            this.timeEvents.onDate(function () {
-                callback(goal);
-            }, goal.time);
+            var boundCallback = callback.bind(this, goal);
+
+            this.timeEvents.onDate(boundCallback, goal.time);
         }.bind(this));
     };
 

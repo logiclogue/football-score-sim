@@ -18,6 +18,8 @@ describe('MatchEvents', function () {
     match.simulate();
     match.goalManager.addGoals(0, [goal]);
 
+    console.log(match.goalManager);
+
     var events = new MatchEvents({
         match: match
     });

@@ -131,7 +131,14 @@ function Match(options) {
      * Creates the instances for each half in the game.
      */
     proto_._createHalfInstances = function () {
-        this.firstHalf = this._newHalf('firstHalf', 45);
+        this.firstHalf = new Period({
+            teamA: this.teamA,
+            teamB: this.teamB,
+            length: 45 * 60000,
+            seed: this.seed + ' firstHalf',
+            startTime: this.startTime
+        });
+
         this.secondHalf = this._newHalf('secondHalf', 45);
         this.extraTimeFirstHalf = this._newHalf('extraTimeFirstHalf', 15);
         this.extraTimeSecondHalf = this._newHalf('extraTimeSecondHalf', 15);
@@ -146,7 +153,7 @@ function Match(options) {
             teamB: this.teamB,
             length: minLength * 60000,
             seed: this.seed + ' ' + seed,
-            startTime: this.startTime
+            startTime: new Date(this.startTime.getTime())
         });
     };
 

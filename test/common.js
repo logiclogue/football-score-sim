@@ -34,7 +34,7 @@ var matchParams = {
     extraTime: true,
     penalties: true,
     seed: 'test',
-    startTime: new Date()
+    startTime: new Date(1473687429923)
 };
 
 
