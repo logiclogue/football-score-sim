@@ -131,29 +131,50 @@ function Match(options) {
      * Creates the instances for each half in the game.
      */
     proto_._createHalfInstances = function () {
-        this.firstHalf = new Period({
-            teamA: this.teamA,
-            teamB: this.teamB,
-            length: 45 * 60000,
-            seed: this.seed + ' firstHalf',
-            startTime: this.startTime
+        this.firstHalf = this._newHalf({
+            seed: 'firstHalf',
+            length: 45,
+            endOfPrevious: this.startTime,
+            lengthAfterPrevious: 0
         });
 
-        this.secondHalf = this._newHalf('secondHalf', 45);
-        this.extraTimeFirstHalf = this._newHalf('extraTimeFirstHalf', 15);
-        this.extraTimeSecondHalf = this._newHalf('extraTimeSecondHalf', 15);
+        this.secondHalf = this._newHalf({
+            seed: 'secondHalf',
+            length: 45,
+            endOfPrevious: this.firstHalf.finishTime,
+            lengthAfterPrevious: 15
+        });
+
+        this.extraTimeFirstHalf = this._newHalf({
+            seed: 'extraTimeFirstHalf',
+            length: 15,
+            endOfPrevious: this.secondHalf.finishTime,
+            lengthAfterPrevious: 5
+        });
+
+        this.extraTimeSecondHalf = this._newHalf({
+            seed: 'extraTimeSecondHalf',
+            length: 15,
+            endOfPrevious: this.extraTimeFirstHalf.finishTime,
+            lengthAfterPrevious: 5
+        });
     };
 
     /*
      * Creates a new half (instance of Period).
      */
-    proto_._newHalf = function (seed, minLength) {
+    proto_._newHalf = function (options) {
+        var startTime = new Date(options.endOfPrevious.getTime());
+        var previousMinutes = options.endOfPrevious.getMinutes();
+
+        startTime.setMinutes(previousMinutes + options.lengthAfterPrevious);
+
         return new Period({
             teamA: this.teamA,
             teamB: this.teamB,
-            length: minLength * 60000,
-            seed: this.seed + ' ' + seed,
-            startTime: new Date(this.startTime.getTime())
+            length: options.length * 60000,
+            seed: this.seed + ' ' + options.seed,
+            startTime: startTime
         });
     };
 

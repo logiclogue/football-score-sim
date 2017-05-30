@@ -19,7 +19,7 @@ describe('Match', function () {
         it('should set the first half start time', function () {
             var firstHalfStartTime = match.firstHalf.startTime;
             
-            assert.equal(firstHalfStartTime, startTime);
+            assert.equal(firstHalfStartTime.getTime(), startTime.getTime());
         });
 
         it('should always set startTime as instance of Date', function () {
