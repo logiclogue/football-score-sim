@@ -47,7 +47,7 @@ function GoalGenerator(options) {
             goalsArray.push(new Goal({
                 period: this.period,
                 team: this.teamScoring,
-                time: this._getGoalTime(seed)
+                time: this._getGoalTime(seed + ' ' + goals)
             }));
         }
 
