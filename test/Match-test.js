@@ -8,8 +8,68 @@ describe('Match', function () {
     var match = new Match(common.matchParams);
 
     describe('#simulate()', function () {
+        var result = match.simulate();
+        var startTime = match.startTime.getTime();
+
         it('should return the same score as #score property', function () {
-            assert.equal(match.simulate(), match.score);
+            assert.equal(result, match.score);
+        });
+
+        context('creating the first half', function () {
+            it('should set its #startTime correctly', function () {
+                assert.equal(match.firstHalf.startTime.getTime(), startTime);
+            });
+
+            it('should have a length of 45 minutes', function () {
+                assert.equal(match.firstHalf.length, 45 * 60000);
+            });
+        });
+
+        context('creating the second half', function () {
+            it('should start 1 hour after the match started', function () {
+                var expectedStartTime = startTime + (60 * 60000);
+                var secondHalfStartTime = match.secondHalf.startTime.getTime();
+
+                assert.equal(secondHalfStartTime, expectedStartTime);
+            });
+
+            it('should have a length of 45 minutes', function () {
+                assert.equal(match.secondHalf.length, 45 * 60000);
+            });
+        });
+
+        context('creating the first half of extra time', function () {
+            it('should start 5 minutes after second half ended', function () {
+                var secondHalfFinish = match.secondHalf.finishTime;
+                var secondHalfFinishTime = secondHalfFinish.getTime();
+                var expectedStartTime = secondHalfFinishTime + (5 * 60000);
+                var thisStart = match.extraTimeFirstHalf.startTime;
+                var thisStartTime = thisStart.getTime();
+
+                assert.equal(thisStartTime, expectedStartTime);
+            });
+
+            it('should have a length of 15 minutes', function () {
+                assert.equal(match.extraTimeFirstHalf.length, 15 * 60000);
+            });
+        });
+
+        context('creating the second half of extra time', function () {
+            it('should start 5 minutes after first half of ET', function () {
+                var firstHalfETFinish = match.extraTimeFirstHalf.finishTime;
+                var firstHalfETFinishTime = firstHalfETFinish.getTime();
+                var secondHalfETStart = match.extraTimeSecondHalf.startTime;
+                var secondHalfETStartTime = secondHalfETStart.getTime();
+                var expectedStartTime = firstHalfETFinishTime + (5 * 60000);
+
+                assert.equal(secondHalfETStartTime, expectedStartTime);
+            });
+
+            it('should have a length of 15 minutes', function () {
+                var expectedLength = 15 * 60000;
+
+                assert.equal(match.extraTimeSecondHalf.length, expectedLength);
+            });
         });
     });
 
