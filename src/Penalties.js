@@ -83,7 +83,7 @@ function Penalties(options) {
     proto_.scorePenalty = function (teamIndex, turn) {
         var team = this.teams[teamIndex];
         var goal = new Goal({
-            time: new Date(), // !!!!
+            time: new Date(),
             team: team,
             period: this
         });
