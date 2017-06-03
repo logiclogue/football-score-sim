@@ -26,16 +26,23 @@ describe('Penalties', function () {
             });
 
             it('should make each goal one minute apart', function () {
-                var firstGoal;
+                var goals = [];
+                var firstGoalTime = penalties.startTime.getTime();
 
                 penalties.goalManager.forEach(function (goal) {
-                    if (!firstGoal) {
-                        firstGoal = goal;
-                    } else {
-                        assert.isAtLeast(
-                            goal.time.getTime(),
-                            firstGoal.time.getTime() + 60000);
-                    }
+                    goals.push(goal);
+                });
+
+                goals.sort(function (a, b) {
+                    return a.time.getTime() - b.time.getTime();
+                });
+
+                goals.forEach(function (goal) {
+                    assert.isAtLeast(
+                        goal.time.getTime(),
+                        firstGoalTime + 60000);
+
+                    firstGoalTime = goal.time.getTime();
                 });
             });
         });

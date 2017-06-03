@@ -74,7 +74,6 @@ function Penalties(options) {
         // Penalty is missed
         this.missPenalty(teamIndex, turn);
 
-
         return false;
     };
 
@@ -84,7 +83,7 @@ function Penalties(options) {
     proto_.scorePenalty = function (teamIndex, turn) {
         var team = this.teams[teamIndex];
         var goal = new Goal({
-            time: new Date(),
+            time: this._getGoalTime(teamIndex, turn),
             team: team,
             period: this
         });
@@ -132,6 +131,18 @@ function Penalties(options) {
         goalDifference = score[teamIndex] - score[otherIndex];
 
         return goalDifference > this.turnsLeft[otherIndex];
+    };
+
+    /*
+     * Returns the goal time.
+     */
+    proto_._getGoalTime = function (teamIndex, turn) {
+        var timeBetweenGoals = 60000;
+        var turnsAfterStart = (turn * 2) + teamIndex + 1;
+        var timeAfterStart = timeBetweenGoals * turnsAfterStart;
+        var time = this.startTime.getTime() + timeAfterStart;
+
+        return new Date(time);
     };
 
 }(Penalties, Penalties.prototype));
