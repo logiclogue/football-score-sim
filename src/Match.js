@@ -25,11 +25,7 @@ function Match(options) {
     this.secondHalf; // Period
     this.extraTimeFirstHalf; // Period
     this.extraTimeSecondHalf; // Period
-    this.penalties = new Penalties({
-        teamA: this.teamA,
-        teamB: this.teamB,
-        seed: options.seed
-    });
+    this.penalties; // Penalties
     
     // Variables
     this.extraTimeEnabled = options.extraTime || false;
@@ -158,16 +154,21 @@ function Match(options) {
             endOfPrevious: this.extraTimeFirstHalf.finishTime,
             lengthAfterPrevious: 5
         });
+
+        this.penalties = this._createPenalties({
+            endOfPrevious: this.extraTimeSecondHalf.finishTime,
+            lengthAfterPrevious: 5
+        });
     };
 
     /*
      * Creates a new half (instance of Period).
      */
     proto_._newHalf = function (options) {
-        var startTime = new Date(options.endOfPrevious.getTime());
-        var previousMinutes = options.endOfPrevious.getMinutes();
-
-        startTime.setMinutes(previousMinutes + options.lengthAfterPrevious);
+        var startTime = this._dateMinutesAfter(
+            options.endOfPrevious,
+            options.lengthAfterPrevious
+        );
 
         return new Period({
             teamA: this.teamA,
@@ -176,6 +177,35 @@ function Match(options) {
             seed: this.seed + ' ' + options.seed,
             startTime: startTime
         });
+    };
+
+    /*
+     * Creates a penalty shootout.
+     */
+    proto_._createPenalties = function (options) {
+        var startTime = this._dateMinutesAfter(
+            options.endOfPrevious,
+            options.lengthAfterPrevious
+        );
+
+        return new Penalties({
+            teamA: this.teamA,
+            teamB: this.teamB,
+            seed: this.seed + ' ' + options.seed,
+            startTime: startTime
+        });
+    }
+
+    /*
+     * Returns a `Date` that is so many minutes after the previous start time.
+     */
+    proto_._dateMinutesAfter = function (previousDate, minutes) {
+        var date = new Date(previousDate.getTime());
+        var previousMinutes = previousDate.getMinutes();
+
+        date.setMinutes(previousMinutes + minutes);
+
+        return date;
     };
 
     /*

@@ -24,6 +24,7 @@ function Penalties(options) {
     this.goalOrder = [[], []];
     this.turnsLeft = [5, 5];
     this.constant = 0.75;
+    this.startTime = options.startTime || new Date();
 }
 
 (function (static_, proto_) {

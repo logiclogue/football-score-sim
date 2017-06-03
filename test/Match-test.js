@@ -71,6 +71,17 @@ describe('Match', function () {
                 assert.equal(match.extraTimeSecondHalf.length, expectedLength);
             });
         });
+
+        context('creating penalties', function () {
+            it('should start 5 minutes after second half of ET', function () {
+                var previous = match.extraTimeSecondHalf;
+                var previousFinishTime = previous.finishTime.getTime();
+                var expectedStartTime = previousFinishTime + (5 * 60000);
+                var actualStartTime = match.penalties.startTime.getTime();
+
+                assert.equal(actualStartTime, expectedStartTime);
+            });
+        });
     });
 
     describe('#startTime', function () {
