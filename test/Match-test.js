@@ -82,9 +82,13 @@ describe('Match', function () {
                 assert.equal(actualStartTime, expectedStartTime);
             });
         });
+
+        context('sets #finishTime to return of #getFinishTime', function () {
+            assert.equal(match.finishTime, match.getFinishTime());
+        });
     });
 
-    describe('#getFinishTime', function () {
+    describe('#getFinishTime()', function () {
         var match = new Match(common.matchParams);
 
         context('#wentToExtraTime and #wentToPenalties are false', function () {
