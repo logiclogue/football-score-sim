@@ -37,6 +37,7 @@ function Match(options) {
     this.penaltiesScore = [];
     this.winner = null; // Team or null if draw
     this.startTime = options.startTime || new Date();
+    this.finishTime;
 
     //
     this._createHalfInstances();
@@ -54,8 +55,22 @@ function Match(options) {
         this._checkOtherPeriods();
         this._setScores();
         this._calculateWinner();
+        this.finishTime = this.getFinishTime();
 
         return this.score;
+    };
+
+    /*
+     * Gets the finish time.
+     */
+    proto_.getFinishTime = function () {
+        if (!this.wentToExtraTime && !this.wentToPenalties) {
+            return this.secondHalf.finishTime;
+        } else if (this.wentToExtraTime && !this.wentToPenalties) {
+            return this.extraTimeSecondHalf.finishTime;
+        }
+
+        return this.penalties.finishTime;
     };
 
 

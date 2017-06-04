@@ -84,6 +84,64 @@ describe('Match', function () {
         });
     });
 
+    describe('#getFinishTime', function () {
+        var match = new Match(common.matchParams);
+
+        context('#wentToExtraTime and #wentToPenalties are false', function () {
+            match.wentToExtraTime = false;
+            match.wentToPenalties = false;
+
+            var finishTime = match.getFinishTime().getTime();
+
+            it('should return second half finish time', function () {
+                var expectedFinishTime = match.secondHalf.finishTime.getTime();
+
+                assert.equal(finishTime, expectedFinishTime);
+            });
+        });
+
+        context('#wentToExtraTime true, #wentToPenalties false', function () {
+            match.wentToExtraTime = true;
+            match.wentToPenalties = false;
+
+            var finishTime = match.getFinishTime().getTime();
+
+            it('should return second half ET finish time', function () {
+                var expectedFinishTime = match.extraTimeSecondHalf
+                    .finishTime
+                    .getTime();
+                
+                assert.equal(finishTime, expectedFinishTime);
+            });
+        });
+
+        context('#wentToExtraTime true, #wentToPenalties true', function () {
+            match.wentToExtraTime = true;
+            match.wentToPenalties = true;
+
+            var finishTime = match.getFinishTime();
+
+            it('should return penalties finish time', function () {
+                var expectedFinishTime = match.penalties.finishTime;
+                
+                assert.equal(finishTime, expectedFinishTime);
+            });
+        });
+
+        context('#wentToExtraTime false, #wentToPenalties true', function () {
+            match.wentToExtraTime = false;
+            match.wentToPenalties = true;
+
+            var finishTime = match.getFinishTime();
+
+            it('should return penalties finish time', function () {
+                var expectedFinishTime = match.penalties.finishTime;
+                
+                assert.equal(finishTime, expectedFinishTime);
+            });
+        });
+    });
+
     describe('#startTime', function () {
         var startTime = common.matchParams.startTime;
 
