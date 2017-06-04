@@ -18,6 +18,23 @@ describe('Penalties', function () {
             });
         });
 
+        context('#finishTime', function () {
+            it('should set the time to the final goal time', function () {
+                var goals = [];
+                var finishTime = penalties.finishTime.getTime();
+
+                penalties.goalManager.forEach(function (goal) {
+                    goals.push(goal);
+                });
+
+                goals.sort(function (a, b) {
+                    return b.time.getTime() - a.time.getTime();
+                });
+
+                assert.equal(finishTime, goals[0].time.getTime());
+            });
+        });
+
         context('goals', function () {
             it('should set the start times of each of the goals', function () {
                 penalties.goalManager.forEach(function (goal) {
