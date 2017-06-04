@@ -6,12 +6,19 @@ var common = require('./common');
 describe('Penalties', function () {
     var penalties = new Penalties({
         teamA: common.teamEngland,
-        teamB: common.teamSlovakia
+        teamB: common.teamSlovakia,
+        seed: 'test'
     });
 
-    penalties.simulate();
-
     describe('#simulate()', function () {
+        penalties.simulate();
+
+        it('should have the correct score', function () {
+            var score = penalties.goalManager.getScore();
+
+            assert.deepEqual(score, [3, 4]);
+        });
+
         context('#hasFinished', function () {
             it('should return true', function () {
                 assert.equal(penalties.hasFinished(), true);
