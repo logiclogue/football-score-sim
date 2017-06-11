@@ -14,7 +14,7 @@ function Period(options) {
 
     // Variables
     this.length = options.length || 2700000; // or 45 minutes in milliseconds
-    this.startTime = options.startTime || new Date();
+    this.startDate = options.startDate || new Date();
     this.finishTime = this.getFinishTime();
     this.seed = options.seed;
 }
@@ -47,7 +47,7 @@ function Period(options) {
      * Returns the finish time.
      */
     proto_.getFinishTime = function () {
-        var startTime = this.startTime.getTime();
+        var startTime = this.startDate.getTime();
         var finishTimeMilli = startTime + this.length;
         var finishTime = new Date(finishTimeMilli);
 

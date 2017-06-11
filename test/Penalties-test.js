@@ -51,7 +51,7 @@ describe('Penalties', function () {
 
             it('should make each goal one minute apart', function () {
                 var goals = [];
-                var firstGoalTime = penalties.startTime.getTime();
+                var firstGoalTime = penalties.startDate.getTime();
 
                 penalties.goalManager.forEach(function (goal) {
                     goals.push(goal);

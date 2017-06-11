@@ -24,7 +24,7 @@ function Penalties(options) {
     this.goalOrder = [[], []];
     this.turnsLeft = [5, 5];
     this.constant = 0.75;
-    this.startTime = options.startTime || new Date();
+    this.startDate = options.startDate || new Date();
     this.finishTime;
 }
 
@@ -142,7 +142,7 @@ function Penalties(options) {
         var timeBetweenGoals = 60000;
         var turnsAfterStart = (turn * 2) + teamIndex + 1;
         var timeAfterStart = timeBetweenGoals * turnsAfterStart;
-        var time = this.startTime.getTime() + timeAfterStart;
+        var time = this.startDate.getTime() + timeAfterStart;
 
         return new Date(time);
     };

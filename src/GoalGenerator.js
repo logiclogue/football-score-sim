@@ -31,7 +31,7 @@ function GoalGenerator(options) {
      */
     proto_.generate = function () {
         var seed = this.seed + ' ' +
-            this.period.startTime.getTime() + ' ' +
+            this.period.startDate.getTime() + ' ' +
             this.teamScoring.name + ' ' +
             this.teamConceding.name + ' ' +
             this.period.length;
@@ -62,7 +62,7 @@ function GoalGenerator(options) {
     proto_._getGoalTime = function (seed) {
         seed += ' goaltime';
 
-        var startTime = this.period.startTime.getTime();
+        var startTime = this.period.startDate.getTime();
         var length = this.period.length;
         var decimal = this.random.decimal(seed);
         var time = startTime + (decimal * length);

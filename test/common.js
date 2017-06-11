@@ -16,7 +16,7 @@ var teamSlovakia = new Team({
 
 var fullMatchPeriod = new Period({
     length: 90 * 60 * 1000,
-    startTime: new Date(1473687429923)
+    startDate: new Date(1473687429923)
 });
 
 
@@ -34,7 +34,7 @@ var matchParams = {
     extraTime: true,
     penalties: true,
     seed: 'test',
-    startTime: new Date(1473687429923)
+    startDate: new Date(1473687429923)
 };
 
 

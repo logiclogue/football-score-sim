@@ -13,7 +13,7 @@ function PeriodEvents(options) {
      * Calls the callback when the period starts.
      */
     proto_.onStart = function (callback) {
-        this.timeEvents.onDate(callback, this.period.startTime);
+        this.timeEvents.onDate(callback, this.period.startDate);
     };
 
     /*

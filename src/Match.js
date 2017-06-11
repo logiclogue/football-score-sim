@@ -36,7 +36,7 @@ function Match(options) {
     this.score = [];
     this.penaltiesScore = [];
     this.winner = null; // Team or null if draw
-    this.startTime = options.startTime || new Date();
+    this.startDate = options.startDate || new Date();
     this.finishTime;
 
     //
@@ -145,7 +145,7 @@ function Match(options) {
         this.firstHalf = this._newHalf({
             seed: 'firstHalf',
             length: 45,
-            endOfPrevious: this.startTime,
+            endOfPrevious: this.startDate,
             lengthAfterPrevious: 0
         });
 
@@ -180,7 +180,7 @@ function Match(options) {
      * Creates a new half (instance of Period).
      */
     proto_._newHalf = function (options) {
-        var startTime = this._dateMinutesAfter(
+        var startDate = this._dateMinutesAfter(
             options.endOfPrevious,
             options.lengthAfterPrevious
         );
@@ -190,7 +190,7 @@ function Match(options) {
             teamB: this.teamB,
             length: options.length * 60000,
             seed: this.seed + ' ' + options.seed,
-            startTime: startTime
+            startDate: startDate
         });
     };
 
@@ -198,7 +198,7 @@ function Match(options) {
      * Creates a penalty shootout.
      */
     proto_._createPenalties = function (options) {
-        var startTime = this._dateMinutesAfter(
+        var startDate = this._dateMinutesAfter(
             options.endOfPrevious,
             options.lengthAfterPrevious
         );
@@ -207,7 +207,7 @@ function Match(options) {
             teamA: this.teamA,
             teamB: this.teamB,
             seed: this.seed + ' ' + options.seed,
-            startTime: startTime
+            startDate: startDate
         });
     }
 

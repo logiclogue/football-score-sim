@@ -63,7 +63,7 @@ describe('MatchEvents', function () {
     describe('#onKickoff()', function () {
         it('should call onDate', function (done) {
             events.timeEvents.onDate = function (callback, date) {
-                if (date === match.startTime) {
+                if (date === match.startDate) {
                     done();
                 }
             };

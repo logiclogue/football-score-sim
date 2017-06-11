@@ -15,10 +15,10 @@ describe('PeriodEvents', function () {
 
     describe('#onStart()', function () {
         it('should call timeEvents.onDate', function (done) {
-            events.period.startTime = new Date(0);
+            events.period.startDate = new Date(0);
 
             events.timeEvents.onDate = function (callback, date) {
-                if (date === events.period.startTime) {
+                if (date === events.period.startDate) {
                     done();
                 }
             };

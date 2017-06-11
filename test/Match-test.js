@@ -9,15 +9,15 @@ describe('Match', function () {
 
     describe('#simulate()', function () {
         var result = match.simulate();
-        var startTime = match.startTime.getTime();
+        var startTime = match.startDate.getTime();
 
         it('should return the same score as #score property', function () {
             assert.equal(result, match.score);
         });
 
         context('creating the first half', function () {
-            it('should set its #startTime correctly', function () {
-                assert.equal(match.firstHalf.startTime.getTime(), startTime);
+            it('should set its #startDate correctly', function () {
+                assert.equal(match.firstHalf.startDate.getTime(), startTime);
             });
 
             it('should have a length of 45 minutes', function () {
@@ -28,7 +28,7 @@ describe('Match', function () {
         context('creating the second half', function () {
             it('should start 1 hour after the match started', function () {
                 var expectedStartTime = startTime + (60 * 60000);
-                var secondHalfStartTime = match.secondHalf.startTime.getTime();
+                var secondHalfStartTime = match.secondHalf.startDate.getTime();
 
                 assert.equal(secondHalfStartTime, expectedStartTime);
             });
@@ -43,7 +43,7 @@ describe('Match', function () {
                 var secondHalfFinish = match.secondHalf.finishTime;
                 var secondHalfFinishTime = secondHalfFinish.getTime();
                 var expectedStartTime = secondHalfFinishTime + (5 * 60000);
-                var thisStart = match.extraTimeFirstHalf.startTime;
+                var thisStart = match.extraTimeFirstHalf.startDate;
                 var thisStartTime = thisStart.getTime();
 
                 assert.equal(thisStartTime, expectedStartTime);
@@ -58,7 +58,7 @@ describe('Match', function () {
             it('should start 5 minutes after first half of ET', function () {
                 var firstHalfETFinish = match.extraTimeFirstHalf.finishTime;
                 var firstHalfETFinishTime = firstHalfETFinish.getTime();
-                var secondHalfETStart = match.extraTimeSecondHalf.startTime;
+                var secondHalfETStart = match.extraTimeSecondHalf.startDate;
                 var secondHalfETStartTime = secondHalfETStart.getTime();
                 var expectedStartTime = firstHalfETFinishTime + (5 * 60000);
 
@@ -77,7 +77,7 @@ describe('Match', function () {
                 var previous = match.extraTimeSecondHalf;
                 var previousFinishTime = previous.finishTime.getTime();
                 var expectedStartTime = previousFinishTime + (5 * 60000);
-                var actualStartTime = match.penalties.startTime.getTime();
+                var actualStartTime = match.penalties.startDate.getTime();
 
                 assert.equal(actualStartTime, expectedStartTime);
             });
@@ -146,21 +146,21 @@ describe('Match', function () {
         });
     });
 
-    describe('#startTime', function () {
-        var startTime = common.matchParams.startTime;
+    describe('#startDate', function () {
+        var startDate = common.matchParams.startDate;
 
         it('should set the first half start time', function () {
-            var firstHalfStartTime = match.firstHalf.startTime;
+            var firstHalfStartDate = match.firstHalf.startDate;
             
-            assert.equal(firstHalfStartTime.getTime(), startTime.getTime());
+            assert.equal(firstHalfStartDate.getTime(), startDate.getTime());
         });
 
-        it('should always set startTime as instance of Date', function () {
-            delete common.matchParams.startTime;
+        it('should always set startDate as instance of Date', function () {
+            delete common.matchParams.startDate;
 
             var match = new Match(common.matchParams);
 
-            assert.instanceOf(match.startTime, Date);
+            assert.instanceOf(match.startDate, Date);
         });
     });
 });
