@@ -25,7 +25,7 @@ function Penalties(options) {
     this.turnsLeft = [5, 5];
     this.constant = 0.75;
     this.startDate = options.startDate || new Date();
-    this.finishTime;
+    this.finishDate;
 }
 
 (function (static_, proto_) {
@@ -93,7 +93,7 @@ function Penalties(options) {
         // Adds the goal to the penalty order
         this.goalOrder[teamIndex][turn] = true;
         // Sets the finish time to the current goal
-        this.finishTime = goal.time;
+        this.finishDate = goal.time;
     };
 
     /*

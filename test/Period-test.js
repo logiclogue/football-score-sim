@@ -17,21 +17,21 @@ describe('Period', function () {
         });
     });
 
-    describe('#getFinishTime()', function () {
+    describe('#getFinishDate()', function () {
         it('should return start time + length', function () {
             var startTime = period.startDate.getTime();
             var length = period.length;
             var expectedFinishTime = startTime + length;
-            var actualFinishTime = period.getFinishTime().getTime();
+            var actualFinishTime = period.getFinishDate().getTime();
 
             assert.equal(expectedFinishTime, actualFinishTime);
         });
     });
 
-    describe('#finishTime', function () {
-        it('should set #finishTime to return of #getFinishTime', function () {
-            var expectedFinishTime = period.getFinishTime().getTime();
-            var actualFinishTime = period.finishTime.getTime();
+    describe('#finishDate', function () {
+        it('should set #finishDate to return of #getFinishDate', function () {
+            var expectedFinishTime = period.getFinishDate().getTime();
+            var actualFinishTime = period.finishDate.getTime();
 
             assert.equal(expectedFinishTime, actualFinishTime);
         })

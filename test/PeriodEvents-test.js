@@ -29,10 +29,10 @@ describe('PeriodEvents', function () {
 
     describe('#onFinish()', function () {
         it('should call timeEvents.onDate', function (done) {
-            events.period.finishTime = new Date(0);
+            events.period.finishDate = new Date(0);
 
             events.timeEvents.onDate = function (callback, date) {
-                if (date === events.period.finishTime) {
+                if (date === events.period.finishDate) {
                     done();
                 }
             };

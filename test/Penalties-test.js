@@ -25,10 +25,10 @@ describe('Penalties', function () {
             });
         });
 
-        context('#finishTime', function () {
+        context('#finishDate', function () {
             it('should set the time to the final goal time', function () {
                 var goals = [];
-                var finishTime = penalties.finishTime.getTime();
+                var finishTime = penalties.finishDate.getTime();
 
                 penalties.goalManager.forEach(function (goal) {
                     goals.push(goal);

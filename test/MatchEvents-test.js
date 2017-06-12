@@ -75,7 +75,7 @@ describe('MatchEvents', function () {
     describe('#onFullTime()', function () {
         it('should call onDate', function (done) {
             events.timeEvents.onDate = function (callback, date) {
-                assert.equal(date, match.finishTime);
+                assert.equal(date, match.finishDate);
 
                 callback();
             };

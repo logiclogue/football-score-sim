@@ -40,7 +40,7 @@ describe('Match', function () {
 
         context('creating the first half of extra time', function () {
             it('should start 5 minutes after second half ended', function () {
-                var secondHalfFinish = match.secondHalf.finishTime;
+                var secondHalfFinish = match.secondHalf.finishDate;
                 var secondHalfFinishTime = secondHalfFinish.getTime();
                 var expectedStartTime = secondHalfFinishTime + (5 * 60000);
                 var thisStart = match.extraTimeFirstHalf.startDate;
@@ -56,7 +56,7 @@ describe('Match', function () {
 
         context('creating the second half of extra time', function () {
             it('should start 5 minutes after first half of ET', function () {
-                var firstHalfETFinish = match.extraTimeFirstHalf.finishTime;
+                var firstHalfETFinish = match.extraTimeFirstHalf.finishDate;
                 var firstHalfETFinishTime = firstHalfETFinish.getTime();
                 var secondHalfETStart = match.extraTimeSecondHalf.startDate;
                 var secondHalfETStartTime = secondHalfETStart.getTime();
@@ -75,7 +75,7 @@ describe('Match', function () {
         context('creating penalties', function () {
             it('should start 5 minutes after second half of ET', function () {
                 var previous = match.extraTimeSecondHalf;
-                var previousFinishTime = previous.finishTime.getTime();
+                var previousFinishTime = previous.finishDate.getTime();
                 var expectedStartTime = previousFinishTime + (5 * 60000);
                 var actualStartTime = match.penalties.startDate.getTime();
 
@@ -83,22 +83,22 @@ describe('Match', function () {
             });
         });
 
-        context('sets #finishTime to return of #getFinishTime', function () {
-            assert.equal(match.finishTime, match.getFinishTime());
+        context('sets #finishDate to return of #getFinishDate', function () {
+            assert.equal(match.finishDate, match.getFinishDate());
         });
     });
 
-    describe('#getFinishTime()', function () {
+    describe('#getFinishDate()', function () {
         var match = new Match(common.matchParams);
 
         context('#wentToExtraTime and #wentToPenalties are false', function () {
             match.wentToExtraTime = false;
             match.wentToPenalties = false;
 
-            var finishTime = match.getFinishTime().getTime();
+            var finishTime = match.getFinishDate().getTime();
 
             it('should return second half finish time', function () {
-                var expectedFinishTime = match.secondHalf.finishTime.getTime();
+                var expectedFinishTime = match.secondHalf.finishDate.getTime();
 
                 assert.equal(finishTime, expectedFinishTime);
             });
@@ -108,11 +108,11 @@ describe('Match', function () {
             match.wentToExtraTime = true;
             match.wentToPenalties = false;
 
-            var finishTime = match.getFinishTime().getTime();
+            var finishTime = match.getFinishDate().getTime();
 
             it('should return second half ET finish time', function () {
                 var expectedFinishTime = match.extraTimeSecondHalf
-                    .finishTime
+                    .finishDate
                     .getTime();
                 
                 assert.equal(finishTime, expectedFinishTime);
@@ -123,12 +123,12 @@ describe('Match', function () {
             match.wentToExtraTime = true;
             match.wentToPenalties = true;
 
-            var finishTime = match.getFinishTime();
+            var finishDate = match.getFinishDate();
 
             it('should return penalties finish time', function () {
-                var expectedFinishTime = match.penalties.finishTime;
+                var expectedFinishDate = match.penalties.finishDate;
                 
-                assert.equal(finishTime, expectedFinishTime);
+                assert.equal(finishDate, expectedFinishDate);
             });
         });
 
@@ -136,12 +136,12 @@ describe('Match', function () {
             match.wentToExtraTime = false;
             match.wentToPenalties = true;
 
-            var finishTime = match.getFinishTime();
+            var finishDate = match.getFinishDate();
 
             it('should return penalties finish time', function () {
-                var expectedFinishTime = match.penalties.finishTime;
+                var expectedFinishDate = match.penalties.finishDate;
                 
-                assert.equal(finishTime, expectedFinishTime);
+                assert.equal(finishDate, expectedFinishDate);
             });
         });
     });

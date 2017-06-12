@@ -37,7 +37,7 @@ function Match(options) {
     this.penaltiesScore = [];
     this.winner = null; // Team or null if draw
     this.startDate = options.startDate || new Date();
-    this.finishTime;
+    this.finishDate;
 
     //
     this._createHalfInstances();
@@ -55,7 +55,7 @@ function Match(options) {
         this._checkOtherPeriods();
         this._setScores();
         this._calculateWinner();
-        this.finishTime = this.getFinishTime();
+        this.finishDate = this.getFinishDate();
 
         return this.score;
     };
@@ -63,14 +63,14 @@ function Match(options) {
     /*
      * Gets the finish time.
      */
-    proto_.getFinishTime = function () {
+    proto_.getFinishDate = function () {
         if (!this.wentToExtraTime && !this.wentToPenalties) {
-            return this.secondHalf.finishTime;
+            return this.secondHalf.finishDate;
         } else if (this.wentToExtraTime && !this.wentToPenalties) {
-            return this.extraTimeSecondHalf.finishTime;
+            return this.extraTimeSecondHalf.finishDate;
         }
 
-        return this.penalties.finishTime;
+        return this.penalties.finishDate;
     };
 
 
@@ -152,26 +152,26 @@ function Match(options) {
         this.secondHalf = this._newHalf({
             seed: 'secondHalf',
             length: 45,
-            endOfPrevious: this.firstHalf.finishTime,
+            endOfPrevious: this.firstHalf.finishDate,
             lengthAfterPrevious: 15
         });
 
         this.extraTimeFirstHalf = this._newHalf({
             seed: 'extraTimeFirstHalf',
             length: 15,
-            endOfPrevious: this.secondHalf.finishTime,
+            endOfPrevious: this.secondHalf.finishDate,
             lengthAfterPrevious: 5
         });
 
         this.extraTimeSecondHalf = this._newHalf({
             seed: 'extraTimeSecondHalf',
             length: 15,
-            endOfPrevious: this.extraTimeFirstHalf.finishTime,
+            endOfPrevious: this.extraTimeFirstHalf.finishDate,
             lengthAfterPrevious: 5
         });
 
         this.penalties = this._createPenalties({
-            endOfPrevious: this.extraTimeSecondHalf.finishTime,
+            endOfPrevious: this.extraTimeSecondHalf.finishDate,
             lengthAfterPrevious: 5
         });
     };

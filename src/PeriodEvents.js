@@ -20,7 +20,7 @@ function PeriodEvents(options) {
      * Calls the callback when the period ends.
      */
     proto_.onFinish = function (callback) {
-        this.timeEvents.onDate(callback, this.period.finishTime);
+        this.timeEvents.onDate(callback, this.period.finishDate);
     };
     
 }(PeriodEvents.prototype));

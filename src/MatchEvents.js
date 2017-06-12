@@ -33,7 +33,7 @@ function MatchEvents(options) {
      * Call the callback when the match ends.
      */
     proto_.onFullTime = function (callback) {
-        this.timeEvents.onDate(callback, this.match.finishTime);
+        this.timeEvents.onDate(callback, this.match.finishDate);
     };
     
 }(MatchEvents.prototype, MatchEvents));
