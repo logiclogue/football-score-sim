@@ -47,7 +47,7 @@ function GoalGenerator(options) {
             goalsArray.push(new Goal({
                 period: this.period,
                 team: this.teamScoring,
-                time: this._getGoalTime(seed + ' ' + goals)
+                date: this._getGoalDate(seed + ' ' + goals)
             }));
         }
 
@@ -56,10 +56,10 @@ function GoalGenerator(options) {
 
 
     /*
-     * Returns the time the goal was scored, from the given seed, in
+     * Returns the date the goal was scored, from the given seed, in
      * milliseconds.
      */
-    proto_._getGoalTime = function (seed) {
+    proto_._getGoalDate = function (seed) {
         seed += ' goaltime';
 
         var startTime = this.period.startDate.getTime();

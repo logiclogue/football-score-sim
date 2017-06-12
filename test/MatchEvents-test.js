@@ -11,7 +11,7 @@ describe('MatchEvents', function () {
     date.setSeconds(date.getSeconds() + 1);
 
     var goal = new Goal({
-        time: date,
+        date: date,
         team: match.teamA
     });
 

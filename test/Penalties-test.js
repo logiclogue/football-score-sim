@@ -35,17 +35,17 @@ describe('Penalties', function () {
                 });
 
                 goals.sort(function (a, b) {
-                    return b.time.getTime() - a.time.getTime();
+                    return b.date.getTime() - a.date.getTime();
                 });
 
-                assert.equal(finishTime, goals[0].time.getTime());
+                assert.equal(finishTime, goals[0].date.getTime());
             });
         });
 
         context('goals', function () {
             it('should set the start times of each of the goals', function () {
                 penalties.goalManager.forEach(function (goal) {
-                    assert.instanceOf(goal.time, Date);
+                    assert.instanceOf(goal.date, Date);
                 });
             });
 
@@ -58,15 +58,15 @@ describe('Penalties', function () {
                 });
 
                 goals.sort(function (a, b) {
-                    return a.time.getTime() - b.time.getTime();
+                    return a.date.getTime() - b.date.getTime();
                 });
 
                 goals.forEach(function (goal) {
                     assert.isAtLeast(
-                        goal.time.getTime(),
+                        goal.date.getTime(),
                         firstGoalTime + 60000);
 
-                    firstGoalTime = goal.time.getTime();
+                    firstGoalTime = goal.date.getTime();
                 });
             });
         });

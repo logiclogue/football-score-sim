@@ -1,5 +1,5 @@
 function Goal(options) {
-    this.time = options.time;
+    this.date = options.date;
     this.team = options.team;
     this.period = options.period;
 }

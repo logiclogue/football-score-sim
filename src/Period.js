@@ -44,7 +44,7 @@ function Period(options) {
     };
 
     /*
-     * Returns the finish time.
+     * Returns the finish date.
      */
     proto_.getFinishDate = function () {
         var startTime = this.startDate.getTime();

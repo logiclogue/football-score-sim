@@ -83,7 +83,7 @@ function Penalties(options) {
     proto_.scorePenalty = function (teamIndex, turn) {
         var team = this.teams[teamIndex];
         var goal = new Goal({
-            time: this._getGoalTime(teamIndex, turn),
+            date: this._getGoalDate(teamIndex, turn),
             team: team,
             period: this
         });
@@ -93,7 +93,7 @@ function Penalties(options) {
         // Adds the goal to the penalty order
         this.goalOrder[teamIndex][turn] = true;
         // Sets the finish time to the current goal
-        this.finishDate = goal.time;
+        this.finishDate = goal.date;
     };
 
     /*
@@ -136,9 +136,9 @@ function Penalties(options) {
     };
 
     /*
-     * Returns the goal time.
+     * Returns the goal date.
      */
-    proto_._getGoalTime = function (teamIndex, turn) {
+    proto_._getGoalDate = function (teamIndex, turn) {
         var timeBetweenGoals = 60000;
         var turnsAfterStart = (turn * 2) + teamIndex + 1;
         var timeAfterStart = timeBetweenGoals * turnsAfterStart;
