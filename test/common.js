@@ -32,7 +32,7 @@ var matchParams = {
     teamA: teamEngland,
     teamB: teamSlovakia,
     extraTime: true,
-    penalties: true,
+    penaltyShootout: true,
     seed: 'test',
     startDate: new Date(1473687429923)
 };

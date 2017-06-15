@@ -29,7 +29,7 @@ var match = new Match({
     teamA: derby,
     teamB: united,
     extraTime: true,
-    penalties: true,
+    penaltyShootout: true,
     seed: 'example'
 });
 

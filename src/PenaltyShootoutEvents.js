@@ -1,10 +1,10 @@
 var TimeEvents = require('./TimeEvents');
 var PeriodEvents = require('./Period');
 
-function PenaltiesEvents(options) {
-    this.penalties = options.penalties;
+function PenaltyShootoutEvents(options) {
+    this.penaltyShootout = options.penaltyShootout;
     this.periodEvents = options.periodEvents || new PeriodEvents({
-        period: penalties
+        period: penaltyShootout
     });
 }
 
@@ -42,6 +42,6 @@ function PenaltiesEvents(options) {
         
     };
     
-}(PenaltiesEvents.prototype));
+}(PenaltyShootoutEvents.prototype));
 
-module.exports = PenaltiesEvents;
+module.exports = PenaltyShootoutEvents;

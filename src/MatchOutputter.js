@@ -13,7 +13,7 @@ function MatchOutputter(options) {
         var teamA = match.teamA.name;
         var teamB = match.teamB.name;
         var score = match.score;
-        var penalties = match.penaltiesScore;
+        var penalties = match.penaltyShootoutScore;
         var aet = '';
         var penaltyScore = '';
         var output = teamA + ' ' + score[0] + '-' + score[1] + ' ' + teamB;
@@ -22,7 +22,7 @@ function MatchOutputter(options) {
             aet = ' (aet)';
         }
 
-        if (match.wentToPenalties) {
+        if (match.wentToPenaltyShootout) {
             penaltyScore = ' (' + penalties[0] + '-' + penalties[1] + ')';
         }
 
@@ -44,8 +44,8 @@ function MatchOutputter(options) {
             output += this._getExtraTimeOutput();
         }
 
-        if (match.wentToPenalties) {
-            output += this._getPenaltiesOutput();
+        if (match.wentToPenaltyShootout) {
+            output += this._getPenaltyShootoutOutput();
         }
 
         return output;
@@ -63,10 +63,9 @@ function MatchOutputter(options) {
         return output;
     };
 
-    proto_._getPenaltiesOutput = function () {
-        var penalties = this.match.penalties;
-        var score = this.match.penaltiesScore;
-        var output = 'Penalties: ' + score[0] + '-' + score[1] + '\n';
+    proto_._getPenaltyShootoutOutput = function () {
+        var score = this.match.penaltyShootoutScore;
+        var output = 'Penalty Shootout: ' + score[0] + '-' + score[1] + '\n';
 
         return output;
     };

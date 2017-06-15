@@ -1,6 +1,6 @@
 var Period = require('./Period');
 var GoalManager = require('./GoalManager');
-var Penalties = require('./Penalties');
+var PenaltyShootout = require('./PenaltyShootout');
 
 
 /*
@@ -25,16 +25,16 @@ function Match(options) {
     this.secondHalf; // Period
     this.extraTimeFirstHalf; // Period
     this.extraTimeSecondHalf; // Period
-    this.penalties; // Penalties
+    this.penaltyShootout; // PenaltyShootout
     
     // Variables
     this.extraTimeEnabled = options.extraTime || false;
-    this.penaltiesEnabled = options.penalties || false;
+    this.penaltyShootoutEnabled = options.penaltyShootout || false;
     this.seed = options.seed || Date.now();
     this.wentToExtraTime = false;
-    this.wentToPenalties = false;
+    this.wentToPenaltyShootout = false;
     this.score = [];
-    this.penaltiesScore = [];
+    this.penaltyShootoutScore = [];
     this.winner = null; // Team or null if draw
     this.startDate = options.startDate || new Date();
     this.finishDate;
@@ -64,13 +64,13 @@ function Match(options) {
      * Gets the finish time.
      */
     proto_.getFinishDate = function () {
-        if (!this.wentToExtraTime && !this.wentToPenalties) {
+        if (!this.wentToExtraTime && !this.wentToPenaltyShootout) {
             return this.secondHalf.finishDate;
-        } else if (this.wentToExtraTime && !this.wentToPenalties) {
+        } else if (this.wentToExtraTime && !this.wentToPenaltyShootout) {
             return this.extraTimeSecondHalf.finishDate;
         }
 
-        return this.penalties.finishDate;
+        return this.penaltyShootout.finishDate;
     };
 
 
@@ -79,7 +79,7 @@ function Match(options) {
      */
     proto_._setScores = function () {
         this.score = this.goalManager.getScore();
-        this.penaltiesScore = this.penalties.goalManager.getScore();
+        this.penaltyShootoutScore = this.penaltyShootout.goalManager.getScore();
 
         this._everyGoal.append(this.goalManager);
     };
@@ -90,7 +90,7 @@ function Match(options) {
      */
     proto_._checkOtherPeriods = function () {
         this._checkExtraTime();
-        this._checkPenalties();
+        this._checkPenaltyShootout();
     };
 
     proto_._checkExtraTime = function () {
@@ -100,11 +100,11 @@ function Match(options) {
         }
     };
 
-    proto_._checkPenalties = function () {
-        if (this.penaltiesEnabled && this._isDraw()) {
-            this.wentToPenalties = true;
-            this.penalties.simulate();
-            this._everyGoal.append(this.penalties.goalManager);
+    proto_._checkPenaltyShootout = function () {
+        if (this.penaltyShootoutEnabled && this._isDraw()) {
+            this.wentToPenaltyShootout = true;
+            this.penaltyShootout.simulate();
+            this._everyGoal.append(this.penaltyShootout.goalManager);
         }
     };
 
@@ -170,7 +170,7 @@ function Match(options) {
             lengthAfterPrevious: 5
         });
 
-        this.penalties = this._createPenalties({
+        this.penaltyShootout = this._createPenaltyShootout({
             endOfPrevious: this.extraTimeSecondHalf.finishDate,
             lengthAfterPrevious: 5
         });
@@ -197,13 +197,13 @@ function Match(options) {
     /*
      * Creates a penalty shootout.
      */
-    proto_._createPenalties = function (options) {
+    proto_._createPenaltyShootout = function (options) {
         var startDate = this._dateMinutesAfter(
             options.endOfPrevious,
             options.lengthAfterPrevious
         );
 
-        return new Penalties({
+        return new PenaltyShootout({
             teamA: this.teamA,
             teamB: this.teamB,
             seed: this.seed + ' ' + options.seed,

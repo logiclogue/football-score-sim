@@ -6,7 +6,7 @@ var Goal = require('./Goal');
 /*
  * Simulates the penalty shootout.
  */
-function Penalties(options) {
+function PenaltyShootout(options) {
     // Instances
     this.random = options.random || random;
     this.goalManager = new GoalManager({
@@ -147,6 +147,6 @@ function Penalties(options) {
         return new Date(time);
     };
 
-}(Penalties, Penalties.prototype));
+}(PenaltyShootout, PenaltyShootout.prototype));
 
-module.exports = Penalties;
+module.exports = PenaltyShootout;

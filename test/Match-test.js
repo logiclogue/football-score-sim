@@ -72,12 +72,12 @@ describe('Match', function () {
             });
         });
 
-        context('creating penalties', function () {
+        context('creating penalty shootout', function () {
             it('should start 5 minutes after second half of ET', function () {
                 var previous = match.extraTimeSecondHalf;
                 var previousFinishTime = previous.finishDate.getTime();
                 var expectedStartTime = previousFinishTime + (5 * 60000);
-                var actualStartTime = match.penalties.startDate.getTime();
+                var actualStartTime = match.penaltyShootout.startDate.getTime();
 
                 assert.equal(actualStartTime, expectedStartTime);
             });
@@ -91,9 +91,9 @@ describe('Match', function () {
     describe('#getFinishDate()', function () {
         var match = new Match(common.matchParams);
 
-        context('#wentToExtraTime and #wentToPenalties are false', function () {
+        context('#wentToExtraTime and #wentToPenaltyShootout are false', function () {
             match.wentToExtraTime = false;
-            match.wentToPenalties = false;
+            match.wentToPenaltyShootout = false;
 
             var finishTime = match.getFinishDate().getTime();
 
@@ -104,9 +104,9 @@ describe('Match', function () {
             });
         });
 
-        context('#wentToExtraTime true, #wentToPenalties false', function () {
+        context('#wentToExtraTime true, #wentToPenaltyShootout false', function () {
             match.wentToExtraTime = true;
-            match.wentToPenalties = false;
+            match.wentToPenaltyShootout = false;
 
             var finishTime = match.getFinishDate().getTime();
 
@@ -119,27 +119,27 @@ describe('Match', function () {
             });
         });
 
-        context('#wentToExtraTime true, #wentToPenalties true', function () {
+        context('#wentToExtraTime true, #wentToPenaltyShootout true', function () {
             match.wentToExtraTime = true;
-            match.wentToPenalties = true;
+            match.wentToPenaltyShootout = true;
 
             var finishDate = match.getFinishDate();
 
-            it('should return penalties finish time', function () {
-                var expectedFinishDate = match.penalties.finishDate;
+            it('should return penalty shootout finish time', function () {
+                var expectedFinishDate = match.penaltyShootout.finishDate;
                 
                 assert.equal(finishDate, expectedFinishDate);
             });
         });
 
-        context('#wentToExtraTime false, #wentToPenalties true', function () {
+        context('#wentToExtraTime false, #wentToPenaltyShootout true', function () {
             match.wentToExtraTime = false;
-            match.wentToPenalties = true;
+            match.wentToPenaltyShootout = true;
 
             var finishDate = match.getFinishDate();
 
-            it('should return penalties finish time', function () {
-                var expectedFinishDate = match.penalties.finishDate;
+            it('should return penalty shootout finish time', function () {
+                var expectedFinishDate = match.penaltyShootout.finishDate;
                 
                 assert.equal(finishDate, expectedFinishDate);
             });
