@@ -38,10 +38,19 @@ var matchParams = {
 };
 
 
+var penaltyShootoutParams = {
+    teamA: teamEngland,
+    teamB: teamSlovakia,
+    seed: 'test',
+    statDate: new Date(0)
+};
+
+
 module.exports = {
     teamEngland: teamEngland,
     teamSlovakia: teamSlovakia,
     fullMatchPeriod: fullMatchPeriod,
     goalGenerator: goalGenerator,
-    matchParams: matchParams
+    matchParams: matchParams,
+    penaltyShootoutParams: penaltyShootoutParams
 };

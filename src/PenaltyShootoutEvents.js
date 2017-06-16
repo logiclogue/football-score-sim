@@ -4,8 +4,9 @@ var PeriodEvents = require('./Period');
 function PenaltyShootoutEvents(options) {
     this.penaltyShootout = options.penaltyShootout;
     this.periodEvents = options.periodEvents || new PeriodEvents({
-        period: penaltyShootout
+        period: this.penaltyShootout
     });
+    this.timeEvents = options.timeEvents || new TimeEvents();
 }
 
 (function (proto_) {
@@ -14,7 +15,7 @@ function PenaltyShootoutEvents(options) {
      * Calls the callback with the goal object when a penalty shootout goal is
      * scored.
      */
-    proto_.onGoal = function () {
+    proto_.onGoal = function (callback) {
         
     };
 
@@ -22,7 +23,7 @@ function PenaltyShootoutEvents(options) {
      * Calls the callback when a penalty is missed, with a goal object.
      * The goal object behaves as a miss to show which team missed.
      */
-    proto_.onMiss = function () {
+    proto_.onMiss = function (callback) {
         
     };
 
@@ -30,7 +31,7 @@ function PenaltyShootoutEvents(options) {
      * Calls the callback when the penalty shootout starts.
      * It uses the internal PeriodEvents object.
      */
-    proto_.onStart = function () {
+    proto_.onStart = function (callback) {
         
     };
 
@@ -38,7 +39,7 @@ function PenaltyShootoutEvents(options) {
      * Calls the callback went the penalty shootout finished.
      * It uses the internal PeriodEvents object.
      */
-    proto_.onFinish = function () {
+    proto_.onFinish = function (callback) {
         
     };
     
