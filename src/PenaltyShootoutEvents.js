@@ -6,6 +6,7 @@ function PenaltyShootoutEvents(options) {
     this.periodEvents = options.periodEvents || new PeriodEvents({
         period: this.penaltyShootout
     });
+    this.goalManager = this.penaltyShootout.goalManager;
     this.timeEvents = options.timeEvents || new TimeEvents();
 }
 
@@ -16,7 +17,11 @@ function PenaltyShootoutEvents(options) {
      * scored.
      */
     proto_.onGoal = function (callback) {
-        
+        this.goalManager.forEach(function (goal) {
+            var boundCallback = callback.bind(this, goal);
+
+            this.timeEvents.onDate(boundCallback, goal.date);
+        }.bind(this));
     };
 
     /*
@@ -32,7 +37,9 @@ function PenaltyShootoutEvents(options) {
      * It uses the internal PeriodEvents object.
      */
     proto_.onStart = function (callback) {
-        
+        var startDate = this.penaltyShootout.startDate;
+
+        this.timeEvents.onDate(callback, startDate);
     };
 
     /*
@@ -40,7 +47,9 @@ function PenaltyShootoutEvents(options) {
      * It uses the internal PeriodEvents object.
      */
     proto_.onFinish = function (callback) {
-        
+        var finishDate = this.penaltyShootout.finishDate;
+
+        this.timeEvents.onDate(callback, finishDate);
     };
     
 }(PenaltyShootoutEvents.prototype));

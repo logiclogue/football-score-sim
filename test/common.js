@@ -42,7 +42,7 @@ var penaltyShootoutParams = {
     teamA: teamEngland,
     teamB: teamSlovakia,
     seed: 'test',
-    statDate: new Date(0)
+    startDate: new Date(0)
 };
 
 
