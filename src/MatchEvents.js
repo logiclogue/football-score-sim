@@ -13,8 +13,6 @@ function MatchEvents(options) {
      * Call the callback when a goal is scored.
      */
     proto_.onGoal = function (callback) {
-        var dateNow = Date.now();
-
         this.goalManager.forEach(function (goal) {
             var boundCallback = callback.bind(this, goal);
 
