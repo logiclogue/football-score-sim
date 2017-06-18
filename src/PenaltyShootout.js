@@ -13,6 +13,10 @@ function PenaltyShootout(options) {
         teamA: options.teamA,
         teamB: options.teamB
     });
+    this.missManager = new GoalManager({
+        teamA: options.teamA,
+        teamB: options.teamB
+    });
     
     // Variables
     this.teams = [
