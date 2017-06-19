@@ -7,6 +7,7 @@ function PenaltyShootoutEvents(options) {
         period: this.penaltyShootout
     });
     this.goalManager = this.penaltyShootout.goalManager;
+    this.missedGoalManager = this.penaltyShootout.missedGoalManager;
     this.timeEvents = options.timeEvents || new TimeEvents();
 }
 
@@ -29,7 +30,11 @@ function PenaltyShootoutEvents(options) {
      * The goal object behaves as a miss to show which team missed.
      */
     proto_.onMiss = function (callback) {
-        
+        this.missedGoalManager.forEach(function (miss) {
+            var boundCallback = callback.bind(this, miss);
+
+            this.timeEvents.onDate(boundCallback, miss.date);
+        }.bind(this));
     };
 
     /*

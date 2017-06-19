@@ -58,6 +58,24 @@ describe('PenaltyShootoutEvents', function () {
         });
     });
 
+    describe('#onMiss', function () {
+        before(function () {
+            events.timeEvents.onDate = function (callback, date) {
+                callback();
+            };
+        });
+
+        it('should call #onDate', function () {
+            var hasBeenCalled = false;
+
+            events.onMiss(function () {
+                hasBeenCalled = true;
+            });
+
+            assert.isTrue(hasBeenCalled);
+        });
+    });
+
     describe('#onStart()', function () {
         before(function () {
             events.timeEvents.onDate = function (callback, date) {
