@@ -70,5 +70,37 @@ describe('PenaltyShootout', function () {
                 });
             });
         });
+
+        context('missed goals', function () {
+            it('should have as many misses as displayed', function () {
+                var goalManager = penaltyShootout.missedGoalManager;
+                var teamAMisses = goalManager.goals[0].length;
+                var teamBMisses = goalManager.goals[1].length;
+
+                assert.equal(teamAMisses, 2);
+                assert.equal(teamBMisses, 1);
+            });
+
+            it('should set each miss to have a time', function () {
+                var misses = [];
+                var firstMissTime = penaltyShootout.startDate.getTime();
+
+                penaltyShootout.missedGoalManager.forEach(function (miss) {
+                    misses.push(miss);
+                });
+
+                misses.sort(function (a, b) {
+                    return a.date.getTime() - b.date.getTime();
+                });
+
+                misses.forEach(function (miss) {
+                    assert.isAtLeast(
+                        miss.date.getTime(),
+                        firstMissTime + 60000);
+
+                    firstMissTime = miss.date.getTime();
+                });
+            });
+        });
     });
 });

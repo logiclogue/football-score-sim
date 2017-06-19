@@ -13,7 +13,7 @@ function PenaltyShootout(options) {
         teamA: options.teamA,
         teamB: options.teamB
     });
-    this.missManager = new GoalManager({
+    this.missedGoalManager = new GoalManager({
         teamA: options.teamA,
         teamB: options.teamB
     });
@@ -104,8 +104,16 @@ function PenaltyShootout(options) {
      * Misses a penalty for the team selected by the teamIndex.
      */
     proto_.missPenalty = function (teamIndex, turn) {
-        // Adds the miss to the penalty order
+        var team = this.teams[teamIndex];
+        var miss = new Goal({
+            date: this._getGoalDate(teamIndex, turn),
+            team: team,
+            period: this
+        });
+
+        this.missedGoalManager.addGoals(teamIndex, [miss]);
         this.goalOrder[teamIndex][turn] = false;
+        this.finishDate = miss.date;
     };
 
     /*
