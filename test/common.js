@@ -1,6 +1,7 @@
 var Team = require('../src/Team');
 var Period = require('../src/Period');
 var GoalGenerator = require('../src/GoalGenerator');
+var GoalManager = require('../src/GoalManager');
 
 
 var teamEngland = new Team({
