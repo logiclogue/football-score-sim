@@ -84,4 +84,61 @@ describe('MatchEvents', function () {
             assert.equal(actualCallback, expectedCallback);
         });
     });
+
+    describe('#onSecondHalfKickOff', function () {
+        it('should call second half onStart', function () {
+            // arrange
+            var expectedCallback = function () {};
+            var actualCallback;
+
+            events.secondHalfEvents.onStart = function (callback) {
+                actualCallback = callback;
+            };
+
+            // act
+            events.onSecondHalfKickOff(expectedCallback);
+
+            // assert
+            assert.equal(actualCallback, expectedCallback);
+        });
+    });
+
+    describe('#onEndOf90Mins', function () {
+        context('going to extra time', function () {
+            it('should call second half onFinish', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
+
+                events.secondHalfEvents.onFinish = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onSecondHalfKickOff(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+
+        context('full-time at 90 minutes' , function () {
+            it('shouldn\'t call second half onFinish', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
+
+                events.firstHalfEvents.onFinish = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onHalfTime(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+
+    });
 });

@@ -13,6 +13,9 @@ function MatchEvents(options) {
     this.firstHalfEvents = new PeriodEvents({
         period: this.match.firstHalf
     });
+    this.secondHalfEvents = new PeriodEvents({
+        period: this.match.secondHalf
+    });
 }
 
 (function (proto_, static_) {
@@ -42,7 +45,7 @@ function MatchEvents(options) {
      * Call the callback when the second half starts.
      */
     proto_.onSecondHalfKickOff = function (callback) {
-        
+        this.secondHalfEvents.onStart(callback);
     };
 
     /*
