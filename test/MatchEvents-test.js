@@ -23,40 +23,23 @@ describe('MatchEvents', function () {
     });
 
     describe('#onGoal()', function () {
-        it('should call onDate', function (done) {
-            var hasCalledDone = false;
+        it('should call goalEvents.onGoal', function () {
+            // arrange
+            var hasCalled = false;
+            var expectedCallback = function () {};
+            var givenCallback;
 
-            events.timeEvents.onDate = function (callback, goalDate) {
-                if (goalDate === date) {
-                    done();
-                }
+            events.goalEvents.onGoal = function (callback) {
+                hasCalled = true;
+                givenCallback = callback;
             };
 
-            events.onGoal(function () {});
-        });
+            // act
+            events.onGoal(expectedCallback);
 
-        it('should callback with the goal', function () {
-            events.timeEvents.onDate = function (callback, date) {
-                callback();
-            };
-
-            events.onGoal(function (goal) {
-                assert.instanceOf(goal, Goal);
-            });
-        });
-
-        it('should callback with each goal different', function () {
-            var goals = [];
-
-            events.timeEvents.onDate = function (callback, date) {
-                callback();
-            };
-
-            events.onGoal(function (goal) {
-                assert.notInclude(goals, goal);
-
-                goals.push(goal);
-            });
+            // assert
+            assert.isTrue(hasCalled);
+            assert.equal(givenCallback, expectedCallback);
         });
     });
 
