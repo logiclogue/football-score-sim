@@ -6,7 +6,9 @@ function MatchEvents(options) {
     this.match = options.match;
     this.goalManager = this.match.goalManager;
     this.timeEvents = options.timeEvents || new TimeEvents();
-    this.goalEvents = options.goalEvents || new GoalEvents();
+    this.goalEvents = options.goalEvents || new GoalEvents({
+        goalManager: this.goalManager
+    });
 }
 
 (function (proto_, static_) {
