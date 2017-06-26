@@ -110,12 +110,35 @@ describe('MatchEvents', function () {
                 var expectedCallback = function () {};
                 var actualCallback;
 
+                match.wentToExtraTime = true;
+
                 events.secondHalfEvents.onFinish = function (callback) {
                     actualCallback = callback;
                 };
 
                 // act
-                events.onSecondHalfKickOff(expectedCallback);
+                events.onEndOf90Mins(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+
+        context('going to penalties', function () {
+            it('should call second half onFinish', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
+
+                match.wentToExtraTime = false;
+                match.wentToPenaltyShootout = true;
+
+                events.secondHalfEvents.onFinish = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onEndOf90Mins(expectedCallback);
 
                 // assert
                 assert.equal(actualCallback, expectedCallback);
@@ -128,12 +151,15 @@ describe('MatchEvents', function () {
                 var expectedCallback = function () {};
                 var actualCallback;
 
-                events.firstHalfEvents.onFinish = function (callback) {
+                match.wentToExtraTime = false;
+                match.wentToPenaltyShootout = true;
+
+                events.secondHalfEvents.onFinish = function (callback) {
                     actualCallback = callback;
                 };
 
                 // act
-                events.onHalfTime(expectedCallback);
+                events.onEndOf90Mins(expectedCallback);
 
                 // assert
                 assert.equal(actualCallback, expectedCallback);

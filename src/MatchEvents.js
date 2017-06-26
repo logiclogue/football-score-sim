@@ -53,7 +53,15 @@ function MatchEvents(options) {
      * extra time to be played.
      */
     proto_.onEndOf90Mins = function (callback) {
-        
+        var wentToExtraTime = this.match.wentToExtraTime;
+        var wentToPenaltyShootout = this.match.wentToPenaltyShootout;
+        var matchEnds = !wentToExtraTime && !wentToPenaltyShootout;
+
+        if (matchEnds) {
+            return;
+        }
+
+        this.secondHalfEvents.onFinish(callback);
     };
 
     /*
