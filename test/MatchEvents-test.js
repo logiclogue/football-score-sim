@@ -165,6 +165,5 @@ describe('MatchEvents', function () {
                 assert.equal(actualCallback, expectedCallback);
             });
         });
-
     });
 });

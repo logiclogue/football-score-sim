@@ -108,6 +108,13 @@ function MatchEvents(options) {
     };
 
     /*
+     * Call the callback when there has been a miss in the penalty shootout.
+     */
+    proto_.onPenaltyShootoutMiss = function () {
+        
+    };
+
+    /*
      * Call the callback when the match ends.
      */
     proto_.onFullTime = function (callback) {
