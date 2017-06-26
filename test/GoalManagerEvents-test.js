@@ -84,5 +84,33 @@ describe('GoalManagerEvents', function () {
 
             assert.isTrue(hasCalled);
         });
+
+        it('should callback with the live score', function () {
+            // arrange
+            var hasCalled = false;
+            var goal;
+            var goalManager;
+
+            events.timeEvents.onDate = function (callback, date) {
+                if (hasCalled) {
+                    return;
+                }
+
+                callback();
+
+                hasCalled = true;
+            };
+
+            // act
+            events.onGoal(function (goalGiven, goalManagerGiven) {
+                goal = goalGiven;
+                goalManager = goalManagerGiven;
+            });
+
+            // assert
+            assert.deepEqual(goalManager.getScore(), [1, 0]);
+            assert.equal(goalManager.goals[0][0], goals[0]);
+            assert.isTrue(hasCalled);
+        });
     });
 });
