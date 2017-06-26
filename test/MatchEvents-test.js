@@ -66,4 +66,22 @@ describe('MatchEvents', function () {
             events.onFullTime(done);
         });
     });
+
+    describe('#onHalfTime', function () {
+        it('should call first half onFinish', function () {
+            // arrange
+            var expectedCallback = function () {};
+            var actualCallback;
+
+            events.firstHalfEvents.onFinish = function (callback) {
+                actualCallback = callback;
+            };
+
+            // act
+            events.onHalfTime(expectedCallback);
+
+            // assert
+            assert.equal(actualCallback, expectedCallback);
+        });
+    });
 });

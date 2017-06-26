@@ -1,5 +1,6 @@
 var TimeEvents = require('./TimeEvents');
 var GoalEvents = require('./GoalEvents');
+var PeriodEvents = require('./PeriodEvents');
 
 function MatchEvents(options) {
     // Instances
@@ -8,6 +9,9 @@ function MatchEvents(options) {
     this.timeEvents = options.timeEvents || new TimeEvents();
     this.goalEvents = options.goalEvents || new GoalEvents({
         goalManager: this.goalManager
+    });
+    this.firstHalfEvents = new PeriodEvents({
+        period: this.match.firstHalf
     });
 }
 
@@ -31,7 +35,7 @@ function MatchEvents(options) {
      * Call the callback when it's half-time.
      */
     proto_.onHalfTime = function (callback) {
-        
+        this.firstHalfEvents.onFinish(callback);
     };
 
     /*
