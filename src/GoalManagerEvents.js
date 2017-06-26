@@ -9,11 +9,11 @@ function GoalManagerEvents(options) {
 (function (proto_) {
 
     proto_.onGoal = function (callback) {
-        //this.goalManager.forEach(function (goal) {
-        //    var boundCallback = callback.bind(this, goal);
+        this.goalManager.forEach(function (goal) {
+            var boundCallback = callback.bind(this, goal);
 
-        //    this.timeEvents.onDate(boundCallback, goal.date);
-        //}.bind(this));
+            this.timeEvents.onDate(boundCallback, goal.date);
+        }.bind(this));
     };
     
 }(GoalManagerEvents.prototype));

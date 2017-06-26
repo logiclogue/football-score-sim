@@ -45,27 +45,44 @@ describe('GoalManagerEvents', function () {
         });
 
         it('should callback with the goal', function () {
+            // arrange
+            var hasCalled = false;
+
             events.timeEvents.onDate = function (callback, date) {
                 callback();
             };
 
+            // act
             events.onGoal(function (goal) {
+                hasCalled = true;
+
+                // assert
                 assert.instanceOf(goal, Goal);
             });
+
+            assert.isTrue(hasCalled);
         });
 
         it('should callback with each goal different', function () {
+            // arrange
             var goals = [];
+            var hasCalled = false;
 
             events.timeEvents.onDate = function (callback, date) {
                 callback();
+
+                hasCalled = true;
             };
 
+            // act
             events.onGoal(function (goal) {
+                // assert
                 assert.notInclude(goals, goal);
 
                 goals.push(goal);
             });
+
+            assert.isTrue(hasCalled);
         });
     });
 });
