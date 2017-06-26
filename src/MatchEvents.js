@@ -1,10 +1,12 @@
 var TimeEvents = require('./TimeEvents');
+var GoalEvents = require('./GoalEvents');
 
 function MatchEvents(options) {
     // Instances
     this.match = options.match;
     this.goalManager = this.match.goalManager;
     this.timeEvents = options.timeEvents || new TimeEvents();
+    this.goalEvents = options.goalEvents || new GoalEvents();
 }
 
 (function (proto_, static_) {

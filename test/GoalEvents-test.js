@@ -1,10 +1,10 @@
 var assert = require('chai').assert;
-var GoalManagerEvents = require('../src/GoalManagerEvents');
+var GoalEvents = require('../src/GoalEvents');
 var GoalManager = require('../src/GoalManager');
 var Goal = require('../src/Goal');
 var common = require('./common');
 
-describe('GoalManagerEvents', function () {
+describe('GoalEvents', function () {
     var events;
     var goalManager;
     var goals = [
@@ -21,7 +21,7 @@ describe('GoalManagerEvents', function () {
             teamA: common.TeamEngland,
             teamB: common.TeamSlovakia
         });
-        events = new GoalManagerEvents({
+        events = new GoalEvents({
             goalManager: goalManager
         });
 

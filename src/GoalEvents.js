@@ -2,7 +2,7 @@ var GoalManager = require('./GoalManager');
 var GoalManagerFactory = require('./GoalManagerFactory');
 var TimeEvents = require('./TimeEvents');
 
-function GoalManagerEvents(options) {
+function GoalEvents(options) {
     this.goalManager = options.goalManager || new GoalManager();
     this.timeEvents = options.timeEvents || new TimeEvents();
     this.factory = options.goalManagerFactory || new GoalManagerFactory();
@@ -23,6 +23,6 @@ function GoalManagerEvents(options) {
         }.bind(this));
     };
     
-}(GoalManagerEvents.prototype));
+}(GoalEvents.prototype));
 
-module.exports = GoalManagerEvents;
+module.exports = GoalEvents;
