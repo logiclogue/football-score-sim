@@ -188,7 +188,23 @@ describe('MatchEvents', function () {
         });
 
         context('match goes to extra time', function () {
+            it('should call extraTimeFirstHalf.onStart', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
 
+                match.wentToExtraTime = true;
+
+                events.extraTimeFirstHalf.onStart = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onExtraTimeKickOff(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
         });
     });
 });

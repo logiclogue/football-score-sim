@@ -67,7 +67,11 @@ function MatchEvents(options) {
      * Call the callback when the first half of extra time is kicked off.
      */
     proto_.onExtraTimeKickOff = function (callback) {
-        
+        if (!this.match.wentToExtraTime) {
+            return;
+        }
+
+        this.extraTimeFirstHalf.onStart(callback);
     };
 
     /*
