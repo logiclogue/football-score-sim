@@ -167,22 +167,28 @@ describe('MatchEvents', function () {
         });
     });
 
-    //describe('#onExtraTimeKickOff()', function () {
-    //    context('match does not go to extra time', function () {
-    //        it('should\'t call extraTimeFirstHalf.onStart', function () {
-    //            // arrange
-    //            match.wentToExtraTime = false;
+    describe('#onExtraTimeKickOff()', function () {
+        context('match does not go to extra time', function () {
+            it('should\'t call extraTimeFirstHalf.onStart', function () {
+                // arrange
+                var hasCalled = false;
+                
+                match.wentToExtraTime = false;
 
-    //            events.extraTimeFirstHalf.onStart = function () {
-    //                actualCallback = callback;
-    //            };
+                events.extraTimeFirstHalf.onStart = function () {
+                    hasCalled = true;
+                };
 
-    //            // act
-    //        });
-    //    });
+                // act
+                events.onExtraTimeKickOff(function () {});
 
-    //    context('match goes to extra time', function () {
-    //        
-    //    });
-    //});
+                // assert
+                assert.isFalse(hasCalled);
+            });
+        });
+
+        context('match goes to extra time', function () {
+
+        });
+    });
 });

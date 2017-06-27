@@ -16,6 +16,9 @@ function MatchEvents(options) {
     this.secondHalfEvents = new PeriodEvents({
         period: this.match.secondHalf
     });
+    this.extraTimeFirstHalf = new PeriodEvents({
+        period: this.match.extraTimeFirstHalf
+    });
 }
 
 (function (proto_, static_) {
