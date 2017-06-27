@@ -1,6 +1,7 @@
 var TimeEvents = require('./TimeEvents');
 var GoalEvents = require('./GoalEvents');
 var PeriodEvents = require('./PeriodEvents');
+var PenaltyShootoutEvents = require('./PenaltyShootoutEvents');
 
 function MatchEvents(options) {
     // Instances
@@ -21,6 +22,9 @@ function MatchEvents(options) {
     });
     this.extraTimeSecondHalfEvents = new PeriodEvents({
         period: this.match.extraTimeSecondHalf
+    });
+    this.penaltyShootoutEvents = new PenaltyShootoutEvents({
+        penaltyShootout: this.match.penaltyShootout
     });
 }
 
@@ -114,15 +118,23 @@ function MatchEvents(options) {
     /*
      * Call the callback when the penalty shootout is kicked off.
      */
-    proto_.onPenaltyShootoutKickOff = function () {
-        
+    proto_.onPenaltyShootoutKickOff = function (callback) {
+        if (!this.match.wentToPenaltyShootout) {
+            return;
+        }
+
+        this.penaltyShootoutEvents.onStart(callback);
     };
 
     /*
      * Call the callback when there has been a goal in the penalty shootout.
      */
-    proto_.onPenaltyShootoutGoal = function () {
-        
+    proto_.onPenaltyShootoutGoal = function (callback) {
+        if (!this.match.wentToPenaltyShootout) {
+            return;
+        }
+
+        this.penaltyShootoutEvents.onGoal(callback);
     };
 
     /*

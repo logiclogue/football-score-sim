@@ -103,7 +103,7 @@ describe('MatchEvents', function () {
         });
     });
 
-    describe('#onEndOf90Mins', function () {
+    describe('#onEndOf90Mins()', function () {
         context('going to extra time', function () {
             it('should call second half onFinish', function () {
                 // arrange
@@ -208,7 +208,7 @@ describe('MatchEvents', function () {
         });
     });
 
-    describe('#onHalfTimeExtraTime', function () {
+    describe('#onHalfTimeExtraTime()', function () {
         context('match does not go to extra time', function () {
             it('shouldn\'t call extraTimeFirstHalfEvents.onFinish', function () {
                 // arrange
@@ -249,7 +249,7 @@ describe('MatchEvents', function () {
         });
     });
 
-    describe('#onSecondHalfETKickOff', function () {
+    describe('#onSecondHalfETKickOff()', function () {
         context('match does not go to extra time', function () {
             it('shouldn\'t call extraTimeSecondHalfEvents.onStart', function () {
                 // arrange
@@ -290,7 +290,7 @@ describe('MatchEvents', function () {
         });
     });
 
-    describe('#onEndof120Mins', function () {
+    describe('#onEndof120Mins()', function () {
         var expectedCallback;
         var actualCallback;
 
@@ -353,6 +353,86 @@ describe('MatchEvents', function () {
 
                 // act
                 events.onEndOf120Mins(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
+
+    describe('#onPenaltyShootoutKickOff()', function () {
+        var expectedCallback;
+        var actualCallback;
+
+        beforeEach(function () {
+            expectedCallback = function () {};
+            actualCallback = null;
+
+            events.penaltyShootoutEvents.onStart = function (callback) {
+                actualCallback = callback;
+            };
+        });
+
+        context('game doesn\'t go to penalties', function () {
+            it('shouldn\'t call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = false;
+
+                // act
+                events.onPenaltyShootoutKickOff(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('game goes to penalties', function () {
+            it('should call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = true;
+
+                // act
+                events.onPenaltyShootoutKickOff(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
+
+    describe('#onPenaltyShootoutGoal()', function () {
+        var expectedCallback;
+        var actualCallback;
+
+        beforeEach(function () {
+            expectedCallback = function () {};
+            actualCallback = null;
+
+            events.penaltyShootoutEvents.onGoal = function (callback) {
+                actualCallback = callback;
+            };
+        });
+
+        context('game doesn\'t go to penalties', function () {
+            it('shouldn\'t call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = false;
+
+                // act
+                events.onPenaltyShootoutGoal(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('game goes to penalties', function () {
+            it('should call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = true;
+
+                // act
+                events.onPenaltyShootoutGoal(expectedCallback);
 
                 // assert
                 assert.equal(actualCallback, expectedCallback);
