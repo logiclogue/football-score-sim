@@ -169,13 +169,13 @@ describe('MatchEvents', function () {
 
     describe('#onExtraTimeKickOff()', function () {
         context('match does not go to extra time', function () {
-            it('should\'t call extraTimeFirstHalf.onStart', function () {
+            it('should\'t call extraTimeFirstHalfEvents.onStart', function () {
                 // arrange
                 var hasCalled = false;
                 
                 match.wentToExtraTime = false;
 
-                events.extraTimeFirstHalf.onStart = function () {
+                events.extraTimeFirstHalfEvents.onStart = function () {
                     hasCalled = true;
                 };
 
@@ -188,14 +188,14 @@ describe('MatchEvents', function () {
         });
 
         context('match goes to extra time', function () {
-            it('should call extraTimeFirstHalf.onStart', function () {
+            it('should call extraTimeFirstHalfEvents.onStart', function () {
                 // arrange
                 var expectedCallback = function () {};
                 var actualCallback;
 
                 match.wentToExtraTime = true;
 
-                events.extraTimeFirstHalf.onStart = function (callback) {
+                events.extraTimeFirstHalfEvents.onStart = function (callback) {
                     actualCallback = callback;
                 };
 
@@ -210,13 +210,13 @@ describe('MatchEvents', function () {
 
     describe('#onHalfTimeExtraTime', function () {
         context('match does not go to extra time', function () {
-            it('shouldn\'t call extraTimeFirstHalf.onFinish', function () {
+            it('shouldn\'t call extraTimeFirstHalfEvents.onFinish', function () {
                 // arrange
                 var hasCalled = false;
 
                 match.wentToExtraTime = false;
 
-                events.extraTimeFirstHalf.onFinish = function (callback) {
+                events.extraTimeFirstHalfEvents.onFinish = function (callback) {
                     hasCalled = true;
                 };
 
@@ -229,14 +229,14 @@ describe('MatchEvents', function () {
         });
 
         context('match goes to extra time', function () {
-            it('should call extraTimeFirstHalf.onFinish', function () {
+            it('should call extraTimeFirstHalfEvents.onFinish', function () {
                 // arrange
                 var expectedCallback = function () {};
                 var actualCallback;
 
                 match.wentToExtraTime = true;
 
-                events.extraTimeFirstHalf.onFinish = function (callback) {
+                events.extraTimeFirstHalfEvents.onFinish = function (callback) {
                     actualCallback = callback;
                 };
 
@@ -251,13 +251,13 @@ describe('MatchEvents', function () {
 
     describe('#onSecondHalfETKickOff', function () {
         context('match does not go to extra time', function () {
-            it('shouldn\'t call extraTimeSecondHalf.onStart', function () {
+            it('shouldn\'t call extraTimeSecondHalfEvents.onStart', function () {
                 // arrange
                 var hasCalled = false;
 
                 match.wentToExtraTime = false;
 
-                events.extraTimeSecondHalf.onStart = function (callback) {
+                events.extraTimeSecondHalfEvents.onStart = function (callback) {
                     hasCalled = true;
                 };
 
@@ -270,19 +270,89 @@ describe('MatchEvents', function () {
         });
 
         context('match goes to extra time', function () {
-            it('should call extraTimeSecondHalf.onStart', function () {
+            it('should call extraTimeSecondHalfEvents.onStart', function () {
                 // arrange
                 var expectedCallback = function () {};
                 var actualCallback;
 
                 match.wentToExtraTime = true;
 
-                events.extraTimeSecondHalf.onStart = function (callback) {
+                events.extraTimeSecondHalfEvents.onStart = function (callback) {
                     actualCallback = callback;
                 };
 
                 // act
                 events.onSecondHalfETKickOff(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
+
+    describe('#onEndof120Mins', function () {
+        var expectedCallback;
+        var actualCallback;
+
+        beforeEach(function () {
+            expectedCallback = function () {};
+            actualCallback = null;
+
+            events.extraTimeSecondHalfEvents.onFinish = function (callback) {
+                actualCallback = callback;
+            };
+        });
+
+        context('match ends on 90 minutes', function () {
+            it('shouldn\'t call onFinish', function () {
+                // arrange
+                match.wentToExtraTime = false;
+                match.wentToPenaltyShootout = false;
+
+                // act
+                events.onEndOf120Mins(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('match ends on 120 minutes', function () {
+            it('shouldn\'t call onFinish', function () {
+                // arrange
+                match.wentToExtraTime = true;
+                match.wentToPenaltyShootout = false;
+
+                // act
+                events.onEndOf120Mins(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('match goes to penalties after 90 minutes', function () {
+            it('shouldn\'t call onFinish', function () {
+                // arrange
+                match.wentToExtraTime = false;
+                match.wentToPenaltyShootout = true;
+
+                // act
+                events.onEndOf120Mins(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('match goes to penalties after 120 minutes', function () {
+            it('should call onFinish', function () {
+                // arrange
+                match.wentToExtraTime = true;
+                match.wentToPenaltyShootout = true;
+
+                // act
+                events.onEndOf120Mins(expectedCallback);
 
                 // assert
                 assert.equal(actualCallback, expectedCallback);

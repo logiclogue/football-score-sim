@@ -16,10 +16,10 @@ function MatchEvents(options) {
     this.secondHalfEvents = new PeriodEvents({
         period: this.match.secondHalf
     });
-    this.extraTimeFirstHalf = new PeriodEvents({
+    this.extraTimeFirstHalfEvents = new PeriodEvents({
         period: this.match.extraTimeFirstHalf
     });
-    this.extraTimeSecondHalf = new PeriodEvents({
+    this.extraTimeSecondHalfEvents = new PeriodEvents({
         period: this.match.extraTimeSecondHalf
     });
 }
@@ -74,7 +74,7 @@ function MatchEvents(options) {
             return;
         }
 
-        this.extraTimeFirstHalf.onStart(callback);
+        this.extraTimeFirstHalfEvents.onStart(callback);
     };
 
     /*
@@ -85,7 +85,7 @@ function MatchEvents(options) {
             return;
         }
 
-        this.extraTimeFirstHalf.onFinish(callback);
+        this.extraTimeFirstHalfEvents.onFinish(callback);
     };
 
     /*
@@ -96,7 +96,7 @@ function MatchEvents(options) {
             return;
         }
 
-        this.extraTimeSecondHalf.onStart(callback);
+        this.extraTimeSecondHalfEvents.onStart(callback);
     };
 
     /*
@@ -104,7 +104,11 @@ function MatchEvents(options) {
      * still penalties.
      */
     proto_.onEndOf120Mins = function (callback) {
-        
+        if (!this.match.wentToExtraTime || !this.match.wentToPenaltyShootout) {
+            return;
+        }
+
+        this.extraTimeSecondHalfEvents.onFinish(callback);
     };
 
     /*
