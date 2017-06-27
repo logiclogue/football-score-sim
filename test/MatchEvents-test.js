@@ -248,4 +248,45 @@ describe('MatchEvents', function () {
             });
         });
     });
+
+    describe('#onSecondHalfETKickOff', function () {
+        context('match does not go to extra time', function () {
+            it('shouldn\'t call extraTimeSecondHalf.onStart', function () {
+                // arrange
+                var hasCalled = false;
+
+                match.wentToExtraTime = false;
+
+                events.extraTimeSecondHalf.onStart = function (callback) {
+                    hasCalled = true;
+                };
+
+                // act
+                events.onSecondHalfETKickOff(function () {});
+
+                // assert
+                assert.isFalse(hasCalled);
+            });
+        });
+
+        context('match goes to extra time', function () {
+            it('should call extraTimeSecondHalf.onStart', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
+
+                match.wentToExtraTime = true;
+
+                events.extraTimeSecondHalf.onStart = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onSecondHalfETKickOff(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
 });

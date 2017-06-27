@@ -19,6 +19,9 @@ function MatchEvents(options) {
     this.extraTimeFirstHalf = new PeriodEvents({
         period: this.match.extraTimeFirstHalf
     });
+    this.extraTimeSecondHalf = new PeriodEvents({
+        period: this.match.extraTimeSecondHalf
+    });
 }
 
 (function (proto_, static_) {
@@ -89,7 +92,11 @@ function MatchEvents(options) {
      * Call the callback when second half extra time kicks off.
      */
     proto_.onSecondHalfETKickOff = function (callback) {
-        
+        if (!this.match.wentToExtraTime) {
+            return;
+        }
+
+        this.extraTimeSecondHalf.onStart(callback);
     };
 
     /*
