@@ -140,8 +140,12 @@ function MatchEvents(options) {
     /*
      * Call the callback when there has been a miss in the penalty shootout.
      */
-    proto_.onPenaltyShootoutMiss = function () {
-        
+    proto_.onPenaltyShootoutMiss = function (callback) {
+        if (!this.match.wentToPenaltyShootout) {
+            return;
+        }
+
+        this.penaltyShootoutEvents.onMiss(callback);
     };
 
     /*

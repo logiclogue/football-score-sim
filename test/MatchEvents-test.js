@@ -439,4 +439,44 @@ describe('MatchEvents', function () {
             });
         });
     });
+
+    describe('#onPenaltyShootoutMiss()', function () {
+        var expectedCallback;
+        var actualCallback;
+
+        beforeEach(function () {
+            expectedCallback = function () {};
+            actualCallback = null;
+
+            events.penaltyShootoutEvents.onMiss = function (callback) {
+                actualCallback = callback;
+            };
+        });
+
+        context('game doesn\'t go to penalties', function () {
+            it('shouldn\'t call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = false;
+
+                // act
+                events.onPenaltyShootoutMiss(expectedCallback);
+
+                // assert
+                assert.isNull(actualCallback);
+            });
+        });
+
+        context('game goes to penalties', function () {
+            it('should call callback', function () {
+                // arrange
+                match.wentToPenaltyShootout = true;
+
+                // act
+                events.onPenaltyShootoutMiss(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
 });
