@@ -53,11 +53,7 @@ function MatchEvents(options) {
      * extra time to be played.
      */
     proto_.onEndOf90Mins = function (callback) {
-        var wentToExtraTime = this.match.wentToExtraTime;
-        var wentToPenaltyShootout = this.match.wentToPenaltyShootout;
-        var matchEnds = !wentToExtraTime && !wentToPenaltyShootout;
-
-        if (matchEnds) {
+        if (this._matchEndsAt90Mins()) {
             return;
         }
 
@@ -119,6 +115,14 @@ function MatchEvents(options) {
      */
     proto_.onFullTime = function (callback) {
         this.timeEvents.onDate(callback, this.match.finishDate);
+    };
+
+    proto_._matchEndsAt90Mins = function () {
+        var wentToExtraTime = this.match.wentToExtraTime;
+        var wentToPenaltyShootout = this.match.wentToPenaltyShootout;
+        var matchEnds = !wentToExtraTime && !wentToPenaltyShootout;
+
+        return matchEnds;
     };
     
 }(MatchEvents.prototype, MatchEvents));

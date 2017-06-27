@@ -152,7 +152,7 @@ describe('MatchEvents', function () {
                 var actualCallback;
 
                 match.wentToExtraTime = false;
-                match.wentToPenaltyShootout = true;
+                match.wentToPenaltyShootout = false;
 
                 events.secondHalfEvents.onFinish = function (callback) {
                     actualCallback = callback;
@@ -162,8 +162,27 @@ describe('MatchEvents', function () {
                 events.onEndOf90Mins(expectedCallback);
 
                 // assert
-                assert.equal(actualCallback, expectedCallback);
+                assert.isUndefined(actualCallback);
             });
         });
     });
+
+    //describe('#onExtraTimeKickOff()', function () {
+    //    context('match does not go to extra time', function () {
+    //        it('should\'t call extraTimeFirstHalf.onStart', function () {
+    //            // arrange
+    //            match.wentToExtraTime = false;
+
+    //            events.extraTimeFirstHalf.onStart = function () {
+    //                actualCallback = callback;
+    //            };
+
+    //            // act
+    //        });
+    //    });
+
+    //    context('match goes to extra time', function () {
+    //        
+    //    });
+    //});
 });
