@@ -207,4 +207,45 @@ describe('MatchEvents', function () {
             });
         });
     });
+
+    describe('#onHalfTimeExtraTime', function () {
+        context('match does not go to extra time', function () {
+            it('shouldn\'t call extraTimeFirstHalf.onFinish', function () {
+                // arrange
+                var hasCalled = false;
+
+                match.wentToExtraTime = false;
+
+                events.extraTimeFirstHalf.onFinish = function (callback) {
+                    hasCalled = true;
+                };
+
+                // act
+                events.onHalfTimeExtraTime(function () {});
+
+                // assert
+                assert.isFalse(hasCalled);
+            });
+        });
+
+        context('match goes to extra time', function () {
+            it('should call extraTimeFirstHalf.onFinish', function () {
+                // arrange
+                var expectedCallback = function () {};
+                var actualCallback;
+
+                match.wentToExtraTime = true;
+
+                events.extraTimeFirstHalf.onFinish = function (callback) {
+                    actualCallback = callback;
+                };
+
+                // act
+                events.onHalfTimeExtraTime(expectedCallback);
+
+                // assert
+                assert.equal(actualCallback, expectedCallback);
+            });
+        });
+    });
 });

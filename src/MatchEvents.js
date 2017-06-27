@@ -78,7 +78,11 @@ function MatchEvents(options) {
      * Call the callback when it's half time extra time.
      */
     proto_.onHalfTimeExtraTime = function (callback) {
-        
+        if (!this.match.wentToExtraTime) {
+            return;
+        }
+
+        this.extraTimeFirstHalf.onFinish(callback);
     };
 
     /*
