@@ -7,10 +7,9 @@ describe('Seed', function () {
     var base = 'base';
 
     beforeEach(function () {
-        seed = new Seed({
-            delimiter: delimiter,
-            values: base
-        });
+        seed = new Seed();
+        seed.setDelimiter(delimiter);
+        seed.setValue(base);
     });
 
     describe('#getValue()', function () {

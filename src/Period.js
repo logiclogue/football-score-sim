@@ -1,6 +1,7 @@
 var Goal = require('./Goal');
 var GoalGenerator = require('./GoalGenerator');
 var GoalManager = require('./GoalManager');
+var Seed = require('./Seed');
 
 
 function Period(options) {
@@ -16,7 +17,7 @@ function Period(options) {
     this.length = options.length || 2700000; // or 45 minutes in milliseconds
     this.startDate = options.startDate || new Date();
     this.finishDate = this.getFinishDate();
-    this.seed = options.seed;
+    this.seed = options.seed || new Seed();
 }
 
 (function (proto_) {
@@ -29,13 +30,13 @@ function Period(options) {
             period: this,
             teamScoring: this.teamA,
             teamConceding: this.teamB,
-            seed: this.seed + ' A'
+            seed: this.seed.clone().append('A')
         });
         var goalGeneratorB = new GoalGenerator({
             period: this,
             teamScoring: this.teamB,
             teamConceding: this.teamA,
-            seed: this.seed + ' B'
+            seed: this.seed.clone().append('B')
         });
         var addGoals = this.goalManager.addGoals.bind(this.goalManager);
 

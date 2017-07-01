@@ -1,6 +1,7 @@
 var random = require('seeded-random');
 var GoalManager = require('./GoalManager');
 var Goal = require('./Goal');
+var Seed = require('./Seed');
 
 
 /*
@@ -23,8 +24,8 @@ function PenaltyShootout(options) {
         options.teamA,
         options.teamB
     ];
-    this.seed = options.seed || Math.random();
-    this.seed += ' penalties';
+    this.seed = options.seed || new Seed().setValue(Math.random());
+    this.seed.append('penalties');
     this.goalOrder = [[], []];
     this.turnsLeft = [5, 5];
     this.constant = 0.75;
@@ -63,8 +64,10 @@ function PenaltyShootout(options) {
      * Simulates a single penalty kick.
      */
     proto_.takePenalty = function (teamIndex, turn) {
-        var seed = this.seed + ' ' + teamIndex + ' ' + turn;
-        var rand = this.random.decimal(seed);
+        var seed = this.seed.clone()
+            .append(teamIndex)
+            .append(turn);
+        var rand = this.random.decimal(seed.getValue());
 
         this.turnsLeft[teamIndex] -= 1;
         

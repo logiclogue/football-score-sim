@@ -1,5 +1,6 @@
 var assert = require('chai').assert;
 var PenaltyShootout = require('../src/PenaltyShootout');
+var Seed = require('../src/Seed');
 var common = require('./common');
 
 
@@ -7,7 +8,7 @@ describe('PenaltyShootout', function () {
     var penaltyShootout = new PenaltyShootout({
         teamA: common.teamEngland,
         teamB: common.teamSlovakia,
-        seed: 'test'
+        seed: new Seed().setValue('test')
     });
 
     describe('#simulate()', function () {

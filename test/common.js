@@ -2,6 +2,7 @@ var Team = require('../src/Team');
 var Period = require('../src/Period');
 var GoalGenerator = require('../src/GoalGenerator');
 var GoalManager = require('../src/GoalManager');
+var Seed = require('../src/Seed');
 
 
 var teamEngland = new Team({
@@ -25,7 +26,7 @@ var goalGenerator = new GoalGenerator({
     period: fullMatchPeriod,
     teamScoring: teamEngland,
     teamConceding: teamSlovakia,
-    seed: 'test'
+    seed: new Seed().setValue('test')
 });
 
 
@@ -34,7 +35,7 @@ var matchParams = {
     teamB: teamSlovakia,
     extraTime: true,
     penaltyShootout: true,
-    seed: 'test',
+    seed: new Seed().setValue('test'),
     startDate: new Date(1473687429923)
 };
 
@@ -42,7 +43,7 @@ var matchParams = {
 var penaltyShootoutParams = {
     teamA: teamEngland,
     teamB: teamSlovakia,
-    seed: 'test',
+    seed: new Seed().setValue('test'),
     startDate: new Date(0)
 };
 

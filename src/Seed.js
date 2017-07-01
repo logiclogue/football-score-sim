@@ -1,7 +1,6 @@
-function Seed(options) {
-    // Instances
-    this.value = options.value || '';
-    this.delimiter = options.delimiter || ':';
+function Seed() {
+    this.value = '';
+    this.delimiter = ' ';
 }
 
 Seed.prototype = {
@@ -27,10 +26,10 @@ Seed.prototype = {
     },
 
     clone: function () {
-        var seed = new Seed({
-            delimiter: this.delimiter,
-            value: this.value
-        });
+        var seed = new Seed();
+
+        seed.setValue(this.value);
+        seed.setDelimiter(this.delimiter);
 
         return seed;
     }

@@ -1,6 +1,7 @@
 var Period = require('./Period');
 var GoalManager = require('./GoalManager');
 var PenaltyShootout = require('./PenaltyShootout');
+var Seed = require('./Seed');
 
 
 /*
@@ -30,7 +31,8 @@ function Match(options) {
     // Variables
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltyShootoutEnabled = options.penaltyShootout || false;
-    this.seed = options.seed || Date.now();
+    this.seed = new Seed()
+        .setValue(options.seed || Date.now());
     this.wentToExtraTime = false;
     this.wentToPenaltyShootout = false;
     this.score = [];
@@ -189,7 +191,7 @@ function Match(options) {
             teamA: this.teamA,
             teamB: this.teamB,
             length: options.length * 60000,
-            seed: this.seed + ' ' + options.seed,
+            seed: this.seed.clone().append(options.seed),
             startDate: startDate
         });
     };
@@ -206,7 +208,7 @@ function Match(options) {
         return new PenaltyShootout({
             teamA: this.teamA,
             teamB: this.teamB,
-            seed: this.seed + ' ' + options.seed,
+            seed: this.seed.clone().append(options.seed),
             startDate: startDate
         });
     }

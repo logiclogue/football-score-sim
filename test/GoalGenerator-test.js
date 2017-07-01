@@ -1,22 +1,32 @@
 var assert = require('chai').assert;
 var GoalGenerator = require('../src/GoalGenerator');
 var Goal = require('../src/Goal');
+var Seed = require('../src/Seed');
 var common = require('./common');
 
 
 describe('GoalGenerator', function () {
-    var seed = 'test 2';
-    var goalGenerator = new GoalGenerator({
-        seed: seed,
-        teamScoring: common.teamEngland,
-        teamConceding: common.teamSlovakia,
-        period: common.fullMatchPeriod
+    var seed;
+    var goalGenerator;
+
+    beforeEach(function () {
+        seed = new Seed().setValue('test 2');
+        goalGenerator = new GoalGenerator({
+            seed: seed,
+            teamScoring: common.teamEngland,
+            teamConceding: common.teamSlovakia,
+            period: common.fullMatchPeriod
+        });
     });
 
     describe('#generate()', function () {
-        var goals = goalGenerator.generate();
+        var goals;
 
-        it('should return 1 goal with seed ' + seed, function () {
+        beforeEach(function () {
+            goals = goalGenerator.generate();
+        });
+
+        it('should return 6 goal', function () {
             assert.equal(goals.length, 6);
         });
 

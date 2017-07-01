@@ -4,12 +4,16 @@ var common = require('./common');
 
 
 describe('Period', function () {
-    var period = new Period({
-        teamA: common.teamEngland,
-        teamB: common.teamSlovakia
-    });
+    var period;
 
-    period.simulate();
+    beforeEach(function () {
+        period = new Period({
+            teamA: common.teamEngland,
+            teamB: common.teamSlovakia
+        });
+
+        period.simulate();
+    });
 
     describe('#simulate()', function () {
         it('shouldn\'t return anything', function () {
