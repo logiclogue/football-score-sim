@@ -1,4 +1,4 @@
-function DateFactory() {
+function DateBuilder() {
     
 }
 
@@ -8,6 +8,6 @@ function DateFactory() {
         
     };
     
-}(DateFactory.prototype));
+}(DateBuilder.prototype));
 
-module.exports = DateFactory;
+module.exports = DateBuilder;
