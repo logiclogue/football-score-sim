@@ -1,19 +1,26 @@
 function DateBuilder() {
-    
+    this.minMilliDelta = 0;
+    this.maxMilliDelta = 0;
+    this.fixedPointDate = new Date();
+    this.seed = this.fixedPoint.toString();
 }
 
 (function (proto_) {
 
-    proto_.setMinimumDelta = function () {
+    proto_.setMinimumMilliDelta = function () {
         
     };
 
-    proto_.setMaximumDelta = function () {
+    proto_.setMaximumMilliDelta = function () {
         
     };
 
-    proto_.setFixedPoint = function () {
+    proto_.setMeanDate = function () {
     
+    };
+
+    proto_.setStandardDeviationDate = function () {
+        
     };
 
     proto_.setSeed = function () {
