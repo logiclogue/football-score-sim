@@ -1,22 +1,32 @@
 function DateBuilder() {
     this.minMilliDelta = 0;
     this.maxMilliDelta = 0;
-    this.fixedPointDate = new Date();
-    this.seed = this.fixedPoint.toString();
+    this.meanDate = new Date();
+    this.seed = this.meanDate.toString();
 }
 
 (function (proto_) {
 
-    proto_.setMinimumMilliDelta = function () {
-        
+    proto_.setMinimumMilliDelta = function (minMilliDelta) {
+        this.minMilliDelta = minMilliDelta;
+
+        return this;
     };
 
-    proto_.setMaximumMilliDelta = function () {
-        
+    proto_.setMaximumMilliDelta = function (maxMilliDelta) {
+        this.maxMilliDelta = maxMilliDelta;
+
+        return this;
     };
 
-    proto_.setMeanDate = function () {
-    
+    proto_.setMeanDate = function (meanDate) {
+        this.meanDate = meanDate;
+
+        return this;
+    };
+
+    proto_.setFixedPointDate = function (fixedPointDate) {
+        
     };
 
     proto_.setStandardDeviationDate = function () {
@@ -24,10 +34,6 @@ function DateBuilder() {
     };
 
     proto_.setSeed = function () {
-        
-    };
-
-    proto_.setFunction = function () {
         
     };
 
