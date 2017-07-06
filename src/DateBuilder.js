@@ -1,8 +1,10 @@
-function DateBuilder() {
+function DateBuilder(options) {
     this.minMilliDelta = 0;
     this.maxMilliDelta = 0;
     this.meanDate = new Date();
     this.seed = this.meanDate.toString();
+    this.setFixedPointDate = this.meanDate;
+    this.standardDeviationMilli = 0;
 }
 
 (function (proto_) {
@@ -26,15 +28,19 @@ function DateBuilder() {
     };
 
     proto_.setFixedPointDate = function (fixedPointDate) {
-        
+        this.setFixedPointDate = fixedPointDate;
+
+        return this;
     };
 
-    proto_.setStandardDeviationDate = function () {
-        
+    proto_.setStandardDeviationDate = function (standardDeviationDate) {
+        this.standardDeviationMilli = standardDeviationMilli;
+
+        return this;
     };
 
-    proto_.setSeed = function () {
-        
+    proto_.setSeed = function (seedString) {
+        this.seed = seedString;
     };
 
     proto_.getResult = function () {
