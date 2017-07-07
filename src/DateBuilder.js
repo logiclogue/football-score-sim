@@ -1,8 +1,11 @@
+var Seed = require('./Seed');
+
 function DateBuilder(options) {
     this.minMilliDelta = 0;
     this.maxMilliDelta = 0;
     this.meanDate = new Date();
-    this.seed = this.meanDate.toString();
+    this.seed = new Seed();
+    this.seed.setValue(this.meanDate.toString());
     this.setFixedPointDate = this.meanDate;
     this.standardDeviationMilli = 0;
 }
@@ -39,8 +42,8 @@ function DateBuilder(options) {
         return this;
     };
 
-    proto_.setSeed = function (seedString) {
-        this.seed = seedString;
+    proto_.setSeed = function (seed) {
+        this.seed = seed;
     };
 
     proto_.getResult = function () {
