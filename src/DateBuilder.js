@@ -1,8 +1,14 @@
 var Seed = require('./Seed');
 
 function DateBuilder(options) {
-    this.minMilliDelta = options.minMilliDelta || 0;
-    this.maxMilliDelta = options.maxMilliDelta || 0;
+    this.minMilliDelta = options.minMilliDelta || {
+        isInfinite: true,
+        value: 0
+    };
+    this.maxMilliDelta = options.maxMilliDelta || {
+        isInfinite: true,
+        value: 0
+    };
     this.meanDate = options.meanDate || new Date();
     this.seed = new Seed();
     this.seed = options.seed ||
