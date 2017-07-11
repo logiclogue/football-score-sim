@@ -32,7 +32,12 @@ Time.prototype = {
         return date;
     },
     minusFromDate: function (date) {
+        var dateMilliseconds = date.getTime();
+        var newMilliseconds = dateMilliseconds - this.milliseconds;
 
+        var date = new Date(newMilliseconds);
+
+        return date;
     },
     addTime: function (time) {
         var milliA = time.getMilliseconds();

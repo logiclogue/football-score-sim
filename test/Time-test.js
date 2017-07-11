@@ -73,6 +73,32 @@ describe('Time', function () {
         });
     });
 
+    describe('#minusFromDate()', function () {
+        var date;
+        var milli;
+        var result;
+
+        beforeEach(function () {
+            milli = 1499772238698;
+            date = new Date(milli);
+            result = time.minusFromDate(date);
+        });
+
+        it('should return a Date', function () {
+            assert.instanceOf(result, Date);
+        })
+
+        it('should return a new Date', function () {
+            assert.notEqual(result, date);
+        });
+
+        it('should add date to the current time', function () {
+            var expectedResultMilli = milli - time.getMilliseconds();
+
+            assert.equal(result.getTime(), expectedResultMilli);
+        });
+    });
+
     describe('#addTime()', function () {
         var timeB;
         var result;
