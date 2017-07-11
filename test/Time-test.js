@@ -93,9 +93,7 @@ describe('Time', function () {
         });
 
         it('should add this Time and the Time passed in', function () {
-            var timeResult = new Time(3601000);
-
-            assert.equal(result, timeResult);
+            assert.equal(result.getMilliseconds(), 3601000);
         });
     });
 });

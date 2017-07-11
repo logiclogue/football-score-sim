@@ -35,7 +35,12 @@ Time.prototype = {
 
     },
     addTime: function (time) {
-        return new Time(time);
+        var milliA = time.getMilliseconds();
+        var milliB = this.getMilliseconds();
+
+        var sum = milliA + milliB;
+
+        return new Time(sum);
     },
     minusTime: function (time) {
         
