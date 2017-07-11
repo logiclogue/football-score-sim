@@ -96,4 +96,28 @@ describe('Time', function () {
             assert.equal(result.getMilliseconds(), 3601000);
         });
     });
+
+    describe('#minusTime()', function () {
+        var timeB;
+        var result;
+
+        beforeEach(function () {
+            timeB = new Time(1000);
+
+            result = time.minusTime(timeB);
+        });
+
+        it('should return Time', function () {
+            assert.instanceOf(result, Time);
+        });
+
+        it('should return a new Time', function () {
+            assert.notEqual(result, time);
+            assert.notEqual(result, timeB);
+        });
+
+        it('should minus this Time and the Time passed in', function () {
+            assert.equal(result.getMilliseconds(), 3599000);
+        });
+    });
 });
