@@ -27,17 +27,13 @@ Time.prototype = {
         var dateMilliseconds = date.getTime();
         var newMilliseconds = dateMilliseconds + this.milliseconds;
 
-        var date = new Date(newMilliseconds);
-
-        return date;
+        return new Date(newMilliseconds);
     },
     minusFromDate: function (date) {
         var dateMilliseconds = date.getTime();
         var newMilliseconds = dateMilliseconds - this.milliseconds;
 
-        var date = new Date(newMilliseconds);
-
-        return date;
+        return new Date(newMilliseconds);
     },
     addTime: function (time) {
         var milliA = time.getMilliseconds();
