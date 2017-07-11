@@ -31,8 +31,11 @@ Time.prototype = {
 
         return date;
     },
+    minusFromDate: function (date) {
+
+    },
     addTime: function (time) {
-        
+        return new Time(time);
     },
     minusTime: function (time) {
         

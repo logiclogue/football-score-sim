@@ -72,4 +72,30 @@ describe('Time', function () {
             assert.equal(result.getTime(), expectedResultMilli);
         });
     });
+
+    describe('#addTime()', function () {
+        var timeB;
+        var result;
+
+        beforeEach(function () {
+            timeB = new Time(1000);
+
+            result = time.addTime(timeB);
+        });
+
+        it('should return Time', function () {
+            assert.instanceOf(result, Time);
+        });
+
+        it('should return a new Time', function () {
+            assert.notEqual(result, time);
+            assert.notEqual(result, timeB);
+        });
+
+        it('should add this Time and the Time passed in', function () {
+            var timeResult = new Time(3601000);
+
+            assert.equal(result, timeResult);
+        });
+    });
 });
