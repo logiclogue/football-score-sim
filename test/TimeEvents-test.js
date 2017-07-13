@@ -84,6 +84,56 @@ describe('TimeEvents', function () {
             it('should callback', function () {
                 assert.isTrue(hasCalledBack);
             })
-        })
+        });
+    });
+
+    describe('#ifDateHasNotPassed', function () {
+        var timeEvents;
+        var pastDate;
+        var futureDate;
+        var now;
+        var hasCalledBack;
+
+        beforeEach(function () {
+            timeEvents = new TimeEvents();
+            pastDate = new Date(Date.now() - 200);
+            futureDate = new Date(Date.now() + 200);
+            now = new Date();
+            hasCalledBack = false;
+        });
+
+        function callback() {
+            hasCalledBack = true;
+        }
+        
+        context('date has passed', function () {
+            beforeEach(function () {
+                timeEvents.ifDateHasNotPassed(callback, pastDate);
+            });
+
+            it('should callback', function () {
+                assert.isFalse(hasCalledBack);
+            });
+        });
+
+        context('date has not passed', function () {
+            beforeEach(function () {
+                timeEvents.ifDateHasNotPassed(callback, futureDate);
+            });
+
+            it('should not callback', function () {
+                assert.isTrue(hasCalledBack);
+            });
+        });
+
+        context('date passes now', function () {
+            beforeEach(function () {
+                timeEvents.ifDateHasNotPassed(callback, now);
+            });
+
+            it('should callback', function () {
+                assert.isFalse(hasCalledBack);
+            })
+        });
     });
 });

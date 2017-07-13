@@ -32,6 +32,18 @@ function TimeEvents() {
             callback();
         }
     };
+
+    /*
+     * Calls callback if the date has not passed.
+     */
+    proto_.ifDateHasNotPassed = function (callback, date) {
+        var time = Time.minusDates(date, new Date());
+        var milliseconds = time.getMilliseconds();
+
+        if (milliseconds > 0) {
+            callback();
+        }
+    };
     
 }(TimeEvents.prototype));
 
