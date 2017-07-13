@@ -22,6 +22,21 @@ function TimeEvents() {
     };
 
     /*
+     * Calls callback if the date has passed or when the date does pass.
+     * Therefore, it will always call the callback, at some point.
+     */
+    proto_.ifDatePassedOrOnDate = function (callback, date) {
+        var time = Time.minusDates(date, new Date());
+        var milliseconds = time.getMilliseconds();
+
+        if (milliseconds <= 0) {
+            callback();
+        } else {
+            setTimeout(callback, milliseconds);
+        }
+    };
+
+    /*
      * Calls callback if the date has passed.
      */
     proto_.ifDatePassed = function (callback, date) {

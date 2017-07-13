@@ -83,7 +83,7 @@ describe('TimeEvents', function () {
 
             it('should callback', function () {
                 assert.isTrue(hasCalledBack);
-            })
+            });
         });
     });
 
@@ -133,7 +133,64 @@ describe('TimeEvents', function () {
 
             it('should callback', function () {
                 assert.isFalse(hasCalledBack);
-            })
+            });
+        });
+    });
+
+    describe('#ifDatePassedOrOnDate()', function () {
+        var timeEvents;
+        var pastDate;
+        var futureDate;
+        var now;
+        var hasCalledBack;
+
+        beforeEach(function () {
+            timeEvents = new TimeEvents();
+            pastDate = new Date(Date.now() - 100);
+            futureDate = new Date(Date.now() + 100);
+            now = new Date();
+            hasCalledBack = false;
+        });
+
+        function callback() {
+            hasCalledBack = true;
+        }
+        
+        context('date has passed', function () {
+            beforeEach(function () {
+                timeEvents.ifDatePassedOrOnDate(callback, pastDate);
+            });
+
+            it('should call callback', function () {
+                assert.isTrue(hasCalledBack);
+            });
+        });
+
+        context('date has not passed', function () {
+            beforeEach(function () {
+                timeEvents.ifDatePassedOrOnDate(callback, futureDate);
+            });
+
+            it('should not call callback', function () {
+                assert.isFalse(hasCalledBack);
+            });
+
+            it('should set timeout', function (done) {
+                this.slow(200);
+                this.timeout(200);
+
+                timeEvents.ifDatePassedOrOnDate(done, futureDate);
+            });
+        });
+
+        context('date is now', function () {
+            beforeEach(function () {
+                timeEvents.ifDatePassedOrOnDate(callback, now);
+            });
+
+            it('should call callback', function () {
+                assert.isTrue(true);
+            });
         });
     });
 });
