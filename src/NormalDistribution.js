@@ -14,8 +14,9 @@ function NormalDistribution(mean, standardDeviation) {
      * the curve.
      */
     proto_.getYValue = function (xValue) {
-        var coefficientOfE = 1 / Math.sqrt(2 * Math.pow(this.standardDeviation, 2) * Math.PI);
-        var powerOfE = -Math.pow(xValue - this.mean, 2) / (2 * Math.pow(this.standardDeviation, 2));
+        var standardDeviationSquared = Math.pow(this.standardDeviation, 2);
+        var coefficientOfE = 1 / Math.sqrt(2 * standardDeviationSquared * Math.PI);
+        var powerOfE = -Math.pow(xValue - this.mean, 2) / (2 * standardDeviationSquared);
 
         return coefficientOfE * Math.exp(powerOfE);
     };
