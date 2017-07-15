@@ -21,14 +21,6 @@ function NormalDistribution(mean, standardDeviation) {
     };
 
     /*
-     * Method which returns the percentile at a given
-     * value of x.
-     */
-    proto_.percentile = function (xValue) {
-        
-    };
-
-    /*
      * Calculates the area under part of the normal
      * curve.
      */
