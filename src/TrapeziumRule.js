@@ -12,7 +12,7 @@ TrapeziumRule.prototype.getArea = function (f, startX, endX) {
         ySum += f(x);
     }
 
-    return 0.5 * width * (startY + endY + (2 * ySum));
+    return 0.5 * this.width * (startY + endY + (2 * ySum));
 }
 
 module.exports = TrapeziumRule;

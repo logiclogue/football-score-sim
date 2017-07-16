@@ -1,5 +1,7 @@
 var Goal = require('./Goal');
 var NormalDistribution = require('./NormalDistribution');
+var TrapeziumRule = require('./TrapeziumRule');
+var iocConfig = require('./iocConfig');
 var random = require('seeded-random');
 
 
@@ -13,6 +15,8 @@ function GoalGenerator(options) {
     this.teamConceding = options.teamConceding;
     this.random = options.random || random;
     this.graph;
+    this.getArea = iocConfig.areaCalculator.getArea ||
+        options.areaCalculator.getArea;
 
     // Variables
     this.seed = options.seed;
@@ -41,7 +45,7 @@ function GoalGenerator(options) {
         var goals = 0;
         var goalsArray = [];
 
-        while (rand > this.graph.trapeziumRule(xValue, goals + 0.5, 0.1)) {
+        while (rand > this.getArea(this.graph.getY, xValue, goals + 0.5)) {
             goals += 1;
 
             goalsArray.push(new Goal({
