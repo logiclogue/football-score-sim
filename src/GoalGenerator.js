@@ -43,8 +43,9 @@ function GoalGenerator(options) {
         var xValue = this.graph.mean - 10;
         var goals = 0;
         var goalsArray = [];
+        var f = this.graph.getY.bind(this.graph);
 
-        while (rand > this.calculateArea(this.graph.getY, xValue, goals + 0.5)) {
+        while (rand > this.calculateArea(f, xValue, goals + 0.5)) {
             goals += 1;
 
             goalsArray.push(new Goal({
