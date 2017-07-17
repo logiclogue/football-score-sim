@@ -5,7 +5,7 @@ describe('TrapeziumRule', function () {
     var trapeziumRule;
 
     beforeEach(function () {
-        trapeziumRule = new TrapeziumRule();
+        trapeziumRule = new TrapeziumRule(0.1, 10000);
     });
 
     describe('#getArea()', function () {
@@ -18,6 +18,18 @@ describe('TrapeziumRule', function () {
 
             it('should return 0.5', function () {
                 assert.equal(result, 0.5);
+            });
+        });
+
+        context('y = Math.pow(x, 3) from -1 to 1', function () {
+            var result;
+            
+            beforeEach(function () {
+                result = trapeziumRule.getArea((x) => Math.pow(x, 3), -1, 1);
+            });
+
+            it('should return 0', function () {
+                assert.equal(result, 0);
             });
         });
     });
