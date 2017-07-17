@@ -29,7 +29,7 @@ describe('TrapeziumRule', function () {
             });
 
             it('should return 0', function () {
-                assert.equal(result, 0);
+                assert.equal(Math.round(result * 1000) / 1000, 0);
             });
         });
     });
