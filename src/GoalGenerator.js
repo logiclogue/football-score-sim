@@ -1,6 +1,5 @@
 var Goal = require('./Goal');
 var NormalDistribution = require('./NormalDistribution');
-var TrapeziumRule = require('./TrapeziumRule');
 var iocConfig = require('./iocConfig');
 var random = require('seeded-random');
 

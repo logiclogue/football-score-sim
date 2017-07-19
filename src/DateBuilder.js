@@ -1,4 +1,5 @@
 var Seed = require('./Seed');
+var iocConfig = require('./iocConfig');
 
 function DateBuilder(options) {
     this.minMilliDelta = options.minMilliDelta || {
@@ -17,6 +18,7 @@ function DateBuilder(options) {
     this.setFixedPointDate = this.meanDate;
     this.fixedPointDate = options.fixedPointDate || this.meanDate;
     this.standardDeviationMilli = options.standardDeviationMilli || 0;
+    this.calculateArea = iocConfig.calculateArea || options.calculateArea;
 }
 
 (function (proto_) {
