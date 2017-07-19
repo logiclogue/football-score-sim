@@ -17,7 +17,7 @@ TrapeziumRule.prototype.getArea = function (f, startX, endX) {
     }
 
     return 0.5 * this.width * (startY + endY + (2 * ySum));
-}
+};
 
 function roundValue(value, precision) {
     return Math.round(value * precision) / precision;
