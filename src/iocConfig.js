@@ -1,4 +1,5 @@
 var TrapeziumRule = require('./TrapeziumRule');
+var quantile = require('distributions-normal-quantile');
 
 module.exports = {
 
@@ -7,6 +8,15 @@ module.exports = {
         var getArea = trapeziumRule.getArea.bind(trapeziumRule);
 
         return getArea;
+    }()),
+
+    quantile: (function (mean, standardDeviation) {
+        return function (x) {
+            return quantile(x, {
+                'mu': mean,
+                'sigma': standardDeviation
+            });
+        };
     }())
 
 };
