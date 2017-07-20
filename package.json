@@ -20,6 +20,7 @@
     "url": "https://github.com/logiclogue/football-score-sim"
   },
   "dependencies": {
+    "distributions-normal-quantile": "0.0.0",
     "seeded-random": "^1.0.1"
   },
   "devDependencies": {
