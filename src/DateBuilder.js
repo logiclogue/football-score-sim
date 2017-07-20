@@ -17,7 +17,7 @@ function DateBuilder(options) {
             .setValue(this.meanDate.toString());
     this.setFixedPointDate = this.meanDate;
     this.fixedPointDate = options.fixedPointDate || this.meanDate;
-    this.standardDeviationMilli = options.standardDeviationMilli || 0;
+    this.standardDeviationMilli = options.standardDeviationMilli || 1;
     this.calculateArea = iocConfig.calculateArea || options.calculateArea;
 }
 
