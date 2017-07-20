@@ -1,4 +1,5 @@
 var Seed = require('./Seed');
+var Time = require('./Time');
 var iocConfig = require('./iocConfig');
 
 function DateBuilder(options) {
@@ -15,16 +16,18 @@ function DateBuilder(options) {
     this.seed = options.seed ||
         new Seed()
             .setValue(this.meanDate.toString());
-    this.setFixedPointDate = this.meanDate;
-    this.fixedPointDate = options.fixedPointDate || this.meanDate;
+    this.fixedPointDate = new Time(this.meanDate);
     this.standardDeviationMilli = options.standardDeviationMilli || 1;
-    this.calculateArea = iocConfig.calculateArea || options.calculateArea;
+    this.calculateArea = options.calculateArea || iocConfig.calculateArea;
+    this.quantile = options.quantile || iocConfig.quantile(
+        this.meanDate.getTime(),
+        this.standardDeviationMilli);
 }
 
 (function (proto_) {
 
     proto_.getResult = function () {
-        
+        return this.quantile(Math.random());
     };
     
 }(DateBuilder.prototype));
