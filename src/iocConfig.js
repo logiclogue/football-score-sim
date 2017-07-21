@@ -17,6 +17,6 @@ module.exports = {
                 'sigma': standardDeviation
             });
         };
-    }),
+    }()),
 
 };
