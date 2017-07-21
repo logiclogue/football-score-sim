@@ -7,8 +7,8 @@ describe('DateQuantile', function () {
     var quantile;
 
     beforeEach(function () {
-        dateQuantile = new DateQuantile();
-        quantile = dateQuantile.quantile;
+        dateQuantile = new DateQuantile({});
+        quantile = dateQuantile.quantile.bind(dateQuantile);
     });
 
     describe('#quantile', function () {
@@ -19,7 +19,7 @@ describe('DateQuantile', function () {
             
             beforeEach(function () {
                 meanDate = new Date(1000000);
-                standardDeviationTime = new Time();
+                standardDeviationTime = new Time(1000);
                 result = quantile(0.5, meanDate, standardDeviationTime);
             });
 

@@ -25,10 +25,7 @@ function DateBuilder(options) {
 (function (proto_) {
 
     proto_.getResult = function () {
-        return this.quantile(
-            Math.random(),
-            this.meanDate,
-            this.standardDeviationMilli);
+
     };
     
 }(DateBuilder.prototype));
