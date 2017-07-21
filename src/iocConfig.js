@@ -10,13 +10,13 @@ module.exports = {
         return getArea;
     }()),
 
-    quantile: function (mean, standardDeviation) {
-        return function (x) {
+    quantile: (function () {
+        return function (x, mean, standardDeviation) {
             return quantile(x, {
                 'mu': mean,
                 'sigma': standardDeviation
             });
         };
-    }
+    }),
 
 };
