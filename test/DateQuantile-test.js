@@ -5,26 +5,51 @@ var Time = require('../src/Time');
 describe('DateQuantile', function () {
     var dateQuantile;
     var quantile;
+    var xCalled;
+    var meanCalled;
+    var sdCalled;
+    var verifyReturnsDate;
 
     beforeEach(function () {
-        dateQuantile = new DateQuantile({});
-        quantile = dateQuantile.quantile.bind(dateQuantile);
+        verifyReturnsDate = new Date(123213);
+
+        quantile = function (x, mean, sd) {
+            xCalled = x;
+            meanCalled = mean;
+            sdCalled = sd;
+
+            return verifyReturnsDate;
+        };
+
+        dateQuantile = new DateQuantile({
+            quantile: quantile
+        });
     });
 
     describe('#quantile', function () {
-        context('called with an x value of 0.5', function () {
+        context('called', function () {
             var result;
+            var x;
             var meanDate;
-            var standardDeviationTime;
+            var sdTime;
             
             beforeEach(function () {
+                x = 0.2;
                 meanDate = new Date(1000000);
-                standardDeviationTime = new Time(1000);
-                result = quantile(0.5, meanDate, standardDeviationTime);
+                sdTime = new Time(1000);
+                result = dateQuantile.quantile(x, meanDate, sdTime);
             });
 
-            it('should return the mean date', function () {
-                assert.equal(result.getTime(), meanDate.getTime());
+            it('should call with x', function () {
+                assert.equal(xCalled, x);
+            });
+
+            it('should call with milliseconds of the mean date', function() {
+                assert.equal(meanCalled, meanDate.getTime());
+            });
+
+            it('should call with milliseconds of the standard deviation', function() {
+                assert.equal(sdCalled, sdTime.getSeconds());
             });
         });
     });
