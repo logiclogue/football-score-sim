@@ -14,7 +14,7 @@ function DateBuilder(options) {
     this.seed = new Seed();
     this.seed = options.seed ||
         new Seed()
-            .setValue(this.meanDate.toString());
+            .setValue();
     this.calculateArea = options.calculateArea || iocConfig.calculateArea;
     this.dateQuantile = options.dateQuantile || iocConfig.dateQuantile;
 }
