@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "distributions-normal-quantile": "0.0.0",
-    "seeded-random": "^1.0.1"
+    "seeded-random": "^1.0.1",
+    "sinon": "^2.3.8"
   },
   "devDependencies": {
     "chai": "^3.5.0",
