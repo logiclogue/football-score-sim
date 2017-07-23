@@ -11,15 +11,12 @@ function DateBuilder(options) {
         isInfinite: true,
         value: 0
     };
-    this.meanDate = options.meanDate || new Date();
     this.seed = new Seed();
     this.seed = options.seed ||
         new Seed()
             .setValue(this.meanDate.toString());
-    this.fixedPointDate = new Time(this.meanDate);
-    this.standardDeviationMilli = options.standardDeviationMilli || 1;
     this.calculateArea = options.calculateArea || iocConfig.calculateArea;
-    this.quantile = options.quantile || iocConfig.quantile;
+    this.dateQuantile = options.dateQuantile || iocConfig.dateQuantile;
 }
 
 (function (proto_) {

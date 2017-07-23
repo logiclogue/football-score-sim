@@ -1,4 +1,5 @@
 var TrapeziumRule = require('./TrapeziumRule');
+var DateQuantile = require('./DateQuantile');
 var quantile = require('distributions-normal-quantile');
 
 module.exports = {
@@ -18,5 +19,12 @@ module.exports = {
             });
         };
     }()),
+
+    dateQuantile = (function () {
+        var dateQuantileObject = new DateQuantile();
+        var dateQuantile = dateQuantileObject.quantile.bind(dateQuantileObject);
+
+        return dateQuantile;
+    }())
 
 };
