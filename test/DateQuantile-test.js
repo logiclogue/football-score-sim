@@ -40,15 +40,15 @@ describe('DateQuantile', function () {
                 result = dateQuantile.quantile(x, meanDate, sdTime);
             });
 
-            it('should call with x', function () {
+            it('should call quantile with x', function () {
                 assert.equal(xCalled, x);
             });
 
-            it('should call with milliseconds of the mean date', function() {
+            it('should call quantile with milliseconds of the mean date', function() {
                 assert.equal(meanCalled, meanDate.getTime());
             });
 
-            it('should call with milliseconds of the standard deviation', function() {
+            it('should call quantile with milliseconds of the standard deviation', function() {
                 assert.equal(sdCalled, sdTime.getSeconds());
             });
         });
