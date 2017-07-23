@@ -20,7 +20,7 @@ module.exports = {
         };
     }()),
 
-    dateQuantile = (function () {
+    dateQuantile: (function () {
         var dateQuantileObject = new DateQuantile();
         var dateQuantile = dateQuantileObject.quantile.bind(dateQuantileObject);
 
