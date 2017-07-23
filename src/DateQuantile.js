@@ -8,7 +8,7 @@ function DateQuantile(options) {
 
     p.quantile = function (x, meanDate, standardDeviationTime) {
         var meanDateMilli = meanDate.getTime();
-        var sdMilli = standardDeviationTime.getSeconds();
+        var sdMilli = standardDeviationTime.getMilliseconds();
 
         var resultDateMilli = this.primitiveQuantile(x, meanDateMilli, sdMilli);
 

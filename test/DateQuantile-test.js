@@ -49,7 +49,7 @@ describe('DateQuantile', function () {
             });
 
             it('should call quantile with milliseconds of the standard deviation', function() {
-                assert.equal(sdCalled, sdTime.getSeconds());
+                assert.equal(sdCalled, sdTime.getMilliseconds());
             });
         });
     });
