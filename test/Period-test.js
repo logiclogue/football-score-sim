@@ -1,6 +1,8 @@
 var assert = require('chai').assert;
+var sinon = require('sinon');
 var Period = require('../src/Period');
 var common = require('./common');
+var Time = require('../src/Time');
 
 
 describe('Period', function () {
@@ -38,6 +40,23 @@ describe('Period', function () {
             var actualFinishTime = period.finishDate.getTime();
 
             assert.equal(expectedFinishTime, actualFinishTime);
-        })
+        });
+    });
+
+    describe('#getInjuryTime', function () {
+        it('should call minusDates', function () {
+            // arrange
+            var mock = sinon.mock(period.timeLength);
+
+            mock.expects("minusDates")
+                .once()
+                .withArgs(period.finishDate, period.startDate);
+
+            // act
+            period.getInjuryTime();
+
+            // assert
+            mock.verify();
+        });
     });
 });
