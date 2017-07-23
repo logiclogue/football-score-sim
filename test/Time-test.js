@@ -23,6 +23,12 @@ describe('Time', function () {
         });
     });
 
+    describe('#minusDates()', function () {
+        it('should be the same method as the static minusDates', function () {
+            assert.equal(time.minusDates, Time.minusDates);
+        });
+    });
+
     describe('#getSeconds()', function () {
         it('should return 3600', function () {
             var seconds = time.getSeconds();

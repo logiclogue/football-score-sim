@@ -12,6 +12,8 @@ Time.minusDates = function (dateA, dateB) {
 
 Time.prototype = {
 
+    minusDates: Time.minusDates,
+
     getMilliseconds: function () {
         return this.milliseconds;
     },
