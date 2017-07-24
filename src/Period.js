@@ -61,7 +61,10 @@ function Period(options) {
      * Return the amound of injury time with a Time object.
      */
     proto_.getInjuryTime = function () {
-        this.timeLength.minusDates(this.finishDate, this.startDate);
+        var wholeTimeLength = this.timeLength.minusDates(
+            this.finishDate, this.startDate);
+
+        return wholeTimeLength.minusTime(this.timeLength);
     };
 
 }(Period.prototype));

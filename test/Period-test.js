@@ -4,7 +4,6 @@ var Period = require('../src/Period');
 var common = require('./common');
 var Time = require('../src/Time');
 
-
 describe('Period', function () {
     var period;
 
@@ -43,20 +42,52 @@ describe('Period', function () {
         });
     });
 
-    describe('#getInjuryTime', function () {
-        it('should call minusDates', function () {
-            // arrange
-            var mock = sinon.mock(period.timeLength);
+    describe('#getInjuryTime()', function () {
+        var timeLength;
+        var wholeTimeLength;
+        var injuryTime;
 
-            mock.expects("minusDates")
-                .once()
+        beforeEach(function () {
+            timeLength = sinon.mock(period.timeLength);
+            wholeTimeLength = sinon.mock(new Time(1000));
+            injuryTime = sinon.mock(new Time(500));
+
+            timeLength.minusDates = timeLength.expects("minusDates")
+                .returns(wholeTimeLength.object);
+
+            wholeTimeLength.minusTime = wholeTimeLength.expects("minusTime")
+                .returns(injuryTime.object);
+        });
+
+        it('should call time length minusDates', function () {
+            // arrange
+            timeLength.minusDates
                 .withArgs(period.finishDate, period.startDate);
 
             // act
             period.getInjuryTime();
 
             // assert
-            mock.verify();
+            timeLength.minusDates.verify();
+        });
+
+        it('should call whole time length minusTime', function () {
+            // arrange
+            wholeTimeLength.minusTime.withArgs(period.timeLength);
+
+            // act
+            period.getInjuryTime();
+
+            // assert
+            wholeTimeLength.minusTime.verify();
+        });
+
+        it('should return whole time length minusTime result', function () {
+            // act
+            var result = period.getInjuryTime();
+
+            // assert
+            assert.equal(result, injuryTime.object);
         });
     });
 });
