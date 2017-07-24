@@ -88,8 +88,7 @@ function GoalGenerator(options) {
         var ratingDifference = this._getRatingDifference();
         var prodRatingDiffConstant = ratingDifference * this.constant;
         var mean = this.mean + prodRatingDiffConstant;
-        var ninetyMinsMs = 5400000; // 90 minutes in milliseconds
-        var decimal = this.period.timeLength.getMilliseconds() / ninetyMinsMs;
+        var decimal = this.period.timeLength.getMinutes() / 90;
 
         this.graph = new NormalDistribution(mean, this.standardDeviation);
         this.graph.mean = mean * decimal;
