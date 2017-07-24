@@ -36,8 +36,8 @@ function GoalGenerator(options) {
             .append(this.period.startDate.getTime())
             .append(this.teamScoring.name)
             .append(this.teamConceding.name)
-            .append(this.period.length)
-        var length = this.period.length;
+            .append(this.period.timeLength.getMilliseconds())
+        var length = this.period.timeLength.getMilliseconds();
         var rand = this.random.decimal(seed.getValue());
         var xValue = this.graph.mean - 10;
         var goals = 0;
@@ -66,7 +66,7 @@ function GoalGenerator(options) {
         seed.append('goaltime');
 
         var startTime = this.period.startDate.getTime();
-        var length = this.period.length;
+        var length = this.period.timeLength.getMilliseconds();
         var decimal = this.random.decimal(seed.getValue());
         var time = startTime + (decimal * length);
         var date = new Date(time);
@@ -89,7 +89,7 @@ function GoalGenerator(options) {
         var prodRatingDiffConstant = ratingDifference * this.constant;
         var mean = this.mean + prodRatingDiffConstant;
         var ninetyMinsMs = 5400000; // 90 minutes in milliseconds
-        var decimal = this.period.length / ninetyMinsMs;
+        var decimal = this.period.timeLength.getMilliseconds() / ninetyMinsMs;
 
         this.graph = new NormalDistribution(mean, this.standardDeviation);
         this.graph.mean = mean * decimal;

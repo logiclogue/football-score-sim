@@ -15,8 +15,7 @@ function Period(options) {
     });
 
     // Variables
-    this.length = options.length || 2700000; // or 45 minutes in milliseconds
-    this.timeLength = options.timeLength || new Time(this.length);
+    this.timeLength = options.timeLength || new Time(2700000);
     this.startDate = options.startDate || new Date();
     this.finishDate = options.finishDate || this.getFinishDate();
     this.seed = options.seed || new Seed();
@@ -50,11 +49,7 @@ function Period(options) {
      * Returns the finish date.
      */
     proto_.getFinishDate = function () {
-        var startTime = this.startDate.getTime();
-        var finishTime = startTime + this.length;
-        var finishDate = new Date(finishTime);
-
-        return finishDate;
+        return this.timeLength.addToDate(this.startDate);
     };
 
     /*

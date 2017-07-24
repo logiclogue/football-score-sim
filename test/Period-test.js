@@ -25,7 +25,7 @@ describe('Period', function () {
     describe('#getFinishDate()', function () {
         it('should return start time + length', function () {
             var startTime = period.startDate.getTime();
-            var length = period.length;
+            var length = period.timeLength.getMilliseconds();
             var expectedFinishTime = startTime + length;
             var actualFinishTime = period.getFinishDate().getTime();
 

@@ -2,6 +2,7 @@ var Period = require('./Period');
 var GoalManager = require('./GoalManager');
 var PenaltyShootout = require('./PenaltyShootout');
 var Seed = require('./Seed');
+var Time = require('./Time');
 
 
 /*
@@ -190,7 +191,7 @@ function Match(options) {
         return new Period({
             teamA: this.teamA,
             teamB: this.teamB,
-            length: options.length * 60000,
+            timeLength: new Time(options.length * 60000),
             seed: this.seed.clone().append(options.seed),
             startDate: startDate
         });

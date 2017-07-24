@@ -3,6 +3,7 @@ var Period = require('../src/Period');
 var GoalGenerator = require('../src/GoalGenerator');
 var GoalManager = require('../src/GoalManager');
 var Seed = require('../src/Seed');
+var Time = require('../src/Time');
 
 
 var teamEngland = new Team({
@@ -17,7 +18,7 @@ var teamSlovakia = new Team({
 
 
 var fullMatchPeriod = new Period({
-    length: 90 * 60 * 1000,
+    timeLength: new Time(90 * 60 * 1000),
     startDate: new Date(1473687429923)
 });
 

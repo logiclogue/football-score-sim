@@ -21,7 +21,9 @@ describe('Match', function () {
             });
 
             it('should have a length of 45 minutes', function () {
-                assert.equal(match.firstHalf.length, 45 * 60000);
+                var timeLength = match.firstHalf.timeLength;
+
+                assert.equal(timeLength.getMinutes(), 45);
             });
         });
 
@@ -34,7 +36,9 @@ describe('Match', function () {
             });
 
             it('should have a length of 45 minutes', function () {
-                assert.equal(match.secondHalf.length, 45 * 60000);
+                var timeLength = match.secondHalf.timeLength;
+
+                assert.equal(timeLength.getMinutes(), 45);
             });
         });
 
@@ -50,7 +54,9 @@ describe('Match', function () {
             });
 
             it('should have a length of 15 minutes', function () {
-                assert.equal(match.extraTimeFirstHalf.length, 15 * 60000);
+                var timeLength = match.extraTimeFirstHalf.timeLength;
+
+                assert.equal(timeLength.getMinutes(), 15);
             });
         });
 
@@ -66,9 +72,9 @@ describe('Match', function () {
             });
 
             it('should have a length of 15 minutes', function () {
-                var expectedLength = 15 * 60000;
+                var timeLength = match.extraTimeSecondHalf.timeLength;
 
-                assert.equal(match.extraTimeSecondHalf.length, expectedLength);
+                assert.equal(timeLength.getMinutes(), 15);
             });
         });
 

@@ -26,7 +26,7 @@ describe('GoalGenerator', function () {
             goals = goalGenerator.generate();
         });
 
-        it('should return 6 goal', function () {
+        it('should return 6 goals', function () {
             assert.equal(goals.length, 6);
         });
 
