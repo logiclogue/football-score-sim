@@ -18,9 +18,9 @@ function GoalGenerator(options) {
 
     // Variables
     this.seed = options.seed;
-    this.mean = 1.58;
-    this.standardDeviation = 1.23;
-    this.constant = 0.00245;
+    this.mean = options.mean || 1.58;
+    this.standardDeviation = options.standardDeviation || 1.23;
+    this.constant = options.constant || 0.00245;
 
     //
     this._calculateGraph();
