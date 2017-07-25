@@ -61,6 +61,13 @@ function Period(options) {
             .minusTime(this.timeLength);
     };
 
+    /*
+     * Returns the relative time, to this period, from the date.
+     */
+    proto_.getRelativeTimeFromDate = function () {
+
+    };
+
 }(Period.prototype));
 
 module.exports = Period;
