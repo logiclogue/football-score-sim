@@ -90,9 +90,10 @@ function GoalGenerator(options) {
         var mean = this.mean + prodRatingDiffConstant;
         var decimal = this.period.timeLength.getMinutes() / 90;
 
-        this.graph = new NormalDistribution(mean, this.standardDeviation);
-        this.graph.mean = mean * decimal;
-        this.graph.standardDeviation = this.standardDeviation * decimal;
+        var meanScaled = mean * decimal;
+        var sdScaled = this.standardDeviation * decimal;
+
+        this.graph = new NormalDistribution(meanScaled, sdScaled);
     };
 
 }(GoalGenerator.prototype));
