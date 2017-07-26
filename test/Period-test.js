@@ -92,13 +92,18 @@ describe('Period', function () {
     });
 
     describe('#getRelativeTimeFromDate()', function () {
-        it('should call previousPeriod.getRelativeTimeFromDate()', function () {
-            // arrange
-            var previousPeriod = sinon.mock(period.previousPeriod);
-            var date = new Date(1000);
+        var previousPeriod;
+
+        beforeEach(function () {
+            previousPeriod = sinon.mock(period.previousPeriod);
 
             previousPeriod.getRelativeTimeFromDate = previousPeriod
                 .expects("getRelativeTimeFromDate");
+        });
+
+        it('should call previousPeriod.getRelativeTimeFromDate()', function () {
+            // arrange
+            var date = new Date(1000);
 
             previousPeriod.getRelativeTimeFromDate
                 .withArgs(date)
