@@ -90,4 +90,22 @@ describe('Period', function () {
             assert.equal(result, injuryTime.object);
         });
     });
+
+    describe('#getRelativeTimeFromDate()', function () {
+        it('should call previousPeriod.getRelativeTimeFromDate()', function () {
+            // arrange
+            var previousPeriod = sinon.mock(period.previousPeriod);
+            var date = new Date(1000);
+
+            previousPeriod.getRelativeTimeFromDate()
+                .withArgs(date)
+                .once();
+
+            // act
+            period.getRelativeTimeFromDate(date);
+
+            // assert
+            previousPeriod.verify();
+        });
+    });
 });

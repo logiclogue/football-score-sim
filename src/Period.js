@@ -3,6 +3,7 @@ var GoalGenerator = require('./GoalGenerator');
 var GoalManager = require('./GoalManager');
 var Seed = require('./Seed');
 var Time = require('./Time');
+var iocConfig = require('./iocConfig');
 
 
 function Period(options) {
@@ -13,6 +14,7 @@ function Period(options) {
         teamA: this.teamA,
         teamB: this.teamB
     });
+    this.previousPeriod = options.previousPeriod || iocConfig.noPeriod;
 
     // Variables
     this.timeLength = options.timeLength || new Time(2700000);
@@ -64,8 +66,8 @@ function Period(options) {
     /*
      * Returns the relative time, to this period, from the date.
      */
-    proto_.getRelativeTimeFromDate = function () {
-
+    proto_.getRelativeTimeFromDate = function (date) {
+        this.previousPeriod.getRelativeTimeFromDate(date);
     };
 
 }(Period.prototype));
