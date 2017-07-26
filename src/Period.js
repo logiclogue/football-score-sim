@@ -3,6 +3,7 @@ var GoalGenerator = require('./GoalGenerator');
 var GoalManager = require('./GoalManager');
 var Seed = require('./Seed');
 var Time = require('./Time');
+var MatchTime = require('./MatchTime');
 var iocConfig = require('./iocConfig');
 
 
@@ -67,7 +68,21 @@ function Period(options) {
      * Returns the relative time, to this period, from the date.
      */
     proto_.getRelativeTimeFromDate = function (date) {
-        this.previousPeriod.getRelativeTimeFromDate(date);
+        var previousMatchTime = this.previousPeriod
+            .getRelativeTimeFromDate(date);
+        var previousTime = previousMatchTime.getNormalTimeComponent();
+
+        var goalTime = this.timeLength.minusDates(date, this.startDate);
+        var injuryTime = goalTime.minusTime(this.timeLength);
+        var goalTimeMilli = goalTime.getMilliseconds();
+        var timeLengthMilli = this.timeLength.getMilliseconds();
+        var timeLengthSum = this.timeLength.addTime(previousTime);
+
+        if (goalTimeMilli > timeLengthMilli) {
+            return new MatchTime(timeLengthSum, injuryTime);
+        }
+
+        return new MatchTime(goalTime.addTime(previousTime), 0);
     };
 
 }(Period.prototype));

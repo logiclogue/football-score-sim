@@ -3,6 +3,8 @@ var sinon = require('sinon');
 var Period = require('../src/Period');
 var common = require('./common');
 var Time = require('../src/Time');
+var MatchTime = require('../src/MatchTime');
+var iocConfig = require('../src/iocConfig');
 
 describe('Period', function () {
     var period;
@@ -92,28 +94,137 @@ describe('Period', function () {
     });
 
     describe('#getRelativeTimeFromDate()', function () {
-        var previousPeriod;
+        context('goal is within normal time', function () {
+            var period;
+            var date;
+            var matchTime;
 
-        beforeEach(function () {
-            previousPeriod = sinon.mock(period.previousPeriod);
+            beforeEach(function () {
+                period = new Period({
+                    startDate: new Date(100),
+                    finishDate: new Date(150),
+                    timeLength: new Time(45)
+                });
+                date = new Date(130);
 
-            previousPeriod.getRelativeTimeFromDate = previousPeriod
-                .expects("getRelativeTimeFromDate");
+                matchTime = period.getRelativeTimeFromDate(date);
+            });
+
+            it('should return goal time as normal time', function () {
+                var normalTime = matchTime.getNormalTimeComponent();
+
+                assert.equal(normalTime.getMilliseconds(), 30);
+            });
+
+            it('should return nothing as injury time', function () {
+                var injuryTime = matchTime.getInjuryTimeComponent();
+
+                assert.equal(injuryTime.getMilliseconds(), 0);
+            });
         });
 
-        it('should call previousPeriod.getRelativeTimeFromDate()', function () {
-            // arrange
-            var date = new Date(1000);
+        context('goal is in injury time', function () {
+            var period;
+            var date;
+            var matchTime;
 
-            previousPeriod.getRelativeTimeFromDate
-                .withArgs(date)
-                .once();
+            beforeEach(function () {
+                period = new Period({
+                    startDate: new Date(100),
+                    finishDate: new Date(150),
+                    timeLength: new Time(45)
+                });
+                date = new Date(147);
 
-            // act
-            period.getRelativeTimeFromDate(date);
+                matchTime = period.getRelativeTimeFromDate(date);
+            });
 
-            // assert
-            previousPeriod.verify();
+            it('should return period length as normal time', function () {
+                var normalTime = matchTime.getNormalTimeComponent();
+                var timeLengthMilli = period.timeLength.getMilliseconds();
+
+                assert.equal(normalTime.getMilliseconds(), timeLengthMilli);
+            });
+
+            it('should return the difference as injury time', function () {
+                var injuryTime = matchTime.getInjuryTimeComponent();
+
+                assert.equal(injuryTime.getMilliseconds(), 2);
+            });
+        });
+
+        context('goal is in second period injury time', function () {
+            var period;
+            var previousPeriod;
+            var goalDate;
+            var matchTime;
+
+            beforeEach(function () {
+                previousPeriod = new Period({
+                    startDate: new Date(100),
+                    finishDate: new Date(150),
+                    timeLength: new Time(45)
+                });
+                period = new Period({
+                    startDate: new Date(200),
+                    finishDate: new Date(250),
+                    timeLength: new Time(45),
+                    previousPeriod: previousPeriod
+                });
+
+                goalDate = new Date(255);
+
+                matchTime = period.getRelativeTimeFromDate(goalDate);
+            });
+
+            it('should return normal time as sum of two lengths', function () {
+                var normalTime = matchTime.getNormalTimeComponent();
+
+                assert.equal(normalTime.getMilliseconds(), 90);
+            });
+
+            it('should return the injury time as the difference', function () {
+                var injuryTime = matchTime.getInjuryTimeComponent();
+
+                assert.equal(injuryTime.getMilliseconds(), 10);
+            });
+        });
+
+        context('goal is in second period normal time', function () {
+            var period;
+            var previousPeriod;
+            var goalDate;
+            var matchTime;
+
+            beforeEach(function () {
+                previousPeriod = new Period({
+                    startDate: new Date(100),
+                    finishDate: new Date(150),
+                    timeLength: new Time(45)
+                });
+                period = new Period({
+                    startDate: new Date(200),
+                    finishDate: new Date(250),
+                    timeLength: new Time(45),
+                    previousPeriod: previousPeriod
+                });
+
+                goalDate = new Date(205);
+
+                matchTime = period.getRelativeTimeFromDate(goalDate);
+            });
+
+            it('should return normal time as sum of two lengths', function () {
+                var normalTime = matchTime.getNormalTimeComponent();
+
+                assert.equal(normalTime.getMilliseconds(), 50);
+            });
+
+            it('should return no injury time', function () {
+                var injuryTime = matchTime.getInjuryTimeComponent();
+
+                assert.equal(injuryTime.getMilliseconds(), 0);
+            });
         });
     });
 });
