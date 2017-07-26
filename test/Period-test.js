@@ -97,7 +97,10 @@ describe('Period', function () {
             var previousPeriod = sinon.mock(period.previousPeriod);
             var date = new Date(1000);
 
-            previousPeriod.getRelativeTimeFromDate()
+            previousPeriod.getRelativeTimeFromDate = previousPeriod
+                .expects("getRelativeTimeFromDate");
+
+            previousPeriod.getRelativeTimeFromDate
                 .withArgs(date)
                 .once();
 
