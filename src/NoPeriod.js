@@ -1,4 +1,4 @@
-var Time = require('./Time');
+var MatchTime = require('./MatchTime');
 
 function NoPeriod() {
     
@@ -7,7 +7,7 @@ function NoPeriod() {
 NoPeriod.prototype = {
 
     getRelativeTimeFromDate: function () {
-        return new Time(0);
+        return new MatchTime(0, 0);
     }
 
 };

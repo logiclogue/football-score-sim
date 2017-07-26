@@ -9,9 +9,21 @@ describe('NoPeriod', function () {
     });
 
     describe('#getRelativeTimeFromDate()', function () {
-        it('should return 0 time', function () {
+        it('should return 0 normal time', function () {
             // act
-            var result = noPeriod.getRelativeTimeFromDate();
+            var result = noPeriod
+                .getRelativeTimeFromDate()
+                .getNormalTimeComponent();
+
+            // assert
+            assert.equal(result.getMilliseconds(), 0);
+        });
+
+        it('should return 0 injuryTime time', function () {
+            // act
+            var result = noPeriod
+                .getRelativeTimeFromDate()
+                .getInjuryTimeComponent();
 
             // assert
             assert.equal(result.getMilliseconds(), 0);

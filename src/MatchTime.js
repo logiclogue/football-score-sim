@@ -8,7 +8,7 @@ function MatchTime(normalTimeComponent, injuryTimeComponent) {
 MatchTime.prototype = {
 
     getNormalTimeComponent: function () {
-        return this.getNormalTimeComponent;
+        return this.normalTimeComponent;
     },
 
     getInjuryTimeComponent: function () {
