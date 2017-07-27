@@ -10,28 +10,21 @@ Seed.prototype = {
     },
 
     setValue: function (value) {
-        this.value = value;
+        return new Seed(value, this.delimiter);
+    },
 
-        return this;
+    getDelimiter: function () {
+        return this.delimiter;
     },
 
     setDelimiter: function (delimiter) {
-        this.delimiter = delimiter;
+        return new Seed(this.value, delimiter);
     },
 
     append: function (value) {
-        this.value += this.delimiter + value;
+        var value = this.value + this.delimiter + value;
 
-        return this;
-    },
-
-    clone: function () {
-        var seed = new Seed();
-
-        seed.setValue(this.value);
-        seed.setDelimiter(this.delimiter);
-
-        return seed;
+        return new Seed(value, this.delimiter);
     }
 
 };

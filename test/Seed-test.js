@@ -7,36 +7,31 @@ describe('Seed', function () {
     var base = 'base';
 
     beforeEach(function () {
-        seed = new Seed();
-        seed.setDelimiter(delimiter);
-        seed.setValue(base);
+        seed = new Seed(base, delimiter);
     });
 
     describe('#getValue()', function () {
         context('setValue("a").append("b")', function () {
             it('should return "a,b"', function () {
-                // arrange
-                var expected = 'a,b';
-
-                seed.setValue('a')
-                    .append('b');
-
                 // act
-                var result = seed.getValue();
+                var result = seed
+                    .setValue('a')
+                    .append('b')
+                    .getValue();
 
                 // assert
-                assert.equal(result, expected);
+                assert.equal(result, 'a,b');
             });
         });
     });
 
     describe('#setValue()', function () {
-        it('should return this', function () {
+        it('should return a new Seed', function () {
             // act
             var result = seed.setValue();
 
-            // assert
-            assert.strictEqual(result, seed);
+            // arrange
+            assert.notStrictEqual(result, seed);
         });
 
         it('should set the value', function () {
@@ -44,17 +39,27 @@ describe('Seed', function () {
             var value = 'a';
 
             // act
-            seed.setValue(value);
-
-            var result = seed.getValue();
+            var result = seed.setValue(value).getValue();
 
             // assert
             assert.equal(result, value);
         });
+
+        it('should set the same delimiter', function () {
+            // arrange
+            var seed = new Seed('test', '@');
+            var value = 'a';
+
+            // act
+            var result = seed.setValue(value);
+
+            // assert
+            assert.equal(result.delimiter, seed.delimiter);
+        });
     });
 
     describe('#append()', function () {
-        it('should return this', function () {
+        it('should return a new Seed', function () {
             // arrange
             var value = 'test seed';
 
@@ -62,43 +67,52 @@ describe('Seed', function () {
             var result = seed.append(value);
 
             // assert
-            assert.strictEqual(result, seed);
+            assert.notStrictEqual(result, seed);
         });
 
         it('should append with the delimiter', function () {
             // act
-            seed.setValue('a')
-                .append('b');
-
-            var result = seed.getValue();
+            var result = seed
+                .setValue('a')
+                .append('b')
+                .getValue();
 
             // assert
             assert.equal(result, 'a,b');
         });
+
+        it('should set the delimier the same', function () {
+            // act
+            var result = seed
+                .setValue('a')
+                .append('b');
+
+            // assert
+            assert.equal(result.delimiter, seed.delimiter);
+        });
     });
 
     describe('#setDelimiter()', function () {
+        it('should return a new seed', function () {
+            // arrange
+            var delimier = '---';
+
+            // act
+            var result = seed.setDelimiter(delimier);
+
+            // assert
+            assert.notStrictEqual(result, seed);
+        });
+
         it('should set the delimiter', function () {
             // arrange
             var delimiter = '---';
 
             // act
-            seed.setDelimiter(delimiter);
+            var result = seed.setDelimiter(delimiter);
 
             // assert
-            assert.equal(seed.delimiter, delimiter);
-        });
-    });
-
-    describe('#clone()', function () {
-        it('should return new Seed', function () {
-            // act
-            var result = seed.clone();
-
-            // assert
-            assert.notStrictEqual(result, seed);
-            assert.deepEqual(result, seed);
-            assert.instanceOf(result, Seed);
+            assert.equal(result.getDelimiter(), delimiter);
         });
     });
 });
