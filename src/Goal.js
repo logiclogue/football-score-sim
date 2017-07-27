@@ -4,4 +4,12 @@ function Goal(options) {
     this.period = options.period;
 }
 
+Goal.prototype = {
+
+    getMatchTime: function () {
+        return this.period.calculateMatchTime(this.date);
+    }
+
+};
+
 module.exports = Goal;
