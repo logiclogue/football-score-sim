@@ -6,7 +6,7 @@ function NoPeriod() {
 
 NoPeriod.prototype = {
 
-    getRelativeTimeFromDate: function () {
+    calculateMatchTime: function (date) {
         return new MatchTime(0, 0);
     }
 

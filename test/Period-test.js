@@ -93,7 +93,7 @@ describe('Period', function () {
         });
     });
 
-    describe('#getRelativeTimeFromDate()', function () {
+    describe('#calculateMatchTime()', function () {
         context('goal is within normal time', function () {
             var period;
             var date;
@@ -107,7 +107,7 @@ describe('Period', function () {
                 });
                 date = new Date(130);
 
-                matchTime = period.getRelativeTimeFromDate(date);
+                matchTime = period.calculateMatchTime(date);
             });
 
             it('should return goal time as normal time', function () {
@@ -136,7 +136,7 @@ describe('Period', function () {
                 });
                 date = new Date(147);
 
-                matchTime = period.getRelativeTimeFromDate(date);
+                matchTime = period.calculateMatchTime(date);
             });
 
             it('should return period length as normal time', function () {
@@ -174,7 +174,7 @@ describe('Period', function () {
 
                 goalDate = new Date(255);
 
-                matchTime = period.getRelativeTimeFromDate(goalDate);
+                matchTime = period.calculateMatchTime(goalDate);
             });
 
             it('should return normal time as sum of two lengths', function () {
@@ -211,7 +211,7 @@ describe('Period', function () {
 
                 goalDate = new Date(205);
 
-                matchTime = period.getRelativeTimeFromDate(goalDate);
+                matchTime = period.calculateMatchTime(goalDate);
             });
 
             it('should return normal time as sum of two lengths', function () {

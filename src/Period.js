@@ -67,9 +67,9 @@ function Period(options) {
     /*
      * Returns the relative time, to this period, from the date.
      */
-    proto_.getRelativeTimeFromDate = function (date) {
+    proto_.calculateMatchTime = function (date) {
         var previousMatchTime = this.previousPeriod
-            .getRelativeTimeFromDate(date);
+            .calculateMatchTime(date);
         var previousTime = previousMatchTime.getNormalTimeComponent();
 
         var goalTime = this.timeLength.minusDates(date, this.startDate);

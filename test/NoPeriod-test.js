@@ -8,11 +8,11 @@ describe('NoPeriod', function () {
         noPeriod = new NoPeriod();
     });
 
-    describe('#getRelativeTimeFromDate()', function () {
+    describe('#calculateMatchTime()', function () {
         it('should return 0 normal time', function () {
             // act
             var result = noPeriod
-                .getRelativeTimeFromDate()
+                .calculateMatchTime()
                 .getNormalTimeComponent();
 
             // assert
@@ -22,7 +22,7 @@ describe('NoPeriod', function () {
         it('should return 0 injuryTime time', function () {
             // act
             var result = noPeriod
-                .getRelativeTimeFromDate()
+                .calculateMatchTime()
                 .getInjuryTimeComponent();
 
             // assert
