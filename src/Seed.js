@@ -1,6 +1,6 @@
-function Seed() {
-    this.value = '';
-    this.delimiter = ' ';
+function Seed(value, delimiter) {
+    this.value = value || '';
+    this.delimiter = delimiter || ' ';
 }
 
 Seed.prototype = {
