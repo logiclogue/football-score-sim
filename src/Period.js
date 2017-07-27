@@ -34,13 +34,13 @@ function Period(options) {
             period: this,
             teamScoring: this.teamA,
             teamConceding: this.teamB,
-            seed: this.seed.clone().append('A')
+            seed: this.seed.append('A')
         });
         var goalGeneratorB = new GoalGenerator({
             period: this,
             teamScoring: this.teamB,
             teamConceding: this.teamA,
-            seed: this.seed.clone().append('B')
+            seed: this.seed.append('B')
         });
         var addGoals = this.goalManager.addGoals.bind(this.goalManager);
 

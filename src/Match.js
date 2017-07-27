@@ -32,8 +32,7 @@ function Match(options) {
     // Variables
     this.extraTimeEnabled = options.extraTime || false;
     this.penaltyShootoutEnabled = options.penaltyShootout || false;
-    this.seed = new Seed()
-        .setValue(options.seed || Date.now());
+    this.seed = new Seed(options.seed || Date.now());
     this.wentToExtraTime = false;
     this.wentToPenaltyShootout = false;
     this.score = [];
@@ -192,7 +191,7 @@ function Match(options) {
             teamA: this.teamA,
             teamB: this.teamB,
             timeLength: new Time(options.length * 60000),
-            seed: this.seed.clone().append(options.seed),
+            seed: this.seed.append(options.seed),
             startDate: startDate
         });
     };
@@ -209,7 +208,7 @@ function Match(options) {
         return new PenaltyShootout({
             teamA: this.teamA,
             teamB: this.teamB,
-            seed: this.seed.clone().append(options.seed),
+            seed: this.seed.append(options.seed),
             startDate: startDate
         });
     };

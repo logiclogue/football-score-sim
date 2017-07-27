@@ -32,7 +32,7 @@ function GoalGenerator(options) {
      * Returns an array with the goals that the team have scored.
      */
     proto_.generate = function () {
-        var seed = this.seed.clone()
+        var seed = this.seed
             .append(this.period.startDate.getTime())
             .append(this.teamScoring.name)
             .append(this.teamConceding.name)
@@ -50,7 +50,7 @@ function GoalGenerator(options) {
             goalsArray.push(new Goal({
                 period: this.period,
                 team: this.teamScoring,
-                date: this._getGoalDate(seed.clone().append(goals))
+                date: this._getGoalDate(seed.append(goals))
             }));
         }
 
@@ -63,7 +63,7 @@ function GoalGenerator(options) {
      * milliseconds.
      */
     proto_._getGoalDate = function (seed) {
-        seed.append('goaltime');
+        seed = seed.append('goaltime');
 
         var startTime = this.period.startDate.getTime();
         var length = this.period.timeLength.getMilliseconds();
