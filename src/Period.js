@@ -6,7 +6,6 @@ var Time = require('./Time');
 var MatchTime = require('./MatchTime');
 var iocConfig = require('./iocConfig');
 
-
 function Period(options) {
     // Instances
     this.teamA = options.teamA;
