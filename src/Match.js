@@ -212,7 +212,7 @@ function Match(options) {
             seed: this.seed.clone().append(options.seed),
             startDate: startDate
         });
-    }
+    };
 
     /*
      * Returns a `Date` that is so many minutes after the previous start time.
