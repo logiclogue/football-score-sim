@@ -70,7 +70,7 @@ function Period(options) {
     proto_.calculateMatchTime = function (date) {
         var previousMatchTime = this.previousPeriod
             .calculateMatchTime(date);
-        var previousTime = previousMatchTime.getNormalTimeComponent();
+        var previousTime = previousMatchTime.getNormalTime();
 
         var goalTime = this.timeLength.minusDates(date, this.startDate);
         var injuryTime = goalTime.minusTime(this.timeLength);

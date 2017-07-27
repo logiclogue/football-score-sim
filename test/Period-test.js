@@ -111,13 +111,13 @@ describe('Period', function () {
             });
 
             it('should return goal time as normal time', function () {
-                var normalTime = matchTime.getNormalTimeComponent();
+                var normalTime = matchTime.getNormalTime();
 
                 assert.equal(normalTime.getMilliseconds(), 30);
             });
 
             it('should return nothing as injury time', function () {
-                var injuryTime = matchTime.getInjuryTimeComponent();
+                var injuryTime = matchTime.getInjuryTime();
 
                 assert.equal(injuryTime.getMilliseconds(), 0);
             });
@@ -140,14 +140,14 @@ describe('Period', function () {
             });
 
             it('should return period length as normal time', function () {
-                var normalTime = matchTime.getNormalTimeComponent();
+                var normalTime = matchTime.getNormalTime();
                 var timeLengthMilli = period.timeLength.getMilliseconds();
 
                 assert.equal(normalTime.getMilliseconds(), timeLengthMilli);
             });
 
             it('should return the difference as injury time', function () {
-                var injuryTime = matchTime.getInjuryTimeComponent();
+                var injuryTime = matchTime.getInjuryTime();
 
                 assert.equal(injuryTime.getMilliseconds(), 2);
             });
@@ -178,13 +178,13 @@ describe('Period', function () {
             });
 
             it('should return normal time as sum of two lengths', function () {
-                var normalTime = matchTime.getNormalTimeComponent();
+                var normalTime = matchTime.getNormalTime();
 
                 assert.equal(normalTime.getMilliseconds(), 90);
             });
 
             it('should return the injury time as the difference', function () {
-                var injuryTime = matchTime.getInjuryTimeComponent();
+                var injuryTime = matchTime.getInjuryTime();
 
                 assert.equal(injuryTime.getMilliseconds(), 10);
             });
@@ -215,13 +215,13 @@ describe('Period', function () {
             });
 
             it('should return normal time as sum of two lengths', function () {
-                var normalTime = matchTime.getNormalTimeComponent();
+                var normalTime = matchTime.getNormalTime();
 
                 assert.equal(normalTime.getMilliseconds(), 50);
             });
 
             it('should return no injury time', function () {
-                var injuryTime = matchTime.getInjuryTimeComponent();
+                var injuryTime = matchTime.getInjuryTime();
 
                 assert.equal(injuryTime.getMilliseconds(), 0);
             });

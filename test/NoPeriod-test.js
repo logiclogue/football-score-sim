@@ -13,7 +13,7 @@ describe('NoPeriod', function () {
             // act
             var result = noPeriod
                 .calculateMatchTime()
-                .getNormalTimeComponent();
+                .getNormalTime();
 
             // assert
             assert.equal(result.getMilliseconds(), 0);
@@ -23,7 +23,7 @@ describe('NoPeriod', function () {
             // act
             var result = noPeriod
                 .calculateMatchTime()
-                .getInjuryTimeComponent();
+                .getInjuryTime();
 
             // assert
             assert.equal(result.getMilliseconds(), 0);
