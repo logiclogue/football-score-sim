@@ -10,8 +10,11 @@ describe('PeriodFactory', function () {
     var seed;
 
     beforeEach(function () {
-        periodFactory = new PeriodFactory();
         seed = new Seed('test', ',');
+        periodFactory = new PeriodFactory()
+            .setTeamA(common.teamEngland)
+            .setTeamB(common.teamSlovakia)
+            .setSeed(seed);
     });
 
     describe('#create()', function () {
@@ -41,12 +44,12 @@ describe('PeriodFactory', function () {
         });
 
         it('should set the time after the previous period', function () {
-            var startDate = period.startDate;
+            var previousFinishDate = period.finishDate;
             var thisStartDate = result.startDate;
 
-            var diff = Time.minusDates(thisStartDate, startDate);
+            var diff = Time.minusDates(thisStartDate, previousFinishDate);
             
-            assert.equal(diff.getMinutes(), 20);
+            assert.equal(diff.getMinutes(), minutesAfterPrevious);
         });
     });
 

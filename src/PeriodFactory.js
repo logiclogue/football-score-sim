@@ -29,7 +29,7 @@ PeriodFactory.prototype = {
         return periodFactory;
     },
 
-    setTeamB: function (seed) {
+    setSeed: function (seed) {
         var periodFactory = new PeriodFactory();
 
         periodFactory.teamA = this.teamA;
@@ -42,7 +42,8 @@ PeriodFactory.prototype = {
     create: function (options) {
         return new Period({
             timeLength: new Time(options.minutesLength * 60 *1000),
-            previousPeriod: options.previousPeriod
+            previousPeriod: options.previousPeriod,
+            startDate: 
         });
     },
 
