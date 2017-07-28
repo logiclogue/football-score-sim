@@ -31,7 +31,8 @@ describe('PeriodFactory', function () {
             result = periodFactory.create({
                 minutesLength: minutesLength,
                 previousPeriod: period,
-                minutesAfterPrevious: minutesAfterPrevious
+                minutesAfterPrevious: minutesAfterPrevious,
+                seed: 'newHalf'
             });
         });
 
@@ -43,13 +44,25 @@ describe('PeriodFactory', function () {
             assert.equal(result.previousPeriod, period);
         });
 
-        it('should set the time after the previous period', function () {
+        it('should set the start date after the previous period', function () {
             var previousFinishDate = period.finishDate;
             var thisStartDate = result.startDate;
 
             var diff = Time.minusDates(thisStartDate, previousFinishDate);
             
             assert.equal(diff.getMinutes(), minutesAfterPrevious);
+        });
+
+        it('should set teamA', function () {
+            assert.equal(result.teamA, common.teamEngland);
+        });
+        
+        it('should set teamB', function () {
+            assert.equal(result.teamB, common.teamSlovakia);
+        });
+
+        it('should set the seed', function () {
+            assert.equal(result.seed.getValue(), 'test,newHalf');
         });
     });
 

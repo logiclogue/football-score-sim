@@ -41,8 +41,15 @@ PeriodFactory.prototype = {
 
     create: function (options) {
         return new Period({
+            teamA: this.teamA,
+            teamB: this.teamB,
+            seed: this.seed.append(options.seed),
             timeLength: new Time().setMinutes(options.minutesLength),
-            previousPeriod: options.previousPeriod
+            previousPeriod: options.previousPeriod,
+            startDate:
+                new Time()
+                    .setMinutes(options.minutesAfterPrevious)
+                    .addToDate(options.previousPeriod.finishDate)
         });
     },
 
