@@ -41,15 +41,14 @@ PeriodFactory.prototype = {
 
     create: function (options) {
         return new Period({
-            timeLength: new Time(options.minutesLength * 60 *1000),
-            previousPeriod: options.previousPeriod,
-            startDate: 
+            timeLength: new Time().setMinutes(options.minutesLength),
+            previousPeriod: options.previousPeriod
         });
     },
 
     createFirstHalf: function (seed, previousPeriod) {
         return new Period({
-            timeLength: new Time(45 * 60 * 1000),
+            timeLength: new Time().setMinutes(45),
             seed: seed.append('firstHalf')
         });
     },
