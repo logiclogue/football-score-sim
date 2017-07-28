@@ -152,4 +152,56 @@ describe('Time', function () {
             assert.equal(result.getMilliseconds(), 3599000);
         });
     });
+
+    describe('#setMilliseconds()', function () {
+        it('should set the right number of milliseconds', function () {
+            // arrange
+            var milliseconds = 10;
+
+            // act
+            var result = new Time().setMilliseconds(milliseconds);
+
+            // assert
+            assert.equal(result.getMilliseconds(), milliseconds);
+        });
+    });
+
+    describe('#setSeconds()', function () {
+        it('should set the right number of seconds', function () {
+            // arrange
+            var seconds = 10;
+
+            // act
+            var result = new Time().setSeconds(seconds);
+
+            // assert
+            assert.equal(result.getSeconds(), seconds);
+        });
+    });
+
+    describe('#setMinutes()', function () {
+        it('should set the right number of minutes', function () {
+            // arrange
+            var minutes = 10;
+
+            // act
+            var result = new Time().setMinutes(minutes);
+
+            // assert
+            assert.equal(result.getMinutes(), minutes);
+        });
+    });
+
+    describe('#setHours()', function () {
+        it('should set the right number of hours', function () {
+            // arrange
+            var hours = 10;
+
+            // act
+            var result = new Time().setHours(hours);
+
+            // assert
+            assert.equal(result.getHours(), hours);
+        });
+    });
 });

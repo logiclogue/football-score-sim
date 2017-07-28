@@ -1,5 +1,5 @@
 function Time(milliseconds) {
-    this.milliseconds = milliseconds;
+    this.milliseconds = milliseconds || 0;
 }
 
 Time.minusDates = function (dateA, dateB) {
@@ -14,16 +14,32 @@ Time.prototype = {
 
     minusDates: Time.minusDates,
 
+    setMilliseconds: function (milliseconds) {
+        return new Time(milliseconds);
+    },
+
     getMilliseconds: function () {
         return this.milliseconds;
+    },
+
+    setSeconds: function (seconds) {
+        return new Time(seconds * 1000);
     },
 
     getSeconds: function () {
         return this.milliseconds / 1000;
     },
 
+    setMinutes: function (minutes) {
+        return new Time(minutes * 60000);
+    },
+
     getMinutes: function () {
         return this.milliseconds / 60000;
+    },
+
+    setHours: function (hours) {
+        return new Time(hours * 3600000);
     },
 
     getHours: function () {
