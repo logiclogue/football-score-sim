@@ -68,17 +68,15 @@ describe('PeriodFactory', function () {
 
     describe('#createFirstHalf()', function () {
         var result;
+        var startDate;
 
         beforeEach(function () {
-            result = periodFactory.createFirstHalf(seed);
+            startDate = new Date(42);
+            result = periodFactory.createFirstHalf(startDate);
         });
 
-        it('should create a period that is 45 minutes', function () {
-            assert.equal(result.timeLength.getMinutes(), 45);
-        });
-
-        it('should set the seed to firstHalf', function () {
-            assert.equal(result.seed.getValue(), 'test,firstHalf');
+        it('should set the correct start date', function () {
+            assert.equal(result.startDate.getTime(), startDate.getTime());
         });
     });
 });

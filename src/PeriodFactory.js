@@ -55,23 +55,42 @@ PeriodFactory.prototype = {
         });
     },
 
-    createFirstHalf: function (seed, previousPeriod) {
-        return new Period({
-            timeLength: new Time().setMinutes(45),
-            seed: seed.append('firstHalf')
+    createFirstHalf: function (startDate) {
+        return this.create({
+            seed: 'firstHalf',
+            minutesLength: 45,
+            minutesAfterPrevious: 0,
+            previousPeriod: {
+                finishDate: startDate
+            }
         });
     },
 
-    createSecondHalf: function (seed, previousPeriod) {
-
+    createSecondHalf: function (previousPeriod) {
+        return this.create({
+            seed: 'secondHalf',
+            minutesLength: 45,
+            minutesAfterPrevious: 15,
+            previousPeriod: previousPeriod
+        });
     },
 
-    createFirstHalfET: function (seed, previousPeriod) {
-
+    createFirstHalfET: function (previousPeriod) {
+        return this.create({
+            seed: 'extraTimeFirstHalf',
+            minutesLength: 15,
+            minutesAfterPrevious: 5,
+            previousPeriod: previousPeriod
+        });
     },
 
-    createSecondHalfET: function (seed, previousPeriod) {
-
+    createSecondHalfET: function (previousPeriod) {
+        return this.create({
+            seed: 'extraTimeSecondHalf',
+            minutesLength: 15,
+            minutesAfterPrevious: 5,
+            previousPeriod: previousPeriod
+        });
     }
 
 };
