@@ -1,8 +1,8 @@
-var Period = require('./Period');
 var GoalManager = require('./GoalManager');
 var PenaltyShootout = require('./PenaltyShootout');
 var Seed = require('./Seed');
 var Time = require('./Time');
+var iocConfig = require('./iocConfig');
 
 
 /*
@@ -40,6 +40,13 @@ function Match(options) {
     this.winner = null; // Team or null if draw
     this.startDate = options.startDate || new Date();
     this.finishDate;
+
+    var periodFactory = options.periodFactory || iocConfig.periodFactory;
+
+    this.periodFactory = periodFactory
+        .setTeamA(this.teamA)
+        .setTeamB(this.teamB)
+        .setSeed(this.seed);
 
     //
     this._createHalfInstances();
@@ -144,55 +151,21 @@ function Match(options) {
      * Creates the instances for each half in the game.
      */
     proto_._createHalfInstances = function () {
-        this.firstHalf = this._newHalf({
-            seed: 'firstHalf',
-            length: 45,
-            endOfPrevious: this.startDate,
-            lengthAfterPrevious: 0
-        });
+        this.firstHalf = this.periodFactory
+            .createFirstHalf(this.startDate);
 
-        this.secondHalf = this._newHalf({
-            seed: 'secondHalf',
-            length: 45,
-            endOfPrevious: this.firstHalf.finishDate,
-            lengthAfterPrevious: 15
-        });
+        this.secondHalf = this.periodFactory
+            .createSecondHalf(this.firstHalf);
 
-        this.extraTimeFirstHalf = this._newHalf({
-            seed: 'extraTimeFirstHalf',
-            length: 15,
-            endOfPrevious: this.secondHalf.finishDate,
-            lengthAfterPrevious: 5
-        });
+        this.extraTimeFirstHalf = this.periodFactory
+            .createFirstHalfET(this.secondHalf);
 
-        this.extraTimeSecondHalf = this._newHalf({
-            seed: 'extraTimeSecondHalf',
-            length: 15,
-            endOfPrevious: this.extraTimeFirstHalf.finishDate,
-            lengthAfterPrevious: 5
-        });
+        this.extraTimeSecondHalf = this.periodFactory
+            .createSecondHalfET(this.extraTimeFirstHalf);
 
         this.penaltyShootout = this._createPenaltyShootout({
             endOfPrevious: this.extraTimeSecondHalf.finishDate,
             lengthAfterPrevious: 5
-        });
-    };
-
-    /*
-     * Creates a new half (instance of Period).
-     */
-    proto_._newHalf = function (options) {
-        var startDate = this._dateMinutesAfter(
-            options.endOfPrevious,
-            options.lengthAfterPrevious
-        );
-
-        return new Period({
-            teamA: this.teamA,
-            teamB: this.teamB,
-            timeLength: new Time(options.length * 60000),
-            seed: this.seed.append(options.seed),
-            startDate: startDate
         });
     };
 

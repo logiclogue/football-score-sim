@@ -2,6 +2,7 @@ var TrapeziumRule = require('./TrapeziumRule');
 var DateQuantile = require('./DateQuantile');
 var quantile = require('distributions-normal-quantile');
 var NoPeriod = require('./NoPeriod');
+var PeriodFactory = require('./PeriodFactory');
 
 module.exports = {
 
@@ -30,6 +31,10 @@ module.exports = {
 
     noPeriod: (function () {
         return new NoPeriod();
+    }()),
+
+    periodFactory: (function () {
+        return new PeriodFactory();
     }())
 
 };
