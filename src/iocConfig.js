@@ -1,58 +1,62 @@
-var TrapeziumRule;
-var DateQuantile;
+var calculateArea;
 var quantile;
-var NoPeriod;
-var PeriodFactory;
-
-function load() {
-    TrapeziumRule = require('./TrapeziumRule');
-    DateQuantile = require('./DateQuantile');
-    quantile = require('distributions-normal-quantile');
-    NoPeriod = require('./NoPeriod');
-    PeriodFactory = require('./PeriodFactory');
-}
+var dateQuantile;
+var noPeriod;
+var periodFactory;
 
 module.exports = {
 
     calculateArea: function () {
-        load();
+        calculateArea = calculateArea || (function () {
+            console.log('here');
+            var TrapeziumRule = require('./TrapeziumRule');
 
-        var trapeziumRule = new TrapeziumRule(0.1, 10000);
-        var getArea = trapeziumRule.getArea.bind(trapeziumRule);
+            var trapeziumRule = new TrapeziumRule(0.1, 10000);
+            var getArea = trapeziumRule.getArea.bind(trapeziumRule);
 
-        return getArea;
+            return getArea;
+        }());
+
+        return calculateArea;
     },
 
     quantile: function () {
-        load();
+        quantile = quantile || (function () {
+            return require('./quantileAdapter');
+        }());
 
-        return function (x, mean, standardDeviation) {
-            return quantile(x, {
-                'mu': mean,
-                'sigma': standardDeviation
-            });
-        };
+        return quantile;
     },
 
     dateQuantile: function () {
-        load();
+        dateQuantile = dateQuantile || (function () {
+            var DateQuantile = require('./DateQuantile');
+            var dateQuantileObject = new DateQuantile({});
 
-        var dateQuantileObject = new DateQuantile({});
-        var dateQuantile = dateQuantileObject.quantile.bind(dateQuantileObject);
+            return dateQuantileObject.quantile.bind(dateQuantileObject);
+        }());
 
         return dateQuantile;
     },
 
     noPeriod: function () {
-        load();
+        noPeriod = noPeriod || (function () {
+            var NoPeriod = require('./NoPeriod');
 
-        return new NoPeriod();
+            return new NoPeriod();
+        }());
+
+        return noPeriod;
     },
 
     periodFactory: function () {
-        load();
+        periodFactory = periodFactory || (function () {
+            var PeriodFactory = require('./PeriodFactory');
 
-        return new PeriodFactory();
+            return new PeriodFactory();
+        }());
+
+        return periodFactory;
     }
 
 };
