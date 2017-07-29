@@ -8,7 +8,6 @@ module.exports = {
 
     calculateArea: function () {
         calculateArea = calculateArea || (function () {
-            console.log('here');
             var TrapeziumRule = require('./TrapeziumRule');
 
             var trapeziumRule = new TrapeziumRule(0.1, 10000);
