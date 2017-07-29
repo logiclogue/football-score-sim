@@ -3,6 +3,7 @@ var PeriodFactory = require('../src/PeriodFactory');
 var Seed = require('../src/Seed');
 var Period = require('../src/Period');
 var Time = require('../src/Time');
+var NoPeriod = require('../src/NoPeriod');
 var common = require('./common');
 
 describe('PeriodFactory', function () {
@@ -77,6 +78,14 @@ describe('PeriodFactory', function () {
 
         it('should set the correct start date', function () {
             assert.equal(result.startDate.getTime(), startDate.getTime());
+        });
+
+        it('should have previous period with calculateMatchTime', function () {
+            assert.isFunction(result.previousPeriod.calculateMatchTime);
+        });
+
+        it('should have previous period instance of NoPeriod', function () {
+            assert.instanceOf(result.previousPeriod, NoPeriod);
         });
     });
 });

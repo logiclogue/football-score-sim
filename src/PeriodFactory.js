@@ -1,5 +1,6 @@
 var Period = require('./Period');
 var Time = require('./Time');
+var NoPeriod = require('./NoPeriod');
 
 function PeriodFactory() {
     this.teamA;
@@ -56,13 +57,15 @@ PeriodFactory.prototype = {
     },
 
     createFirstHalf: function (startDate) {
+        var previousPeriod = new NoPeriod();
+
+        previousPeriod.finishDate = startDate;
+
         return this.create({
             seed: 'firstHalf',
             minutesLength: 45,
             minutesAfterPrevious: 0,
-            previousPeriod: {
-                finishDate: startDate
-            }
+            previousPeriod: previousPeriod
         });
     },
 
