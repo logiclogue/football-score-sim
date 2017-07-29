@@ -14,7 +14,7 @@ function Period(options) {
         teamA: this.teamA,
         teamB: this.teamB
     });
-    this.previousPeriod = options.previousPeriod || iocConfig.noPeriod;
+    this.previousPeriod = options.previousPeriod || iocConfig.noPeriod();
 
     // Variables
     this.timeLength = options.timeLength || new Time(2700000);

@@ -41,7 +41,7 @@ function Match(options) {
     this.startDate = options.startDate || new Date();
     this.finishDate;
 
-    var periodFactory = options.periodFactory || iocConfig.periodFactory;
+    var periodFactory = options.periodFactory || iocConfig.periodFactory();
 
     this.periodFactory = periodFactory
         .setTeamA(this.teamA)

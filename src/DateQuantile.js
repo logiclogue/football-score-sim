@@ -1,7 +1,7 @@
 var iocConfig = require('./iocConfig');
 
 function DateQuantile(options) {
-    this.primitiveQuantile = options.quantile || iocConfig.quantile;
+    this.primitiveQuantile = options.quantile || iocConfig.quantile();
 }
 
 (function (p) {

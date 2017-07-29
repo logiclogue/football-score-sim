@@ -14,7 +14,7 @@ function GoalGenerator(options) {
     this.teamConceding = options.teamConceding;
     this.random = options.random || random;
     this.graph;
-    this.calculateArea = options.calculateArea || iocConfig.calculateArea;
+    this.calculateArea = options.calculateArea || iocConfig.calculateArea();
 
     // Variables
     this.seed = options.seed;

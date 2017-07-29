@@ -4,7 +4,6 @@ var Period = require('../src/Period');
 var common = require('./common');
 var Time = require('../src/Time');
 var MatchTime = require('../src/MatchTime');
-var iocConfig = require('../src/iocConfig');
 
 describe('Period', function () {
     var period;

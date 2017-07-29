@@ -15,8 +15,8 @@ function DateBuilder(options) {
     this.seed = options.seed ||
         new Seed()
             .setValue();
-    this.calculateArea = options.calculateArea || iocConfig.calculateArea;
-    this.dateQuantile = options.dateQuantile || iocConfig.dateQuantile;
+    this.calculateArea = options.calculateArea || iocConfig.calculateArea();
+    this.dateQuantile = options.dateQuantile || iocConfig.dateQuantile();
 }
 
 (function (proto_) {
