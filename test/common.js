@@ -18,7 +18,7 @@ var teamSlovakia = new Team({
 
 
 var fullMatchPeriod = new Period({
-    timeLength: new Time(90 * 60 * 1000),
+    timeLength: new Time().setMinutes(90),
     startDate: new Date(1473687429923)
 });
 

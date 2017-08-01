@@ -48,5 +48,28 @@ describe('GoalGenerator', function () {
                 checkedGoals.push(goal);
             });
         });
+
+        context('home advantage', function () {
+            it('should', function () {
+                var goalGenerator = new GoalGenerator({
+                    seed: new Seed().setValue(Math.random()),
+                    teamScoring: common.teamEngland,
+                    teamConceding: common.teamEngland,
+                    period: common.fullMatchPeriod,
+                    homeAdvantage: true
+                });
+                var goalGenerator = new GoalGenerator({
+                    seed: new Seed().setValue(Math.random()),
+                    teamScoring: common.teamEngland,
+                    teamConceding: common.teamEngland,
+                    period: common.fullMatchPeriod,
+                    homeAdvantage: true
+                });
+
+                var result = goalGenerator.generate();
+
+                console.log(result);
+            });
+        });
     });
 });
