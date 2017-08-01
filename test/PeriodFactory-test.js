@@ -23,17 +23,20 @@ describe('PeriodFactory', function () {
         var minutesLength;
         var period;
         var minutesAfterPrevious;
+        var homeAdvantage;
 
         beforeEach(function () {
             minutesLength = 15;
             minutesAfterPrevious = 5;
             period = new Period({});
+            homeAdvantage = true;
 
             result = periodFactory.create({
                 minutesLength: minutesLength,
                 previousPeriod: period,
                 minutesAfterPrevious: minutesAfterPrevious,
-                seed: 'newHalf'
+                seed: 'newHalf',
+                homeAdvantage: homeAdvantage
             });
         });
 
@@ -64,6 +67,10 @@ describe('PeriodFactory', function () {
 
         it('should set the seed', function () {
             assert.equal(result.seed.getValue(), 'test,newHalf');
+        });
+
+        it('should set the home advantage', function () {
+            assert.equal(result.homeAdvantage, homeAdvantage);
         });
     });
 

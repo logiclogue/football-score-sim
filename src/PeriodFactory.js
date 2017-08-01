@@ -2,40 +2,43 @@ var Period = require('./Period');
 var Time = require('./Time');
 var NoPeriod = require('./NoPeriod');
 
-function PeriodFactory() {
-    this.teamA;
-    this.teamB;
-    this.seed;
+function PeriodFactory(teamA, teamB, seed, homeAdvantage) {
+    this.teamA = teamA;
+    this.teamB = teamB;
+    this.seed = seed;
+    this.homeAdvantage = homeAdvantage || false;
 }
 
 PeriodFactory.prototype = {
 
     setTeamA: function (teamA) {
-        var periodFactory = new PeriodFactory();
-
-        periodFactory.teamA = teamA;
-        periodFactory.teamB = this.teamB;
-        periodFactory.seed = this.seed;
+        var periodFactory = new PeriodFactory(
+            teamA, this.teamB, this.seed, this.homeAdvantage
+        );
 
         return periodFactory;
     },
 
     setTeamB: function (teamB) {
-        var periodFactory = new PeriodFactory();
-
-        periodFactory.teamA = this.teamA;
-        periodFactory.teamB = teamB;
-        periodFactory.seed = this.seed;
+        var periodFactory = new PeriodFactory(
+            this.teamA, teamB, this.seed, this.homeAdvantage
+        );
 
         return periodFactory;
     },
 
     setSeed: function (seed) {
-        var periodFactory = new PeriodFactory();
+        var periodFactory = new PeriodFactory(
+            this.teamA, this.teamB, seed, this.homeAdvantage
+        );
 
-        periodFactory.teamA = this.teamA;
-        periodFactory.teamB = this.teamB;
-        periodFactory.seed = seed;
+        return periodFactory;
+    },
+
+    setHomeAdvantage: function (homeAdvantage) {
+        var periodFactory = new PeriodFactory(
+            this.teamA, this.teamB, this.seed, homeAdvantage
+        );
 
         return periodFactory;
     },
@@ -49,6 +52,7 @@ PeriodFactory.prototype = {
             seed: this.seed.append(options.seed),
             timeLength: time.setMinutes(options.minutesLength),
             previousPeriod: options.previousPeriod,
+            homeAdvantage: options.homeAdvantage,
             startDate:
                 time
                     .setMinutes(options.minutesAfterPrevious)

@@ -21,6 +21,7 @@ function Period(options) {
     this.startDate = options.startDate || new Date();
     this.finishDate = options.finishDate || this.getFinishDate();
     this.seed = options.seed || new Seed();
+    this.homeAdvantage = options.homeAdvantage || false;
 }
 
 (function (proto_) {
@@ -33,13 +34,15 @@ function Period(options) {
             period: this,
             teamScoring: this.teamA,
             teamConceding: this.teamB,
-            seed: this.seed.append('A')
+            seed: this.seed.append('A'),
+            homeScoring: this.homeAdvantage
         });
         var goalGeneratorB = new GoalGenerator({
             period: this,
             teamScoring: this.teamB,
             teamConceding: this.teamA,
-            seed: this.seed.append('B')
+            seed: this.seed.append('B'),
+            awayScoring: this.homeAdvantage
         });
         var addGoals = this.goalManager.addGoals.bind(this.goalManager);
 

@@ -47,7 +47,8 @@ function Match(options) {
     this.periodFactory = periodFactory
         .setTeamA(this.teamA)
         .setTeamB(this.teamB)
-        .setSeed(this.seed);
+        .setSeed(this.seed)
+        .setHomeAdvantage(this.homeAdvantage);
 
     //
     this._createHalfInstances();
