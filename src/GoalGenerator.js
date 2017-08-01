@@ -21,6 +21,9 @@ function GoalGenerator(options) {
     this.mean = options.mean || 1.58;
     this.standardDeviation = options.standardDeviation || 1.23;
     this.constant = options.constant || 0.00245;
+    this.homeAdvantageEloContant = options.homeAdvantageEloContant || 75;
+    this.homeScoring = options.homeScoring || false;
+    this.awayScoring = options.awayScoring || false;
 
     //
     this._calculateGraph();
@@ -78,7 +81,15 @@ function GoalGenerator(options) {
      * Returns the rating difference between the two teams.
      */
     proto_._getRatingDifference = function () {
-        return this.teamScoring.rating - this.teamConceding.rating;
+        var diff = 0;
+
+        if (this.homeScoring) {
+            diff = this.homeAdvantageEloContant;
+        } else if (this.awayScoring) {
+            diff = -this.homeAdvantageEloContant;
+        }
+
+        return this.teamScoring.rating - this.teamConceding.rating + diff;
     };
 
     /*
