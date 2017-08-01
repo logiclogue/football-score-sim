@@ -35,6 +35,7 @@ function Match(options) {
     this.seed = new Seed(options.seed || Date.now());
     this.wentToExtraTime = false;
     this.wentToPenaltyShootout = false;
+    this.homeAdvantage = options.homeAdvantage || false;
     this.score = [];
     this.penaltyShootoutScore = [];
     this.winner = null; // Team or null if draw
