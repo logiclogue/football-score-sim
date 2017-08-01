@@ -68,10 +68,6 @@ describe('PeriodFactory', function () {
         it('should set the seed', function () {
             assert.equal(result.seed.getValue(), 'test,newHalf');
         });
-
-        it('should set the home advantage', function () {
-            assert.equal(result.homeAdvantage, homeAdvantage);
-        });
     });
 
     describe('#createFirstHalf()', function () {

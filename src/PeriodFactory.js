@@ -52,7 +52,7 @@ PeriodFactory.prototype = {
             seed: this.seed.append(options.seed),
             timeLength: time.setMinutes(options.minutesLength),
             previousPeriod: options.previousPeriod,
-            homeAdvantage: options.homeAdvantage,
+            homeAdvantage: this.homeAdvantage,
             startDate:
                 time
                     .setMinutes(options.minutesAfterPrevious)
