@@ -39,7 +39,7 @@ function GoalGenerator(options) {
             .append(this.period.startDate.getTime())
             .append(this.teamScoring.name)
             .append(this.teamConceding.name)
-            .append(this.period.timeLength.getMilliseconds())
+            .append(this.period.timeLength.getMilliseconds());
         var length = this.period.timeLength.getMilliseconds();
         var rand = this.random.decimal(seed.getValue());
         var xValue = this.graph.mean - 10;
