@@ -3,6 +3,7 @@ var quantile;
 var dateQuantile;
 var noPeriod;
 var periodFactory;
+var onMilliseconds;
 
 module.exports = {
 
@@ -56,6 +57,14 @@ module.exports = {
         }());
 
         return periodFactory;
+    },
+
+    onMilliseconds: function () {
+        onMilliseconds = onMilliseconds || (function () {
+            return setTimeout;
+        }());
+
+        return onMilliseconds;
     }
 
 };
