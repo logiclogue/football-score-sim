@@ -15,6 +15,18 @@ describe('TimeEvents', function () {
             events.onDate(done, date);
         });
 
+        it('should call onMilliseconds', function () {
+            var result;
+            var date = new Date();
+            var events = new TimeEvents((f, milli) => result = milli);
+
+            date.setMilliseconds(date.getMilliseconds() + 100);
+
+            events.onDate(function () {}, date);
+
+            assert.equal(100, result);
+        });
+
         it('should\'t callback if time has passed', function (done) {
             var date = new Date();
             var events = new TimeEvents();

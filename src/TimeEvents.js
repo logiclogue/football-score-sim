@@ -1,10 +1,11 @@
 var Time = require('./Time');
+var iocConfig = require('./iocConfig');
 
 /*
  * Class which deals with any sort of generic time event.
  */
-function TimeEvents() {
-    
+function TimeEvents(onMilliseconds) {
+    this.onMilliseconds = onMilliseconds || iocConfig.onMilliseconds();
 }
 
 (function (proto_) {
@@ -17,7 +18,7 @@ function TimeEvents() {
         var milliseconds = time.getMilliseconds();
 
         if (milliseconds >= 0) {
-            setTimeout(callback, milliseconds);
+            this.onMilliseconds(callback, milliseconds);
         }
     };
 
@@ -32,7 +33,7 @@ function TimeEvents() {
         if (milliseconds <= 0) {
             callback();
         } else {
-            setTimeout(callback, milliseconds);
+            this.onMilliseconds(callback, milliseconds);
         }
     };
 
