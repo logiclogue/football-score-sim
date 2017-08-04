@@ -61,7 +61,9 @@ module.exports = {
 
     onMilliseconds: function () {
         onMilliseconds = onMilliseconds || (function () {
-            return setTimeout;
+            var onMilliseconds = require('onmilliseconds');
+
+            return onMilliseconds;
         }());
 
         return onMilliseconds;
