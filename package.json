@@ -22,11 +22,11 @@
   "dependencies": {
     "distributions-normal-quantile": "0.0.0",
     "onmilliseconds": "^1.0.0",
-    "seeded-random": "^1.0.1",
-    "sinon": "^2.3.8"
+    "seeded-random": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "sinon": "^2.3.8"
   }
 }
