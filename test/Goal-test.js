@@ -22,13 +22,13 @@ describe('Goal', function () {
         });
     });
 
-    describe('#getMatchTime()', function () {
+    describe('#matchTime', function () {
         it('should call period calculateMatchTime', function () {
             // arrange
             period.calculateMatchTime.withArgs(goal.date).once();
             
             // act
-            goal.getMatchTime();
+            goal.matchTime;
 
             // assert
             period.verify();
@@ -36,7 +36,7 @@ describe('Goal', function () {
 
         it('should return calculateMatchTime result', function () {
             // act
-            var result = goal.getMatchTime();
+            var result = goal.matchTime;
 
             // assert
             assert.equal(result, matchTime);

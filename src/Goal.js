@@ -6,7 +6,11 @@ function Goal(options) {
 
 Goal.prototype = {
 
-    getMatchTime: function () {
+    get matchTime() {
+        if (!this.period) {
+            return null;
+        }
+
         return this.period.calculateMatchTime(this.date);
     }
 

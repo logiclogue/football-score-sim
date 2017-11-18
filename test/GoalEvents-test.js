@@ -1,4 +1,5 @@
 var assert = require('chai').assert;
+var expect = require('chai').expect;
 var GoalEvents = require('../src/GoalEvents');
 var GoalManager = require('../src/GoalManager');
 var Goal = require('../src/Goal');
@@ -77,7 +78,7 @@ describe('GoalEvents', function () {
             // act
             events.onGoal(function (goal) {
                 // assert
-                assert.notInclude(goals, goal);
+                expect(goals).to.not.include(goal);
 
                 goals.push(goal);
             });
