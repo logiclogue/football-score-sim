@@ -54,13 +54,13 @@ function Match(options) {
     this._createHalfInstances();
 }
 
-(function (proto_) {
+Match.prototype = {
 
     /*
      * Simulates the whole match.
      * Returns the match score.
      */
-    proto_.simulate = function () {
+    simulate: function () {
         this._simulateHalfs();
         this._appendGoals();
         this._checkOtherPeriods();
@@ -69,12 +69,12 @@ function Match(options) {
         this.finishDate = this.getFinishDate();
 
         return this.score;
-    };
+    },
 
     /*
      * Gets the finish time.
      */
-    proto_.getFinishDate = function () {
+    getFinishDate: function () {
         if (!this.wentToExtraTime && !this.wentToPenaltyShootout) {
             return this.secondHalf.finishDate;
         } else if (this.wentToExtraTime && !this.wentToPenaltyShootout) {
@@ -82,77 +82,77 @@ function Match(options) {
         }
 
         return this.penaltyShootout.finishDate;
-    };
+    },
 
 
     /*
      * Sets the local score properties with the scores from the goal managers.
      */
-    proto_._setScores = function () {
+    _setScores: function () {
         this.score = this.goalManager.getScore();
         this.penaltyShootoutScore = this.penaltyShootout.goalManager.getScore();
 
         this._everyGoal.append(this.goalManager);
-    };
+    },
 
     /*
      * Checks to see if the match is a draw and the other periods are enabled.
      * If so, it'll attach the goals of those periods onto the match.
      */
-    proto_._checkOtherPeriods = function () {
+    _checkOtherPeriods: function () {
         this._checkExtraTime();
         this._checkPenaltyShootout();
-    };
+    },
 
-    proto_._checkExtraTime = function () {
+    _checkExtraTime: function () {
         if (this.extraTimeEnabled && this._isDraw()) {
             this.wentToExtraTime = true;
             this.goalManager.append(this.extraTimeGoals);
         }
-    };
+    },
 
-    proto_._checkPenaltyShootout = function () {
+    _checkPenaltyShootout: function () {
         if (this.penaltyShootoutEnabled && this._isDraw()) {
             this.wentToPenaltyShootout = true;
             this.penaltyShootout.simulate();
             this._everyGoal.append(this.penaltyShootout.goalManager);
         }
-    };
+    },
 
     /*
      * Runs the simulate method on each half.
      */
-    proto_._simulateHalfs = function () {
+    _simulateHalfs: function () {
         this.firstHalf.simulate();
         this.secondHalf.simulate();
         this.extraTimeFirstHalf.simulate();
         this.extraTimeSecondHalf.simulate();
-    };
+    },
 
     /*
      * Appends the goals from each half, to their respective goal managers.
      */
-    proto_._appendGoals = function () {
+    _appendGoals: function () {
         this.normalTimeGoals.append(this.firstHalf.goalManager);
         this.normalTimeGoals.append(this.secondHalf.goalManager);
         this.extraTimeGoals.append(this.extraTimeFirstHalf.goalManager);
         this.extraTimeGoals.append(this.extraTimeSecondHalf.goalManager);
 
         this.goalManager.append(this.normalTimeGoals);
-    };
+    },
 
     /*
      * Finds the winner of the match and puts their Team object in #winner.
      * Remains at null if it's a draw.
      */
-    proto_._calculateWinner = function () {
+    _calculateWinner: function () {
         this.winner = this._everyGoal.getWinner();
-    };
+    },
 
     /*
      * Creates the instances for each half in the game.
      */
-    proto_._createHalfInstances = function () {
+    _createHalfInstances: function () {
         this.firstHalf = this.periodFactory
             .createFirstHalf(this.startDate);
 
@@ -169,12 +169,12 @@ function Match(options) {
             endOfPrevious: this.extraTimeSecondHalf.finishDate,
             lengthAfterPrevious: 5
         });
-    };
+    },
 
     /*
      * Creates a penalty shootout.
      */
-    proto_._createPenaltyShootout = function (options) {
+    _createPenaltyShootout: function (options) {
         var startDate = this._dateMinutesAfter(
             options.endOfPrevious,
             options.lengthAfterPrevious
@@ -186,29 +186,29 @@ function Match(options) {
             seed: this.seed.append(options.seed),
             startDate: startDate
         });
-    };
+    },
 
     /*
      * Returns a `Date` that is so many minutes after the previous start time.
      */
-    proto_._dateMinutesAfter = function (previousDate, minutes) {
+    _dateMinutesAfter: function (previousDate, minutes) {
         var date = new Date(previousDate.getTime());
         var previousMinutes = previousDate.getMinutes();
 
         date.setMinutes(previousMinutes + minutes);
 
         return date;
-    };
+    },
 
     /*
      * Returns a boolean, whether the match is a draw or not.
      */
-    proto_._isDraw = function () {
+    _isDraw: function () {
         var score = this.goalManager.getScore();
 
         return score[0] === score[1];
-    };
+    }
 
-}(Match.prototype));
+};
 
 module.exports = Match;
