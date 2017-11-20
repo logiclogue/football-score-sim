@@ -24,12 +24,12 @@ function Period(options) {
     this.homeAdvantage = options.homeAdvantage || false;
 }
 
-(function (proto_) {
+Period.prototype = {
 
     /*
      * Simulates the period, populating the goals that have been scored.
      */
-    proto_.simulate = function () {
+    simulate: function () {
         var goalGeneratorA = new GoalGenerator({
             period: this,
             teamScoring: this.teamA,
@@ -48,28 +48,28 @@ function Period(options) {
 
         addGoals(0, goalGeneratorA.generate());
         addGoals(1, goalGeneratorB.generate());
-    };
+    },
 
     /*
      * Returns the finish date.
      */
-    proto_.getFinishDate = function () {
+    getFinishDate: function () {
         return this.timeLength.addToDate(this.startDate);
-    };
+    },
 
     /*
      * Return the amound of injury time with a Time object.
      */
-    proto_.getInjuryTime = function () {
+    getInjuryTime: function () {
         return this.timeLength
             .minusDates(this.finishDate, this.startDate)
             .minusTime(this.timeLength);
-    };
+    },
 
     /*
      * Returns the relative time, to this period, from the date.
      */
-    proto_.calculateMatchTime = function (date) {
+    calculateMatchTime: function (date) {
         var previousMatchTime = this.previousPeriod
             .calculateMatchTime(date);
         var previousTime = previousMatchTime.getNormalTime();
@@ -85,8 +85,8 @@ function Period(options) {
         }
 
         return new MatchTime(goalTime.addTime(previousTime), 0);
-    };
+    }
 
-}(Period.prototype));
+};
 
 module.exports = Period;
