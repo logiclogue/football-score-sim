@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "distributions-normal-quantile": "0.0.0",
+    "lodash": "^4.17.4",
     "onmilliseconds": "^1.0.0",
     "seeded-random": "^1.0.1"
   },
