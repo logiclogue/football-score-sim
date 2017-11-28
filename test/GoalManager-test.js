@@ -28,9 +28,9 @@ describe('GoalManager', function () {
         it('should add the goals to #goals', function () {
             var goals = common.goalGenerator.generate();
 
-            goalManager.addGoals(0, goals);
+            var result = goalManager.addGoals(0, goals);
 
-            assert.deepEqual(goalManager.goals[0], goals);
+            assert.deepEqual(result.goals[0], goals);
         });
     });
 
@@ -42,7 +42,11 @@ describe('GoalManager', function () {
         });
 
         it('should append the goals', function () {
-            var goals = goalManager.goals;
+            var newGoalManager = goalManager
+                .addGoals(0, common.goalGenerator.generate());
+
+            var goals = newGoalManager
+                .append(newGoalManager).goals;
 
             assert.equal(goals[0].length, 2);
             assert.equal(goals[1].length, 0);
@@ -58,7 +62,10 @@ describe('GoalManager', function () {
     describe('#getScore()', function () {
         it('should return the correct score as array [goals, goals]',
         function () {
-            var score = goalManager.getScore();
+            var score = goalManager
+                .addGoals(0, common.goalGenerator.generate())
+                .addGoals(0, common.goalGenerator.generate())
+                .getScore();
 
             assert.isArray(score);
             assert.equal(score[0], 2);

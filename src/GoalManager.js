@@ -21,9 +21,21 @@ GoalManager.prototype = {
      * the team index given.
      */
     addGoals: function (teamIndex, goals) {
-        var goalsArray = this.goals[teamIndex];
+        var goalManager = new GoalManager({
+            teamA: this.teams[0],
+            teamB: this.teams[1]
+        });
 
-        goalsArray.push.apply(goalsArray, goals);
+        goalManager.goals = this.goals
+            .map((theseGoals, index) => {
+                if (index === teamIndex) {
+                    return theseGoals.concat(goals);
+                }
+
+                return theseGoals
+            });
+
+        return goalManager;
     },
 
     /*
@@ -39,8 +51,9 @@ GoalManager.prototype = {
             throw new ReferenceError('teams are different');
         }
 
-        this.addGoals(0, goalManager.goals[0]);
-        this.addGoals(1, goalManager.goals[1]);
+        return this
+            .addGoals(0, goalManager.goals[0])
+            .addGoals(1, goalManager.goals[1]);
     },
 
     /*
