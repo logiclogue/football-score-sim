@@ -44,10 +44,10 @@ Period.prototype = {
             seed: this.seed.append('B'),
             awayScoring: this.homeAdvantage
         });
-        var addGoals = this.goalManager.addGoals.bind(this.goalManager);
 
-        addGoals(0, goalGeneratorA.generate());
-        addGoals(1, goalGeneratorB.generate());
+        this.goalManager = this.goalManager
+            .addGoals(0, goalGeneratorA.generate())
+            .addGoals(1, goalGeneratorB.generate());
     },
 
     /*

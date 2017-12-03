@@ -95,8 +95,7 @@ function PenaltyShootout(options) {
             period: this
         });
 
-        // Adds the goal to the goal manager
-        this.goalManager.addGoals(teamIndex, [goal]);
+        this.goalManager = this.goalManager.addGoals(teamIndex, [goal]);
         // Adds the goal to the penalty order
         this.goalOrder[teamIndex][turn] = true;
         // Sets the finish time to the current goal
@@ -114,7 +113,7 @@ function PenaltyShootout(options) {
             period: this
         });
 
-        this.missedGoalManager.addGoals(teamIndex, [miss]);
+        this.missedGoalManager = this.missedGoalManager.addGoals(teamIndex, [miss]);
         this.goalOrder[teamIndex][turn] = false;
         this.finishDate = miss.date;
     };

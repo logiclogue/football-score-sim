@@ -22,7 +22,8 @@ function GoalManagerFactory() {
                 var hasHappened = time >= goalTime;
 
                 if (hasHappened) {
-                    resultGoalManager.addGoals(teamIndex, [goal]);
+                    resultGoalManager =
+                        resultGoalManager.addGoals(teamIndex, [goal]);
                 }
             });
         });
