@@ -2,15 +2,14 @@ var GoalManager = require('./GoalManager');
 var GoalManagerFactory = require('./GoalManagerFactory');
 var TimeEvents = require('./TimeEvents');
 
-function GoalEvents(options) {
-    this.goalManager = options.goalManager || new GoalManager();
-    this.timeEvents = options.timeEvents || new TimeEvents();
-    this.factory = options.goalManagerFactory || new GoalManagerFactory();
-}
+class GoalEvents {
+    constructor(options) {
+        this.goalManager = options.goalManager || new GoalManager();
+        this.timeEvents = options.timeEvents || new TimeEvents();
+        this.factory = options.goalManagerFactory || new GoalManagerFactory();
+    }
 
-(function (proto_) {
-
-    proto_.onGoal = function (callback) {
+    onGoal(callback) {
         var manager = this.goalManager;
         
         this.goalManager.forEach(function (goal) {
@@ -21,8 +20,7 @@ function GoalEvents(options) {
 
             this.timeEvents.onDate(boundCallback, date);
         }.bind(this));
-    };
-    
-}(GoalEvents.prototype));
+    }
+}
 
 module.exports = GoalEvents;
