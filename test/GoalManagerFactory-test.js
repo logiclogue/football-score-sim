@@ -23,10 +23,9 @@ describe('GoalManagerFactory', function () {
             goalManager = new GoalManager({
                 teamA: common.teamEngland,
                 teamB: common.teamSlovakia
-            });
-
-            goalManager.addGoals(0, [goal1, goal2]);
-            goalManager.addGoals(1, [goal2, goal1]);
+            })
+                .addGoals(0, [goal1, goal2])
+                .addGoals(1, [goal2, goal1]);
         });
 
         context('first goal time is passed in', function () {
