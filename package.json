@@ -20,6 +20,7 @@
     "url": "https://github.com/logiclogue/football-score-sim"
   },
   "dependencies": {
+    "baconjs": "^1.0.1",
     "distributions-normal-quantile": "0.0.0",
     "lodash": "^4.17.4",
     "onmilliseconds": "^1.0.0",
