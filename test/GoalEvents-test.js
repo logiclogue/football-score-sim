@@ -21,12 +21,11 @@ describe('GoalEvents', function () {
         goalManager = new GoalManager({
             teamA: common.TeamEngland,
             teamB: common.TeamSlovakia
-        });
+        })
+            .addGoals(0, goals);
         events = new GoalEvents({
             goalManager: goalManager
         });
-
-        goalManager.addGoals(0, goals);
     });
 
     describe('#onGoal()', function () {
