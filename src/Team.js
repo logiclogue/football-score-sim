@@ -1,6 +1,6 @@
-function Team(options) {
-    this.name = options.name;
-    this.rating = options.rating;
+function Team(name, rating) {
+    this.name = name;
+    this.rating = rating;
 }
 
 module.exports = Team;
