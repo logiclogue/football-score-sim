@@ -1,4 +1,5 @@
 var assert = require('chai').assert;
+var expect = require('chai').expect;
 var Match = require('../src/PenaltyShootoutEvents');
 var PenaltyShootout = require('../src/PenaltyShootout');
 var PenaltyShootoutEvents = require('../src/PenaltyShootoutEvents');
@@ -26,7 +27,7 @@ describe('PenaltyShootoutEvents', function () {
                 hasBeenCalled = true;
             });
 
-            assert.isTrue(hasBeenCalled);
+            expect(hasBeenCalled).to.be.true;
         });
 
         it('should call #onDate the correct number of times', function () {
@@ -36,7 +37,7 @@ describe('PenaltyShootoutEvents', function () {
                 numberOfCalls += 1;
             });
 
-            assert.equal(numberOfCalls, 7);
+            expect(numberOfCalls).to.equal(7);
         });
 
         it('should call #onDate with the correct goal time', function () {
@@ -54,7 +55,7 @@ describe('PenaltyShootoutEvents', function () {
 
             events.onGoal(function () {});
 
-            assert.equal(actualDate, expectedDate);
+            expect(actualDate).to.equal(expectedDate);
         });
     });
 
@@ -72,7 +73,7 @@ describe('PenaltyShootoutEvents', function () {
                 hasBeenCalled = true;
             });
 
-            assert.isTrue(hasBeenCalled);
+            expect(hasBeenCalled).to.be.true;
         });
     });
 
@@ -90,7 +91,7 @@ describe('PenaltyShootoutEvents', function () {
                 hasBeenCalled = true;
             });
 
-            assert.isTrue(hasBeenCalled);
+            expect(hasBeenCalled).to.be.true;
         });
 
         it('should call #onDate with the start date', function () {
@@ -104,7 +105,7 @@ describe('PenaltyShootoutEvents', function () {
                 actualStartDate = date;
             });
 
-            assert.equal(actualStartDate, events.penaltyShootout.startDate);
+            expect(actualStartDate).to.equal(events.penaltyShootout.startDate);
         });
     });
 
@@ -120,7 +121,7 @@ describe('PenaltyShootoutEvents', function () {
                 actualFinishDate = date;
             });
 
-            assert.equal(actualFinishDate, penaltyShootout.finishDate);
+            expect(actualFinishDate).to.equal(penaltyShootout.finishDate);
         });
     });
 });
