@@ -1,32 +1,30 @@
-function Seed(value, delimiter) {
-    this.value = value || '';
-    this.delimiter = delimiter || ' ';
-}
-
-Seed.prototype = {
-
-    getValue: function () {
+class Seed {
+    constructor(value, delimiter) {
+        this.value = value || '';
+        this.delimiter = delimiter || ' ';
+    }
+    
+    getValue() {
         return this.value;
-    },
+    }
 
-    setValue: function (value) {
+    setValue(value) {
         return new Seed(value, this.delimiter);
-    },
+    }
 
-    getDelimiter: function () {
+    getDelimiter() {
         return this.delimiter;
-    },
+    }
 
-    setDelimiter: function (delimiter) {
+    setDelimiter(delimiter) {
         return new Seed(this.value, delimiter);
-    },
+    }
 
-    append: function (value) {
+    append(value) {
         var value = this.value + this.delimiter + value;
 
         return new Seed(value, this.delimiter);
     }
-
-};
+}
 
 module.exports = Seed;
