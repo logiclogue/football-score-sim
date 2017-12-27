@@ -1,4 +1,5 @@
 var assert = require('chai').assert;
+var expect = require('chai').expect;
 var Seed = require('../src/Seed');
 
 describe('Seed', function () {
@@ -113,6 +114,20 @@ describe('Seed', function () {
 
             // assert
             assert.equal(result.delimiter, delimiter);
+        });
+    });
+
+    describe("String#toSeed()", () => {
+        const seed = "testing".toSeed(",");
+
+        context("given testing value and , delimiter", () => {
+            it("sets the value as testing", () => {
+                expect(seed.value).to.equal("testing");
+            });
+
+            it("sets the delimiter as ,", () => {
+                expect(seed.delimiter).to.equal(",");
+            });
         });
     });
 });

@@ -19,4 +19,8 @@ class Seed {
     }
 }
 
+String.prototype.toSeed = function (delimiter) {
+    return new Seed(this.toString(), delimiter);
+};
+
 module.exports = Seed;
