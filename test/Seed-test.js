@@ -112,7 +112,7 @@ describe('Seed', function () {
             var result = seed.setDelimiter(delimiter);
 
             // assert
-            assert.equal(result.getDelimiter(), delimiter);
+            assert.equal(result.delimiter, delimiter);
         });
     });
 });

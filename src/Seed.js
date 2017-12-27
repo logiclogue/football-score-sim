@@ -8,10 +8,6 @@ class Seed {
         return new Seed(value, this.delimiter);
     }
 
-    getDelimiter() {
-        return this.delimiter;
-    }
-
     setDelimiter(delimiter) {
         return new Seed(this.value, delimiter);
     }
