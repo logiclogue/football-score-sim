@@ -1,15 +1,16 @@
-var assert = require('chai').assert;
-var Time = require('../src/Time');
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const Time = require('../src/Time');
 
-describe('Time', function () {
+describe('Time', () => {
     var time;
 
-    beforeEach(function () {
+    beforeEach(() => {
         time = new Time(3600000);
     });
 
-    describe('.minusDates()', function () {
-        it('should return the differences in the time', function () {
+    describe('.minusDates()', () => {
+        it('should return the differences in the time', () => {
             // arrange
             var time;
             var date1 = new Date(1499772238698);
@@ -23,138 +24,138 @@ describe('Time', function () {
         });
     });
 
-    describe('#minusDates()', function () {
-        it('should be the same method as the static minusDates', function () {
+    describe('#minusDates()', () => {
+        it('should be the same method as the static minusDates', () => {
             assert.equal(time.minusDates, Time.minusDates);
         });
     });
 
-    describe('#seconds', function () {
-        it('should return 3600', function () {
+    describe('#seconds', () => {
+        it('should return 3600', () => {
             var seconds = time.seconds;
 
             assert.equal(seconds, 3600);
         });
     });
 
-    describe('#minutes', function () {
-        it('should return 60', function () {
+    describe('#minutes', () => {
+        it('should return 60', () => {
             var minutes = time.minutes;
 
             assert.equal(minutes, 60);
         });
     });
 
-    describe('#hours', function () {
-        it('should return 1', function () {
+    describe('#hours', () => {
+        it('should return 1', () => {
             var hours = time.hours;
 
             assert.equal(hours, 1);
         });
     });
 
-    describe('#addToDate()', function () {
+    describe('#addToDate()', () => {
         var date;
         var milli;
         var result;
 
-        beforeEach(function () {
+        beforeEach(() => {
             milli = 1499772238698;
             date = new Date(milli);
             result = time.addToDate(date);
         });
 
-        it('should return a Date', function () {
+        it('should return a Date', () => {
             assert.instanceOf(result, Date);
         })
 
-        it('should return a new Date', function () {
+        it('should return a new Date', () => {
             assert.notEqual(result, date);
         });
 
-        it('should add date to the current time', function () {
+        it('should add date to the current time', () => {
             var expectedResultMilli = milli + time.milliseconds;
 
             assert.equal(result.getTime(), expectedResultMilli);
         });
     });
 
-    describe('#minusFromDate()', function () {
+    describe('#minusFromDate()', () => {
         var date;
         var milli;
         var result;
 
-        beforeEach(function () {
+        beforeEach(() => {
             milli = 1499772238698;
             date = new Date(milli);
             result = time.minusFromDate(date);
         });
 
-        it('should return a Date', function () {
+        it('should return a Date', () => {
             assert.instanceOf(result, Date);
         })
 
-        it('should return a new Date', function () {
+        it('should return a new Date', () => {
             assert.notEqual(result, date);
         });
 
-        it('should add date to the current time', function () {
+        it('should add date to the current time', () => {
             var expectedResultMilli = milli - time.milliseconds;
 
             assert.equal(result.getTime(), expectedResultMilli);
         });
     });
 
-    describe('#addTime()', function () {
+    describe('#addTime()', () => {
         var timeB;
         var result;
 
-        beforeEach(function () {
+        beforeEach(() => {
             timeB = new Time(1000);
 
             result = time.addTime(timeB);
         });
 
-        it('should return Time', function () {
+        it('should return Time', () => {
             assert.instanceOf(result, Time);
         });
 
-        it('should return a new Time', function () {
+        it('should return a new Time', () => {
             assert.notEqual(result, time);
             assert.notEqual(result, timeB);
         });
 
-        it('should add this Time and the Time passed in', function () {
+        it('should add this Time and the Time passed in', () => {
             assert.equal(result.milliseconds, 3601000);
         });
     });
 
-    describe('#minusTime()', function () {
+    describe('#minusTime()', () => {
         var timeB;
         var result;
 
-        beforeEach(function () {
+        beforeEach(() => {
             timeB = new Time(1000);
 
             result = time.minusTime(timeB);
         });
 
-        it('should return Time', function () {
+        it('should return Time', () => {
             assert.instanceOf(result, Time);
         });
 
-        it('should return a new Time', function () {
+        it('should return a new Time', () => {
             assert.notEqual(result, time);
             assert.notEqual(result, timeB);
         });
 
-        it('should minus this Time and the Time passed in', function () {
+        it('should minus this Time and the Time passed in', () => {
             assert.equal(result.milliseconds, 3599000);
         });
     });
 
-    describe('#setMilliseconds()', function () {
-        it('should set the right number of milliseconds', function () {
+    describe('#setMilliseconds()', () => {
+        it('should set the right number of milliseconds', () => {
             // arrange
             var milliseconds = 10;
 
@@ -166,8 +167,8 @@ describe('Time', function () {
         });
     });
 
-    describe('#setSeconds()', function () {
-        it('should set the right number of seconds', function () {
+    describe('#setSeconds()', () => {
+        it('should set the right number of seconds', () => {
             // arrange
             var seconds = 10;
 
@@ -179,8 +180,8 @@ describe('Time', function () {
         });
     });
 
-    describe('#setMinutes()', function () {
-        it('should set the right number of minutes', function () {
+    describe('#setMinutes()', () => {
+        it('should set the right number of minutes', () => {
             // arrange
             var minutes = 10;
 
@@ -192,8 +193,8 @@ describe('Time', function () {
         });
     });
 
-    describe('#setHours()', function () {
-        it('should set the right number of hours', function () {
+    describe('#setHours()', () => {
+        it('should set the right number of hours', () => {
             // arrange
             var hours = 10;
 
@@ -202,6 +203,17 @@ describe('Time', function () {
 
             // assert
             assert.equal(result.hours, hours);
+        });
+    });
+
+    describe("Date#toTime()", () => {
+        context("date with milliseconds 100", () => {
+            it("returns a time with 100 milliseconds", () => {
+                const date = new Date(100);
+                const time = date.toTime();
+
+                expect(time.milliseconds).to.equal(100);
+            });
         });
     });
 });

@@ -73,4 +73,8 @@ Time.minusDates = function (dateA, dateB) {
     return new Time(milliDelta);
 };
 
+Date.prototype.toTime = function () {
+    return new Time(this.getTime());
+};
+
 module.exports = Time;
