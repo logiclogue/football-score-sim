@@ -8,15 +8,11 @@ class Time {
         return new Time(milliseconds);
     }
 
-    getMilliseconds() {
-        return this.milliseconds;
-    }
-
     setSeconds(seconds) {
         return new Time(seconds * 1000);
     }
 
-    getSeconds() {
+    get seconds() {
         return this.milliseconds / 1000;
     }
 
@@ -24,7 +20,7 @@ class Time {
         return new Time(minutes * 60000);
     }
 
-    getMinutes() {
+    get minutes() {
         return this.milliseconds / 60000;
     }
 
@@ -32,7 +28,7 @@ class Time {
         return new Time(hours * 3600000);
     }
 
-    getHours() {
+    get hours() {
         return this.milliseconds / 3600000;
     }
 
@@ -51,8 +47,8 @@ class Time {
     }
 
     addTime(time) {
-        var milliA = time.getMilliseconds();
-        var milliB = this.getMilliseconds();
+        var milliA = time.milliseconds;
+        var milliB = this.milliseconds;
 
         var sum = milliA + milliB;
 
@@ -60,8 +56,8 @@ class Time {
     }
 
     minusTime(time) {
-        var milliA = this.getMilliseconds();
-        var milliB = time.getMilliseconds();
+        var milliA = this.milliseconds;
+        var milliB = time.milliseconds;
 
         var sum = milliA - milliB;
 

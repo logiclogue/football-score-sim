@@ -19,7 +19,7 @@ describe('Time', function () {
             time = Time.minusDates(date2, date1);
 
             // assert
-            assert.equal(time.getMilliseconds(), 1000);
+            assert.equal(time.milliseconds, 1000);
         });
     });
 
@@ -29,25 +29,25 @@ describe('Time', function () {
         });
     });
 
-    describe('#getSeconds()', function () {
+    describe('#seconds', function () {
         it('should return 3600', function () {
-            var seconds = time.getSeconds();
+            var seconds = time.seconds;
 
             assert.equal(seconds, 3600);
         });
     });
 
-    describe('#getMinutes()', function () {
+    describe('#minutes', function () {
         it('should return 60', function () {
-            var minutes = time.getMinutes();
+            var minutes = time.minutes;
 
             assert.equal(minutes, 60);
         });
     });
 
-    describe('#getHours()', function () {
+    describe('#hours', function () {
         it('should return 1', function () {
-            var hours = time.getHours();
+            var hours = time.hours;
 
             assert.equal(hours, 1);
         });
@@ -73,7 +73,7 @@ describe('Time', function () {
         });
 
         it('should add date to the current time', function () {
-            var expectedResultMilli = milli + time.getMilliseconds();
+            var expectedResultMilli = milli + time.milliseconds;
 
             assert.equal(result.getTime(), expectedResultMilli);
         });
@@ -99,7 +99,7 @@ describe('Time', function () {
         });
 
         it('should add date to the current time', function () {
-            var expectedResultMilli = milli - time.getMilliseconds();
+            var expectedResultMilli = milli - time.milliseconds;
 
             assert.equal(result.getTime(), expectedResultMilli);
         });
@@ -125,7 +125,7 @@ describe('Time', function () {
         });
 
         it('should add this Time and the Time passed in', function () {
-            assert.equal(result.getMilliseconds(), 3601000);
+            assert.equal(result.milliseconds, 3601000);
         });
     });
 
@@ -149,7 +149,7 @@ describe('Time', function () {
         });
 
         it('should minus this Time and the Time passed in', function () {
-            assert.equal(result.getMilliseconds(), 3599000);
+            assert.equal(result.milliseconds, 3599000);
         });
     });
 
@@ -162,7 +162,7 @@ describe('Time', function () {
             var result = new Time().setMilliseconds(milliseconds);
 
             // assert
-            assert.equal(result.getMilliseconds(), milliseconds);
+            assert.equal(result.milliseconds, milliseconds);
         });
     });
 
@@ -175,7 +175,7 @@ describe('Time', function () {
             var result = new Time().setSeconds(seconds);
 
             // assert
-            assert.equal(result.getSeconds(), seconds);
+            assert.equal(result.seconds, seconds);
         });
     });
 
@@ -188,7 +188,7 @@ describe('Time', function () {
             var result = new Time().setMinutes(minutes);
 
             // assert
-            assert.equal(result.getMinutes(), minutes);
+            assert.equal(result.minutes, minutes);
         });
     });
 
@@ -201,7 +201,7 @@ describe('Time', function () {
             var result = new Time().setHours(hours);
 
             // assert
-            assert.equal(result.getHours(), hours);
+            assert.equal(result.hours, hours);
         });
     });
 });
