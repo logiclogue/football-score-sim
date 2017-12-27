@@ -10,14 +10,14 @@ describe('Seed', function () {
         seed = new Seed(base, delimiter);
     });
 
-    describe('#getValue()', function () {
+    describe('#value', function () {
         context('setValue("a").append("b")', function () {
             it('should return "a,b"', function () {
                 // act
                 var result = seed
                     .setValue('a')
                     .append('b')
-                    .getValue();
+                    .value;
 
                 // assert
                 assert.equal(result, 'a,b');
@@ -39,7 +39,7 @@ describe('Seed', function () {
             var value = 'a';
 
             // act
-            var result = seed.setValue(value).getValue();
+            var result = seed.setValue(value).value;
 
             // assert
             assert.equal(result, value);
@@ -75,7 +75,7 @@ describe('Seed', function () {
             var result = seed
                 .setValue('a')
                 .append('b')
-                .getValue();
+                .value;
 
             // assert
             assert.equal(result, 'a,b');

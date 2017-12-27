@@ -3,10 +3,6 @@ class Seed {
         this.value = value || '';
         this.delimiter = delimiter || ' ';
     }
-    
-    getValue() {
-        return this.value;
-    }
 
     setValue(value) {
         return new Seed(value, this.delimiter);
