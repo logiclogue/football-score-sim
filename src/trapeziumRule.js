@@ -1,18 +1,14 @@
+const _ = require("lodash");
 const roundValue = require("./roundValue");
 
 // Number -> Number -> (Number -> Number) -> Number -> Number
 function trapeziumRule(width, precision, f, startX, endX) {
-    var startY = f(startX);
-    var endY = f(endX);
-    var x;
-    var ySum = 0;
-    var result;
+    const startY = f(startX);
+    const endY = f(endX);
 
-    for (x = startX + width; x < endX; x += width) {
-        x = roundValue(x, precision);
-
-        ySum += f(x);
-    }
+    const ySum = _(startX) 
+        .range(endX, width)
+        .reduce((result, x) => result + roundValue(x, precision), 0);
 
     return 0.5 * width * (startY + endY + (2 * ySum));
 }
