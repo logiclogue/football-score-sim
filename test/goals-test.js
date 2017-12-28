@@ -12,10 +12,11 @@ describe("goals()", () => {
     });
 
     context("(0 elo, 45 mins)", () => {
-        const result = goals(0, new Time().setMinutes(45));
+        const time = new Time().setMinutes(45);
+        const result = goals(0, time);
 
         it("returns an acceptable number of goals", () => {
-            expect(false).to.be.true;
+            expect(result).to.be.true;
         });
     });
 });
