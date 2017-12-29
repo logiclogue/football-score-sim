@@ -6,9 +6,9 @@ function trapeziumRule(width, precision, f, startX, endX) {
     const startY = f(startX);
     const endY = f(endX);
 
-    const ySum = _(startX) 
+    const ySum = _(startX + width) 
         .range(endX, width)
-        .reduce((result, x) => result + roundValue(x, precision), 0);
+        .reduce((result, x) => result + roundValue(f(x), precision), 0);
 
     return 0.5 * width * (startY + endY + (2 * ySum));
 }
