@@ -1,6 +1,7 @@
-var assert = require('chai').assert;
-var expect = require('chai').expect;
-var Seed = require('../src/Seed');
+const assert = require('chai').assert;
+const expect = require('chai').expect;
+const Seed = require('../src/Seed');
+const random = require("seeded-random");
 
 describe('Seed', function () {
     var seed;
@@ -127,6 +128,17 @@ describe('Seed', function () {
 
             it("sets the delimiter as ,", () => {
                 expect(seed.delimiter).to.equal(",");
+            });
+        });
+    });
+
+    describe("#decimal", () => {
+        context("given seed 'testing'", () => {
+            it("returns random.decimal with seed value", () => {
+                const result = "testing".toSeed().decimal;
+                const decimal = random.decimal("testing");
+
+                expect(result).to.equal(decimal);
             });
         });
     });
