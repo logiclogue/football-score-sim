@@ -6,7 +6,7 @@ function goals(eloDifference, timeLength, seed) {
     const mean = 1.58;
     const f = graph(mean, 1.23, 0.00245, eloDifference, timeLength);
 
-    return goals_(f, Math.random(), mean, 0);
+    return goals_(f, seed.decimal, mean, 0);
 }
 
 function goals_(f, rand, mean, goalCount) {

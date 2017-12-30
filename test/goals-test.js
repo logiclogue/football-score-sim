@@ -4,7 +4,7 @@ const expect = require("chai").expect;
 
 describe("goals()", () => {
     context("(0 elo, 0 mins)", () => {
-        const result = goals(0, new Time(0));
+        const result = goals(0, new Time(0), "".toSeed());
 
         it("returns 0 goals", () => {
             expect(result).to.equal(0);
@@ -13,10 +13,10 @@ describe("goals()", () => {
 
     context("(0 elo, 45 mins)", () => {
         const time = new Time().setMinutes(45);
-        const result = goals(0, time);
+        const result = goals(0, time, "testing".toSeed());
 
         it("returns an acceptable number of goals", () => {
-            expect(result).to.be.true;
+            expect(result).to.equal(1);
         });
     });
 });
