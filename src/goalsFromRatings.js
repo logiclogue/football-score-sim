@@ -17,7 +17,7 @@ function goalsFromRatings(ratings, timeLength, seed) {
 }
 
 // [Number] ~> Time -> Seed -> Integer
-Array.prototype.goalsFromRatings(timeLength, seed) {
+Array.prototype.goalsFromRatings = function (timeLength, seed) {
     return goalsFromRatings(this, timeLength, seed);
 }
 
