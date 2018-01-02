@@ -63,6 +63,10 @@ class Time {
 
         return new Time(sum);
     }
+
+    scale(factor) {
+        return new Time(factor * this.milliseconds);
+    }
 }
 
 Time.minusDates = function (dateA, dateB) {

@@ -1,5 +1,6 @@
-const assert = require('chai').assert;
-const expect = require('chai').expect;
+const chai = require('chai');
+const assert = chai.assert;
+const expect = chai.expect;
 const Time = require('../src/Time');
 
 describe('Time', () => {
@@ -203,6 +204,16 @@ describe('Time', () => {
 
             // assert
             assert.equal(result.hours, hours);
+        });
+    });
+
+    describe("#scale()", () => {
+        context("given a scale of 0.5", () => {
+            it("halves the number of minutes", () => {
+                const time = new Time().setMinutes(10);
+
+                expect(time.scale(0.5).minutes).to.equal(5);
+            });
         });
     });
 
