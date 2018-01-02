@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const expect = require("chai").expect;
+const Bacon = require("baconjs");
 const goalsFromRatings = require("../src/goalsFromRatings");
 const goals = require("../src/goals");
 const Seed = require("../src/Seed");
@@ -7,21 +8,30 @@ const Time = require("../src/Time");
 
 describe("sandbox", () => {
     context("live goals", () => {
-        it("", () => {
+        it("", (done) => {
             const time = new Time().setMinutes(90);
             const seed = Math.random().toString().toSeed();
-            const result = [1200, 1000].goalsFromRatings(time, seed);
+            const goals = [1200, 1000].goalsFromRatings(time, seed);
 
-            _(result)
+            const goalTimes = _(goals)
                 .map(goals =>
                     _(_.range(goals))
                         .map(Math.random)
-                        .value()
-                )
+                        .map(x => x * 90)
+                        .orderBy(x => x)
+                        .map(mins => new Time().setMinutes(mins))
+                        .value())
                 .tap(console.log)
                 .value();
 
-            expect(false).to.be.true;
+            Bacon.fromArray(goalTimes[0])
+                .doLog()
+                .flatMap((time) =>
+                    Bacon.later(time.scale(2 / 5400).milliseconds, time))
+                .doLog()
+                .onValue(() => done());
+
+            //expect(false).to.be.true;
         });
     });
 });
