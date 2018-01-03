@@ -3,23 +3,26 @@ const Time = require("./Time");
 
 // [Number] -> Time -> Seed -> [[Time]]
 function goalTimes(goals, timeLength, seed) {
+    const updatedSeed = updateSeed(seed, goals, timeLength);
+
     return _(goals)
-        //.map(goals =>
-        //    _(_.range(goals))
-        //        .map(Math.random)
-        //        .map(x => x * 90)
-        //        .orderBy(x => x)
-        //        .map(mins => new Time().setMinutes(mins))
-        //        .value())
-        .map(goals => _goalTimes(goals, timeLength, seed))
+        .map(goals => goalTimesPrime(goals, timeLength, updatedSeed))
         .value();
 }
 
 // Number -> Time -> Seed -> [Time]
-function _goalTimes(goals, timeLength, seed) {
+function goalTimesPrime(goals, timeLength, seed) {
     return _(_.range(goals))
-        .map(mins => new Time().setMinutes(0))
+        .map(i => seed.append(i).decimal)
+        .orderBy(x => x)
+        .map(x => x * timeLength.minutes)
+        .map(new Time().setMinutes)
         .value();
+}
+
+// Seed -> [Number] -> Time -> Seed
+function updateSeed(seed, goals, timeLength) {
+    return seed.append(goals).append(timeLength);
 }
 
 module.exports = goalTimes;
