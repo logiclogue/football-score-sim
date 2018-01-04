@@ -38,8 +38,16 @@ describe("goalTimes()", () => {
                 .map(time => time.minutes)
                 .map(Math.round)
                 .value();
+            const sorted = _.sortBy(expected);
 
-            expect(expected).to.deep.equal([15, 40, 41, 84]);
+            expect(expected).to.deep.equal(sorted);
+        });
+
+        it("returns different goal times for home and away", () => {
+            const homeTime = result[0][0].minutes;
+            const awayTime = result[0][0].minutes;
+
+            expect(homeTime).to.not.equal(awayTime);
         });
     });
 

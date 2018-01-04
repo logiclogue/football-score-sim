@@ -6,7 +6,8 @@ function goalTimes(goals, timeLength, seed) {
     const updatedSeed = updateSeed(seed, goals, timeLength);
 
     return _(goals)
-        .map(goals => goalTimesPrime(goals, timeLength, updatedSeed))
+        .map((goals, i) =>
+            goalTimesPrime(goals, timeLength, updatedSeed.append(i)))
         .value();
 }
 
