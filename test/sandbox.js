@@ -12,6 +12,7 @@ describe("sandbox", () => {
             const time = new Time().setMinutes(90);
             const seed = Math.random().toString().toSeed();
             const goals = [1200, 1000].goalsFromRatings(time, seed);
+            const goalTimes = [1200, 1000].goalsFromRatings(time, seed);
 
             const goalTimes = _(goals)
                 .map(goals =>
