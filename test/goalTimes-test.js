@@ -45,7 +45,7 @@ describe("goalTimes()", () => {
 
         it("returns different goal times for home and away", () => {
             const homeTime = result[0][0].minutes;
-            const awayTime = result[0][0].minutes;
+            const awayTime = result[1][0].minutes;
 
             expect(homeTime).to.not.equal(awayTime);
         });
