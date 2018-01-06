@@ -14,9 +14,27 @@ class Ratings {
         return this.value[1];
     }
 
-    get relative() {
-    
+    get _() {
+        return _(this.value);
     }
+
+    get relative() {
+        return this._
+            .map(allRatingsButCurrent(this.value))
+            .map(_.mean)
+            .map(getDifference(this.value))
+            .value();
+    }
+}
+
+// [Number] -> (Number -> Number -> Number)
+function getDifference(ratings) {
+    return (rating, i) => ratings[i] - rating;
+}
+
+// [Number] -> (Number -> Number -> [Number])
+function allRatingsButCurrent(ratings) {
+    return (rating, i) => _.filter(ratings, (rating, i2) => i !== i2);
 }
 
 // [Number] ~> Ratings
