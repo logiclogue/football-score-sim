@@ -23,7 +23,10 @@ function goalTimesPrime(goals, timeLength, seed) {
 
 // Seed -> [Number] -> Time -> Seed
 function updateSeed(seed, goals, timeLength) {
-    return seed.append(goals).append(timeLength);
+    return seed
+        .append("goalTimes")
+        .append(goals)
+        .append(timeLength);
 }
 
 module.exports = goalTimes;
