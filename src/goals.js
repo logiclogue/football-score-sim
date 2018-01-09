@@ -5,10 +5,7 @@ const calculateArea = require("./calculateArea");
 function goals(eloDifference, timeLength, seed) {
     const mean = 1.58;
     const f = graph(mean, 1.23, 0.00245, eloDifference, timeLength);
-    const rand = seed
-        .append(eloDifference)
-        .append(timeLength.milliseconds)
-        .decimal;
+    const rand = updateSeed(seed, eloDifference, timeLength).decimal;
 
     return goals_(f, rand, mean, 0);
 }
@@ -33,6 +30,13 @@ function graph(mean, standardDeviation, constant, eloDifference, timeLength) {
     const sdScaled = standardDeviation * decimal;
 
     return x => normalDistribution(meanScaled, sdScaled, x);
+}
+
+// Seed -> Number -> Time -> Seed
+function updateSeed(seed, eloDifference, timeLength) {
+    return seed
+        .append(eloDifference)
+        .append(timeLength.milliseconds);
 }
 
 module.exports = goals;
