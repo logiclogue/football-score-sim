@@ -14,14 +14,7 @@ describe("sandbox", () => {
             const seed = Math.random().toString().toSeed();
             const goals = [1200, 1000].toRatings().goals(time, seed);
 
-            const times = _(goals)
-                .thru(goals => goalTimes(goals, time, seed))
-                .map(goals =>
-                    _(goals)
-                        .map(mins => new Time().setMinutes(mins))
-                        .value())
-                .tap(console.log)
-                .value();
+            const times = goalTimes(goals, time, seed);
 
             Bacon.fromArray(times[0])
                 .doLog()
