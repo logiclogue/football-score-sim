@@ -5,6 +5,7 @@ const goalsFromRatings = require("../src/goalsFromRatings");
 const goals = require("../src/goals");
 const Seed = require("../src/Seed");
 const Time = require("../src/Time");
+const goalTimes = require("../src/goalTimes");
 
 describe("sandbox", () => {
     context("live goals", () => {
@@ -13,18 +14,16 @@ describe("sandbox", () => {
             const seed = Math.random().toString().toSeed();
             const goals = [1200, 1000].toRatings().goals(time, seed);
 
-            const goalTimes = _(goals)
+            const times = _(goals)
+                .thru(goals => goalTimes(goals, time, seed))
                 .map(goals =>
-                    _(_.range(goals))
-                        .map(Math.random)
-                        .map(x => x * 90)
-                        .orderBy(x => x)
+                    _(goals)
                         .map(mins => new Time().setMinutes(mins))
                         .value())
                 .tap(console.log)
                 .value();
 
-            Bacon.fromArray(goalTimes[0])
+            Bacon.fromArray(times[0])
                 .doLog()
                 .flatMap((time) =>
                     Bacon.later(time.scale(2 / 5400).milliseconds, time))
