@@ -2,7 +2,7 @@ const _ = require("lodash");
 const goals = require("./goals");
 const Ratings = require("./Ratings");
 
-// Ratings -> Time -> Seed -> Integer
+// Ratings -> Time -> Seed -> [Integer]
 function goalsFromRatings(ratings, timeLength, seed) {
     return _(ratings.relative)
         .map((ratingDiff, i) => {
@@ -15,7 +15,7 @@ function goalsFromRatings(ratings, timeLength, seed) {
         .value();
 }
 
-// Ratings ~> Time -> Seed -> Integer
+// Ratings ~> Time -> Seed -> [Integer]
 Ratings.prototype.goals = function (timeLength, seed) {
     return goalsFromRatings(this, timeLength, seed);
 };

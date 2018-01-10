@@ -22,8 +22,6 @@ describe("sandbox", () => {
                     Bacon.later(time.scale(2 / 5400).milliseconds, time))
                 .doLog()
                 .onEnd(done);
-
-            //expect(false).to.be.true;
         });
     });
 });
