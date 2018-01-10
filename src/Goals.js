@@ -13,4 +13,8 @@ class Goals {
     }
 }
 
+Array.prototype.toGoals = function () {
+    return new Goals(this);
+};
+
 module.exports = Goals;
