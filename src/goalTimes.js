@@ -14,11 +14,16 @@ function goalTimes(goals, timeLength, seed) {
 // Number -> Time -> Seed -> [Time]
 function goalTimesPrime(goals, timeLength, seed) {
     return _(_.range(goals))
-        .map(i => seed.append(i).decimal)
+        .map(randomDecimal(seed))
         .orderBy(x => x)
         .map(x => x * timeLength.minutes)
         .map(new Time().setMinutes)
         .value();
+}
+
+// Seed -> (Number -> Number)
+function randomDecimal(seed) {
+    return i => seed.append(i).decimal;
 }
 
 // Seed -> Goals -> Time -> Seed

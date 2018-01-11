@@ -3,6 +3,7 @@ const expect = require("chai").expect;
 const goalTimes = require("../src/goalTimes");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
+const Goals = require("../src/Goals");
 
 describe("goalTimes()", () => {
     context("given [4, 2]", () => {
