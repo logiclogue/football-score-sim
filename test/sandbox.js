@@ -19,7 +19,7 @@ describe("sandbox", () => {
 
             Bacon.fromArray(times[0])
                 .doLog()
-                .flatMap((time) =>
+                .flatMap(time =>
                     Bacon.later(time.scale(2 / 5400).milliseconds, time))
                 .doLog()
                 .onEnd(done);
