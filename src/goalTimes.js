@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const Time = require("./Time");
+const Goals = require("./Goals");
 
 // Goals -> Time -> Seed -> [[Time]]
 function goalTimes(goals, timeLength, seed) {
@@ -43,5 +44,10 @@ function updateSeed(seed, goals, timeLength) {
         .append(goals.value)
         .append(timeLength);
 }
+
+// Goals ~> Time -> Seed -> [[Time]]
+Goals.prototype.times = function (timeLength, seed) {
+    return goalTimes(this, timeLength, seed);
+};
 
 module.exports = goalTimes;

@@ -9,8 +9,7 @@ describe("goalTimes()", () => {
     context("given [4, 2]", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const goals = [4, 2].toGoals();
-        const result = goalTimes(goals, time, seed);
+        const result = [4, 2].toGoals().times(time, seed);
 
         it("returns a list of two lists", () => {
             expect(result.length).to.equal(2);
