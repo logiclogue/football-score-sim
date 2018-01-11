@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const Time = require("./Time");
 
-// [Number] -> Time -> Seed -> [[Time]]
+// Goals -> Time -> Seed -> [[Time]]
 function goalTimes(goals, timeLength, seed) {
     const updatedSeed = updateSeed(seed, goals, timeLength);
 
