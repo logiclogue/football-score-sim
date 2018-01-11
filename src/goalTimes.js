@@ -5,7 +5,7 @@ const Time = require("./Time");
 function goalTimes(goals, timeLength, seed) {
     const updatedSeed = updateSeed(seed, goals, timeLength);
 
-    return _(goals)
+    return _(goals.value)
         .map((goals, i) =>
             goalTimesPrime(goals, timeLength, updatedSeed.append(i)))
         .value();
@@ -21,11 +21,11 @@ function goalTimesPrime(goals, timeLength, seed) {
         .value();
 }
 
-// Seed -> [Number] -> Time -> Seed
+// Seed -> Goals -> Time -> Seed
 function updateSeed(seed, goals, timeLength) {
     return seed
         .append("goalTimes")
-        .append(goals)
+        .append(goals.value)
         .append(timeLength);
 }
 

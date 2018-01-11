@@ -8,7 +8,8 @@ describe("goalTimes()", () => {
     context("given [4, 2]", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const result = goalTimes([4, 2], time, seed);
+        const goals = [4, 2].toGoals();
+        const result = goalTimes(goals, time, seed);
 
         it("returns a list of two lists", () => {
             expect(result.length).to.equal(2);
@@ -54,8 +55,9 @@ describe("goalTimes()", () => {
     context("run twice", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const result = goalTimes([4, 2], time, seed);
-        const secondResult = goalTimes([4, 2], time, seed);
+        const goals = [4, 2].toGoals();
+        const result = goalTimes(goals, time, seed);
+        const secondResult = goalTimes(goals, time, seed);
 
         it("returns the same result", () => {
             expect(result).to.deep.equal(secondResult);
