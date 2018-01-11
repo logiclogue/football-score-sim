@@ -12,9 +12,10 @@ describe("sandbox", () => {
         it("", (done) => {
             const time = new Time().setMinutes(90);
             const seed = Math.random().toString().toSeed();
-            const goals = [1200, 1000].toRatings().goals(time, seed);
-
-            const times = goalTimes(goals, time, seed);
+            const times = [1200, 1000]
+                .toRatings()
+                .goals(time, seed)
+                .times(time, seed);
 
             Bacon.fromArray(times[0])
                 .doLog()
