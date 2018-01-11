@@ -15,15 +15,25 @@ function goalTimes(goals, timeLength, seed) {
 function goalTimesPrime(goals, timeLength, seed) {
     return _(_.range(goals))
         .map(randomDecimal(seed))
-        .orderBy(x => x)
-        .map(x => x * timeLength.minutes)
-        .map(new Time().setMinutes)
+        .orderBy()
+        .map(decimalToMinutes(timeLength))
+        .map(minutesToTime())
         .value();
 }
 
 // Seed -> (Number -> Number)
 function randomDecimal(seed) {
     return i => seed.append(i).decimal;
+}
+
+// Time -> (Number -> Number)
+function decimalToMinutes(timeLength) {
+    return x => x * timeLength.minutes;
+}
+
+// Number -> Time
+function minutesToTime() {
+    return new Time().setMinutes;
 }
 
 // Seed -> Goals -> Time -> Seed
