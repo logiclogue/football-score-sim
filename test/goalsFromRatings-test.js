@@ -13,7 +13,7 @@ describe("goalsFromRatings()", () => {
             const ratings = [1200, 900].toRatings();
             const result = goalsFromRatings(ratings, time, seed);
 
-            expect(result).to.deep.equal([1, 0]);
+            expect(result.value).to.deep.equal([1, 0]);
         });
     });
 
@@ -24,7 +24,7 @@ describe("goalsFromRatings()", () => {
             const ratings = [1200, 900].toRatings();
             const result = goalsFromRatings(ratings, time, seed);
 
-            expect(result).to.deep.equal([1, 1]);
+            expect(result.value).to.deep.equal([1, 1]);
         });
     });
 
@@ -35,7 +35,7 @@ describe("goalsFromRatings()", () => {
             const ratings = [1200, 900].toRatings();
             const result = goalsFromRatings(ratings, time, seed);
 
-            expect(result).to.deep.equal([0, 2]);
+            expect(result.value).to.deep.equal([0, 2]);
         });
     });
 });
@@ -48,7 +48,7 @@ describe("Ratings#goals()", () => {
             const ratings = [1200, 900].toRatings();
             const result = ratings.goals(time, seed);
 
-            expect(result).to.deep.equal([1, 0]);
+            expect(result.value).to.deep.equal([1, 0]);
         });
     });
 });

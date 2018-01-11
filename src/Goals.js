@@ -1,3 +1,5 @@
+const _ = require("lodash");
+
 class Goals {
     // [Number] -> Goals
     constructor(value) {
@@ -15,6 +17,10 @@ class Goals {
 
 Array.prototype.toGoals = function () {
     return new Goals(this);
+};
+
+_.prototype.toGoals = function () {
+    return new Goals(this.value());
 };
 
 module.exports = Goals;
