@@ -8,16 +8,16 @@ const goalTimes = require("../src/goalTimes");
 const timesToObservable = require("../src/timesToObservable");
 
 describe("timesToObservable()", () => {
-    it("", (done) => {
-        const time = new Time().setMinutes(90);
-        const seed = Math.random().toString().toSeed();
-        const times = [1200, 1000]
-            .toRatings()
-            .goals(time, seed)
-            .times(time, seed);
+    context("given [4, 2]", () => {
+        it("returns 6 times", (done) => {
+            const time = new Time().setMinutes(90);
+            const seed = Math.random().toString().toSeed();
+            const times = [4, 2].toGoals().times(time, seed);
 
-        timesToObservable(times, 2 / 5400)
-            .doLog()
-            .onEnd(done);
+            timesToObservable(times, 0)
+                .scan(0, i => i + 1)
+                .filter(i => i === 6)
+                .onValue(() => done());
+        });
     });
 });
