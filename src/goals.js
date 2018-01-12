@@ -10,6 +10,7 @@ function goals(eloDifference, timeLength, seed) {
     return goals_(f, rand, mean, 0);
 }
 
+// (Number -> Number) -> Number -> Number -> Number -> Number
 function goals_(f, rand, mean, goalCount) {
     const area = calculateArea(f, mean - 10, goalCount + 0.5);
 
