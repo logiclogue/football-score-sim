@@ -1,11 +1,11 @@
 const _ = require("lodash");
 const expect = require("chai").expect;
-const goalTimes = require("../src/goalTimes");
+const times = require("../src/times");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
 const Goals = require("../src/Goals");
 
-describe("goalTimes()", () => {
+describe("times()", () => {
     context("given [4, 2]", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
@@ -56,8 +56,8 @@ describe("goalTimes()", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
         const goals = [4, 2].toGoals();
-        const result = goalTimes(goals, time, seed);
-        const secondResult = goalTimes(goals, time, seed);
+        const result = times(goals, time, seed);
+        const secondResult = times(goals, time, seed);
 
         it("returns the same result", () => {
             expect(result).to.deep.equal(secondResult);

@@ -2,19 +2,20 @@ const _ = require("lodash");
 const Time = require("./Time");
 const Goals = require("./Goals");
 
-// Goals -> Time -> Seed -> [[Time]]
-function goalTimes(goals, timeLength, seed) {
-    const updatedSeed = updateSeed(seed, goals, timeLength);
+// [Number] -> Time -> Seed -> [[Time]]
+function times(occurrencesList, timeLength, seed) {
+    const updatedSeed = updateSeed(seed, occurrencesList, timeLength);
 
-    return _(goals.value)
-        .map((goals, i) =>
-            goalTimesPrime(goals, timeLength, updatedSeed.append(i)))
+    return _(occurrencesList)
+        .map((occurrences, i) =>
+            times_(occurrences, timeLength, updatedSeed.append(i)))
         .value();
 }
 
 // Number -> Time -> Seed -> [Time]
-function goalTimesPrime(goals, timeLength, seed) {
-    return _(_.range(goals))
+function times_(occurrences, timeLength, seed) {
+    return _(occurrences)
+        .thru(_.range)
         .map(randomDecimal(seed))
         .orderBy()
         .map(decimalToMinutes(timeLength))
@@ -37,17 +38,17 @@ function minutesToTime() {
     return new Time().setMinutes;
 }
 
-// Seed -> Goals -> Time -> Seed
-function updateSeed(seed, goals, timeLength) {
+// Seed -> [Number] -> Time -> Seed
+function updateSeed(seed, occurrences, timeLength) {
     return seed
-        .append("goalTimes")
-        .append(goals.value)
+        .append("times")
+        .append(occurrences)
         .append(timeLength);
 }
 
 // Goals ~> Time -> Seed -> [[Time]]
 Goals.prototype.times = function (timeLength, seed) {
-    return goalTimes(this, timeLength, seed);
+    return times(this.value, timeLength, seed);
 };
 
-module.exports = goalTimes;
+module.exports = times;

@@ -4,7 +4,7 @@ const goalsFromRatings = require("../src/goalsFromRatings");
 const goals = require("../src/goals");
 const Seed = require("../src/Seed");
 const Time = require("../src/Time");
-const goalTimes = require("../src/goalTimes");
+const times = require("../src/times");
 const timesToObservable = require("../src/timesToObservable");
 
 describe("timesToObservable()", () => {
