@@ -48,7 +48,9 @@ function updateSeed(seed, occurrences, timeLength) {
 
 // Goals ~> Time -> Seed -> [[Time]]
 Goals.prototype.times = function (timeLength, seed) {
-    return times(this.value, timeLength, seed);
+    const updatedSeed = seed.append("Goals");
+
+    return times(this.value, timeLength, updatedSeed);
 };
 
 module.exports = times;
