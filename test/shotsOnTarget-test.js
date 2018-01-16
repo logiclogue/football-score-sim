@@ -23,7 +23,7 @@ describe("shotsOnTarget", () => {
     context("given an elo difference of 500", () => {
         const eloDifference = 500;
 
-        it("has an average of 4.3", () => {
+        it("has an average of 3.8", () => {
             const mean = _(_.range(100))
                 .map(x => seed.append(x))
                 .map(seed => shotsOnTarget(eloDifference, timeLength, seed))
