@@ -1,11 +1,11 @@
-const shotsOnTarget = require("../src/shotsOnTarget");
+const shotsOffTarget = require("../src/shotsOffTarget");
 const goals = require("../src/goals");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
 const expect = require("chai").expect;
 const _ = require("lodash");
 
-describe("shotsOnTarget", () => {
+describe("shotsOffTarget", () => {
     const timeLength = new Time().setMinutes(90);
     const seed = "testing".toSeed();
 
@@ -13,10 +13,10 @@ describe("shotsOnTarget", () => {
         it("has an average of 2.4", () => {
             const mean = _(_.range(100))
                 .map(x => seed.append(x))
-                .map(seed => shotsOnTarget(0, timeLength, seed))
+                .map(seed => shotsOffTarget(0, timeLength, seed))
                 .mean();
 
-            expect(_.round(mean, 1)).to.equal(2.4);
+            expect(_.round(mean, 1)).to.equal(8.3);
         });
     });
 
@@ -26,7 +26,7 @@ describe("shotsOnTarget", () => {
         it("has an average of 3.8", () => {
             const mean = _(_.range(100))
                 .map(x => seed.append(x))
-                .map(seed => shotsOnTarget(eloDifference, timeLength, seed))
+                .map(seed => shotsOffTarget(eloDifference, timeLength, seed))
                 .mean();
 
             const meanGoals = _(_.range(100))
@@ -34,10 +34,7 @@ describe("shotsOnTarget", () => {
                 .map(seed => goals(eloDifference, timeLength, seed))
                 .mean();
 
-            // This should maybe be the average
-            //const ratio = meanGoals / 1.58;
-            //expect(2.39474 * ratio).to.be.closeTo(mean, 0.1);
-            expect(mean).to.be.closeTo(4.3, 0.1);
+            expect(mean).to.be.closeTo(11.5, 0.1);
         });
     });
 });

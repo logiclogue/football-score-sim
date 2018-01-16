@@ -3,10 +3,11 @@ const calculateArea = require("./calculateArea");
 
 // Number -> Number -> (Number -> Time -> Seed -> Integer)
 function occurrences(mean, sd) {
-    const constant = 0.00245;
+    const constant = 0.00245 / 1.23;
+    const newContant = constant * sd;
 
     return (eloDifference, timeLength, seed) => {
-        const f = graph(mean, sd, constant, eloDifference, timeLength);
+        const f = graph(mean, sd, newContant, eloDifference, timeLength);
         const rand = updateSeed(seed, eloDifference, timeLength).decimal;
 
         return occurrences_(f, rand, mean, 0);
@@ -15,7 +16,7 @@ function occurrences(mean, sd) {
 
 // (Number -> Number) -> Number -> Number -> Number -> Number
 function occurrences_(f, rand, mean, goalCount) {
-    const area = calculateArea(f, mean - 10, goalCount + 0.5);
+    const area = calculateArea(f, mean - 20, goalCount + 0.5);
 
     if (rand > area) {
         return occurrences_(f, rand, mean, goalCount + 1);
