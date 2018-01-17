@@ -6,14 +6,25 @@ const Goals = require("./Goals");
 // Ratings -> Time -> Seed -> Goals
 function goalsFromRatings(ratings, timeLength, seed) {
     return _(ratings.relative)
-        .map((ratingDiff, i) => {
-            return {
-                ratingDiff: ratingDiff,
-                seed: seed.append(ratings.value).append(i)
-            };
-        })
-        .map(o => goals(o.ratingDiff, timeLength, o.seed))
+        .map(toDiffAndSeed(ratings, seed))
+        .map(toGoalsList(timeLength))
         .toGoals();
+}
+
+// Ratings -> Seed -> (Number -> Number -> DiffAndSeed)
+function toDiffAndSeed(ratings, seed) {
+    return (ratingDiff, i) => new DiffAndSeed(ratings, ratingDiff, seed, i);
+}
+
+// Time -> (DiffAndSeed -> [Number])
+function toGoalsList(timeLength) {
+    return o => goals(o.ratingDiff, timeLength, o.seed);
+}
+
+// Ratings -> Number -> Seed -> Number -> DiffAndSeed
+function DiffAndSeed(ratings, ratingDiff, seed, i) {
+    this.ratingDiff = ratingDiff;
+    this.seed = seed.append(ratings.value).append(i);
 }
 
 // Ratings ~> Time -> Seed -> Goals
