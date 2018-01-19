@@ -23,4 +23,14 @@ describe("RatingDiffAndSeed", () => {
                 .to.equal(expectedSeed.toString());
         });
     });
+
+    describe("Ratings#toRatingDiffAndSeed()", () => {
+        it("returns a RatingDiffAndSeed", () => {
+            const diffAndSeed = ratings.toRatingDiffAndSeed(seed)(10, i);
+
+            console.log(diffAndSeed);
+
+            expect(diffAndSeed).to.be.an.instanceOf(RatingDiffAndSeed);
+        });
+    });
 });
