@@ -12,7 +12,7 @@ function goalsFromRatings(ratings, timeLength, seed) {
         .toGoals();
 }
 
-// Time -> (DiffAndSeed -> [Number])
+// Time -> (RatingDiffAndSeed -> [Number])
 function toGoalsList(timeLength) {
     return o => goals(o.ratingDiff, timeLength, o.seed);
 }
