@@ -1,9 +1,10 @@
+const _ = require("lodash");
+const expect = require("chai").expect;
 const shotsOnTarget = require("../src/shotsOnTarget");
 const goals = require("../src/goals");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
-const expect = require("chai").expect;
-const _ = require("lodash");
+const Ratings = require("../src/Ratings");
 
 describe("shotsOnTarget", () => {
     const timeLength = new Time().setMinutes(90);
@@ -50,6 +51,28 @@ describe("shotsOnTarget", () => {
             //const ratio = meanGoals / 1.58;
             //expect(2.39474 * ratio).to.be.closeTo(mean, 0.1);
             expect(mean).to.be.closeTo(4.3, 0.1);
+        });
+    });
+});
+
+describe("Ratings#shotsOnTarget", () => {
+    const ratings = [1200, 800].toRatings();
+    const timeLength = new Time().setMinutes(90);
+    const seed = "testing".toSeed();
+
+    context("given [1200, 800]", () => {
+        it("returns [6, 1]", () => {
+            const result = ratings.shotsOnTarget(timeLength, seed);
+
+            expect(result).to.deep.equal([6, 1]);
+        });
+    });
+
+    context("given [1200, 800] and [1, 1] goals", () => {
+        it("returns [7, 2]", () => {
+            const result = ratings.shotsOnTarget(timeLength, seed, [1, 1]);
+
+            expect(result).to.deep.equal([7, 2]);
         });
     });
 });
