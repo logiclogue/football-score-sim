@@ -9,6 +9,18 @@ describe("shotsOnTarget", () => {
     const timeLength = new Time().setMinutes(90);
     const seed = "testing".toSeed();
 
+    context("given 3 goals", () => {
+        it("has an average of 5.4", () => {
+            const goalsScored = 3;
+            const mean = _(_.range(100))
+                .map(x => seed.append(x))
+                .map(seed => shotsOnTarget(0, timeLength, seed, goalsScored))
+                .mean();
+
+            expect(mean).to.be.closeTo(5.4, 0.1);
+        });
+    });
+
     context("given an elo difference of 0", () => {
         it("has an average of 2.4", () => {
             const mean = _(_.range(100))
