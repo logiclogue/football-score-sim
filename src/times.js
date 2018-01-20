@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const Time = require("./Time");
-const Goals = require("./Goals");
+const Occurrences = require("./Occurrences");
 
 // [Number] -> Time -> Seed -> [[Time]]
 function times(occurrencesList, timeLength, seed) {
@@ -46,9 +46,9 @@ function updateSeed(seed, occurrences, timeLength) {
         .append(timeLength);
 }
 
-// Goals ~> Time -> Seed -> [[Time]]
-Goals.prototype.times = function (timeLength, seed) {
-    const updatedSeed = seed.append("Goals");
+// Occurrences ~> Time -> Seed -> [[Time]]
+Occurrences.prototype.times = function (timeLength, seed) {
+    const updatedSeed = seed.append("Occurrences");
 
     return times(this.value, timeLength, updatedSeed);
 };

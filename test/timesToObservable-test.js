@@ -12,7 +12,7 @@ describe("timesToObservable()", () => {
         it("returns 6 times", (done) => {
             const time = new Time().setMinutes(90);
             const seed = Math.random().toString().toSeed();
-            const times = [4, 2].toGoals().times(time, seed);
+            const times = [4, 2].toOccurrences().times(time, seed);
 
             timesToObservable(times, 0)
                 .scan(0, i => i + 1)

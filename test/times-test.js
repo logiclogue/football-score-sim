@@ -3,13 +3,13 @@ const expect = require("chai").expect;
 const times = require("../src/times");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
-const Goals = require("../src/Goals");
+const Occurrences = require("../src/Occurrences");
 
 describe("times()", () => {
     context("given [4, 2]", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const result = [4, 2].toGoals().times(time, seed);
+        const result = [4, 2].toOccurrences().times(time, seed);
 
         it("returns a list of two lists", () => {
             expect(result.length).to.equal(2);
@@ -55,7 +55,7 @@ describe("times()", () => {
     context("run twice", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const goals = [4, 2].toGoals();
+        const goals = [4, 2].toOccurrences();
         const result = times(goals, time, seed);
         const secondResult = times(goals, time, seed);
 
