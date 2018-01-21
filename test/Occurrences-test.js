@@ -22,4 +22,17 @@ describe("Occurrences", () => {
             });
         });
     });
+
+    describe("#append", () => {
+        context("given [4, 2] append [1, 2]", () => {
+            const goals = [4, 2].toOccurrences();
+            const goalsToAppend = [1, 2].toOccurrences();
+
+            const result = goals.append(goalsToAppend);
+
+            it("returns [5, 4]", () => {
+                expect(result.value).to.deep.equal([5, 4]);
+            });
+        });
+    });
 });

@@ -15,6 +15,14 @@ class Occurrences {
     get away() {
         return this.value[1];
     }
+
+    // Occurrences ~> Occurrences -> Occurrences
+    append(occurrences) {
+        return _(this.value)
+            .zip(occurrences.value)
+            .map(_.sum)
+            .toOccurrences();
+    }
 }
 
 // Array ~> Occurrences
