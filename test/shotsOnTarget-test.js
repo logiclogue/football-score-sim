@@ -5,6 +5,7 @@ const goals = require("../src/goals");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
 const Ratings = require("../src/Ratings");
+const Occurrences = require("../src/Occurrences");
 
 describe("shotsOnTarget", () => {
     const timeLength = new Time().setMinutes(90);
@@ -61,10 +62,14 @@ describe("Ratings#shotsOnTarget", () => {
     const seed = "testing".toSeed();
 
     context("given [1200, 800]", () => {
-        it("returns [6, 1]", () => {
-            const result = ratings.shotsOnTarget(timeLength, seed);
+        const result = ratings.shotsOnTarget(timeLength, seed);
 
-            expect(result).to.deep.equal([6, 1]);
+        it("returns type Occurrences", () => {
+            expect(result).to.be.an.instanceOf(Occurrences);
+        });
+
+        it("returns [6, 1]", () => {
+            expect(result.value).to.deep.equal([6, 1]);
         });
     });
 
@@ -72,7 +77,7 @@ describe("Ratings#shotsOnTarget", () => {
         it("returns [7, 2]", () => {
             const result = ratings.shotsOnTarget(timeLength, seed, [1, 1]);
 
-            expect(result).to.deep.equal([7, 2]);
+            expect(result.value).to.deep.equal([7, 2]);
         });
     });
 });

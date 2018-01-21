@@ -15,22 +15,22 @@ function updateSeed(seed) {
     return seed.append("shotsOnTarget");
 }
 
-// Ratings -> Time -> Seed -> [Number] -> [Number]
+// Ratings -> Time -> Seed -> [Number] -> Occurrences
 function shotsOnTargetFromRatings(ratings, timeLength, seed, goals = [0, 0]) {
     return _(ratings.relative)
         .map(ratings.toRatingDiffAndSeed(seed))
         .map(toShotsOnTarget(timeLength))
         .zip(goals)
         .map(_.sum)
-        .value();
+        .toOccurrences();
 }
 
-// Time -> (RatingDiffAndSeed -> [Number])
+// Time -> (RatingDiffAndSeed -> Number)
 function toShotsOnTarget(timeLength) {
     return o => shotsOnTarget(o.ratingDiff, timeLength, o.seed);
 }
 
-// Ratings ~> Time -> Seed -> [Number] -> [Number]
+// Ratings ~> Time -> Seed -> [Number] -> Occurrences
 Ratings.prototype.shotsOnTarget = function (timeLength, seed, goals) {
     return shotsOnTargetFromRatings(this, timeLength, seed, goals);
 };
