@@ -1,9 +1,10 @@
+const _ = require("lodash");
+const expect = require("chai").expect;
 const shotsOffTarget = require("../src/shotsOffTarget");
 const goals = require("../src/goals");
 const Time = require("../src/Time");
 const Seed = require("../src/Seed");
-const expect = require("chai").expect;
-const _ = require("lodash");
+const Occurrences = require("../src/Occurrences");
 
 describe("shotsOffTarget", () => {
     const timeLength = new Time().setMinutes(90);
@@ -35,6 +36,24 @@ describe("shotsOffTarget", () => {
                 .mean();
 
             expect(mean).to.be.closeTo(11.5, 0.1);
+        });
+    });
+});
+
+describe("Ratings#shotsOffTarget()", () => {
+    context("given a rating of [1200, 800]", () => {
+        const ratings = [1200, 800].toRatings();
+        const timeLength = new Time().setMinutes(90);
+        const seed = "testing".toSeed();
+
+        const result = ratings.shotsOffTarget(timeLength, seed);
+
+        it("returns Occurrences", () => {
+            expect(result).to.be.an.instanceOf(Occurrences);
+        });
+
+        it("returns [10, 9]", () => {
+            expect(result.value).to.deep.equal([10, 9]);
         });
     });
 });
