@@ -75,7 +75,8 @@ describe("Ratings#shotsOnTarget", () => {
 
     context("given [1200, 800] and [1, 1] goals", () => {
         it("returns [7, 2]", () => {
-            const result = ratings.shotsOnTarget(timeLength, seed, [1, 1]);
+            const goals = [1, 1].toOccurrences();
+            const result = ratings.shotsOnTarget(timeLength, seed, goals);
 
             expect(result.value).to.deep.equal([7, 2]);
         });
