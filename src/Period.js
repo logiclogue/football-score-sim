@@ -1,5 +1,6 @@
 const goals = require("./goals");
 const shotsOnTarget = require("./shotsOnTarget");
+const shotsOffTarget = require("./shotsOffTarget");
 
 class Period {
     // Time -> Ratings -> Seed -> Period
@@ -18,6 +19,12 @@ class Period {
     get shotsOnTarget() {
         return this.ratings
             .shotsOnTarget(this.timeLength, this.seed, this.goals);
+    }
+
+    // Period ~> Occurrences
+    get shotsOffTarget() {
+        return this.ratings
+            .shotsOffTarget(this.timeLength, this.seed);
     }
 }
 

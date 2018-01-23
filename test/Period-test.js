@@ -5,6 +5,7 @@ const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
 const goals = require("../src/goals");
 const shotsOnTarget = require("../src/shotsOnTarget");
+const shotsOffTarget = require("../src/shotsOffTarget");
 
 describe("Period", () => {
     const seed = "testing".toSeed();
@@ -26,7 +27,7 @@ describe("Period", () => {
 
     describe("#ratings", () => {
         it("is the given ratings", () => {
-            expect(period.ratings.value).to.deep.equal(ratings.value);
+            expect(period.ratings).to.deep.equal(ratings);
         });
     });
 
@@ -34,7 +35,7 @@ describe("Period", () => {
         it("is equal to the return of the goals function", () => {
             const result = ratings.goals(timeLength, seed);
 
-            expect(period.goals.value).to.deep.equal(result.value);
+            expect(period.goals).to.deep.equal(result);
         });
     });
 
@@ -43,7 +44,16 @@ describe("Period", () => {
             const result = ratings
                 .shotsOnTarget(timeLength, seed, period.goals);
 
-            expect(period.shotsOnTarget.value).to.deep.equal(result.value);
+            expect(period.shotsOnTarget).to.deep.equal(result);
+        });
+    });
+
+    describe("#shotsOffTarget", () => {
+        it("is equal to the return of the shotsOffTarget function", () => {
+            const result = ratings
+                .shotsOffTarget(timeLength, seed, period.goals);
+
+            expect(period.shotsOffTarget).to.deep.equal(result);
         });
     });
 });
