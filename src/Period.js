@@ -26,6 +26,11 @@ class Period {
         return this.ratings
             .shotsOffTarget(this.timeLength, this.seed);
     }
+
+    // Period ~> Occurrences
+    get shots() {
+        return this.shotsOnTarget.append(this.shotsOffTarget);
+    }
 }
 
 module.exports = Period;

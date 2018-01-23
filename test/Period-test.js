@@ -56,4 +56,13 @@ describe("Period", () => {
             expect(period.shotsOffTarget).to.deep.equal(result);
         });
     });
+
+    describe("#shots", () => {
+        it("is equal to the sum of shotsOnTarget and shotsOffTarget", () => {
+            const onTarget = period.shotsOnTarget;
+            const offTarget = period.shotsOffTarget;
+
+            expect(period.shots).to.deep.equal(onTarget.append(offTarget));
+        });
+    });
 });
