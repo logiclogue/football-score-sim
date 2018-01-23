@@ -17,14 +17,14 @@ class Period {
 
     // Period ~> Occurrences
     get shotsOnTarget() {
-        return this.ratings
-            .shotsOnTarget(this.timeLength, this.seed, this.goals);
+        const goals = this.goals;
+
+        return this.ratings.shotsOnTarget(this.timeLength, this.seed, goals);
     }
 
     // Period ~> Occurrences
     get shotsOffTarget() {
-        return this.ratings
-            .shotsOffTarget(this.timeLength, this.seed);
+        return this.ratings.shotsOffTarget(this.timeLength, this.seed);
     }
 
     // Period ~> Occurrences
