@@ -37,6 +37,11 @@ class Occurrences {
             .zip(this.value)
             .minBy(o => o[1])[0];
     }
+
+    // Occurrences ~> Boolean
+    get isDraw() {
+        return _.every(this.value, x => x === this.value[0]);
+    }
 }
 
 // Array ~> Occurrences

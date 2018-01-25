@@ -51,6 +51,12 @@ describe("Occurrences", () => {
                 expect(goals.loser(teams)).to.equal("teamB");
             });
         });
+
+        describe("#isDraw", () => {
+            it("returns false", () => {
+                expect(goals.isDraw).to.be.false;
+            });
+        });
     });
 
     context("given [1, 2], and xs as ['teamA', 'teamB']", () => {
@@ -66,6 +72,22 @@ describe("Occurrences", () => {
         describe("#loser", () => {
             it("returns 'teamA'", () => {
                 expect(goals.loser(teams)).to.equal("teamA");
+            });
+        });
+
+        describe("#isDraw", () => {
+            it("returns false", () => {
+                expect(goals.isDraw).to.be.false;
+            });
+        });
+    });
+
+    context("given [1, 1]", () => {
+        const goals = [1, 1].toOccurrences();
+
+        describe("#isDraw", () => {
+            it("is true", () => {
+                expect(goals.isDraw).to.be.true;
             });
         });
     });
