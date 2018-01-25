@@ -52,6 +52,11 @@ class Occurrences {
     }
 }
 
+// Occurrences
+Occurrences.empty = function () {
+    return new Occurrences([0, 0]);
+};
+
 // Array ~> Occurrences
 Array.prototype.toOccurrences = function () {
     return new Occurrences(this);
