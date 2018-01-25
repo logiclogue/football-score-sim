@@ -35,4 +35,24 @@ describe("Occurrences", () => {
             });
         });
     });
+
+    describe("#winner()", () => {
+        context("given [2, 1] and xs as ['teamA', 'teamB']", () => {
+            const goals = [2, 1].toOccurrences();
+            const result = goals.winner(["teamA", "teamB"]);
+
+            it("returns 'teamA'", () => {
+                expect(result).to.equal("teamA");
+            });
+        });
+
+        context("given [1, 2], and xs as ['teamA', 'teamB']", () => {
+            const goals = [1, 2].toOccurrences();
+            const result = goals.winner(["teamA", "teamB"]);
+
+            it("returns 'teamB'", () => {
+                expect(result).to.equal("teamB");
+            });
+        });
+    });
 });

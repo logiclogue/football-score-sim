@@ -23,6 +23,13 @@ class Occurrences {
             .map(_.sum)
             .toOccurrences();
     }
+
+    // Occurrences ~> [a] -> Either a null
+    winner(xs) {
+        return _(xs)
+            .zip(this.value)
+            .maxBy(o => o[1])[0];
+    }
 }
 
 // Array ~> Occurrences
