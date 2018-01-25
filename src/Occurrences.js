@@ -30,6 +30,13 @@ class Occurrences {
             .zip(this.value)
             .maxBy(o => o[1])[0];
     }
+
+    // Occurrences ~> [a] -> Either a null
+    loser(xs) {
+        return _(xs)
+            .zip(this.value)
+            .minBy(o => o[1])[0];
+    }
 }
 
 // Array ~> Occurrences

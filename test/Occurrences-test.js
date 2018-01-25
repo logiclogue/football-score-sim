@@ -36,22 +36,36 @@ describe("Occurrences", () => {
         });
     });
 
-    describe("#winner()", () => {
-        context("given [2, 1] and xs as ['teamA', 'teamB']", () => {
-            const goals = [2, 1].toOccurrences();
-            const result = goals.winner(["teamA", "teamB"]);
+    context("given [2, 1] and xs as ['teamA', 'teamB']", () => {
+        const goals = [2, 1].toOccurrences();
+        const teams = ["teamA", "teamB"];
 
+        describe("#winner()", () => {
             it("returns 'teamA'", () => {
-                expect(result).to.equal("teamA");
+                expect(goals.winner(teams)).to.equal("teamA");
             });
         });
 
-        context("given [1, 2], and xs as ['teamA', 'teamB']", () => {
-            const goals = [1, 2].toOccurrences();
-            const result = goals.winner(["teamA", "teamB"]);
-
+        describe("#loser()", () => {
             it("returns 'teamB'", () => {
-                expect(result).to.equal("teamB");
+                expect(goals.loser(teams)).to.equal("teamB");
+            });
+        });
+    });
+
+    context("given [1, 2], and xs as ['teamA', 'teamB']", () => {
+        const goals = [1, 2].toOccurrences();
+        const teams = ["teamA", "teamB"];
+
+        describe("#winner", () => {
+            it("returns 'teamB'", () => {
+                expect(goals.winner(teams)).to.equal("teamB");
+            });
+        });
+
+        describe("#loser", () => {
+            it("returns 'teamA'", () => {
+                expect(goals.loser(teams)).to.equal("teamA");
             });
         });
     });
