@@ -84,6 +84,19 @@ describe("Occurrences", () => {
 
     context("given [1, 1]", () => {
         const goals = [1, 1].toOccurrences();
+        const teams = ["teamA", "teamB"];
+
+        describe("#winner()", () => {
+            it("returns null", () => {
+                expect(goals.winner(teams)).to.be.null;
+            });
+        });
+
+        describe("#loser()", () => {
+            it("returns null", () => {
+                expect(goals.loser(teams)).to.be.null;
+            });
+        });
 
         describe("#isDraw", () => {
             it("is true", () => {
