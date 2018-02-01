@@ -1,5 +1,5 @@
 const _ = require("lodash");
-const occurrences = require("./occurrences");
+const generateOccurrences = require("./generateOccurrences");
 const Occurrences = require("./Occurrences");
 const RatingDiffAndSeed = require("./RatingDiffAndSeed");
 const Ratings = require("./Ratings");
@@ -7,7 +7,7 @@ const Ratings = require("./Ratings");
 // Number -> Time -> Seed -> Integer
 function shotsOffTarget(eloDifference, timeLength, seed) {
     const updatedSeed = updateSeed(seed);
-    const f = occurrences(8.31579, 3.34587);
+    const f = generateOccurrences(8.31579, 3.34587);
 
     return f(eloDifference, timeLength, updatedSeed);
 }

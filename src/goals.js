@@ -1,6 +1,6 @@
-const occurrences = require("./occurrences");
+const generateOccurrences = require("./generateOccurrences");
 
 // Number -> Time -> Seed -> Integer
-const goals = occurrences(1.58, 1.23);
+const goals = generateOccurrences(1.58, 1.23);
 
 module.exports = goals;
