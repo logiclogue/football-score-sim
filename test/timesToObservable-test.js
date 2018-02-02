@@ -1,23 +1,21 @@
 const _ = require("lodash");
 const expect = require("chai").expect;
-const goalsFromRatings = require("../src/goalsFromRatings");
-const goals = require("../src/goals");
-const Seed = require("../src/Seed");
-const Time = require("../src/Time");
-const times = require("../src/times");
-const timesToObservable = require("../src/timesToObservable");
+const TimeScalar = require("../src/TimeScalar");
+const Time = require ("../src/Time");
 
-describe("timesToObservable()", () => {
-    context("given [4, 2]", () => {
-        it("returns 6 times", (done) => {
-            const time = new Time().setMinutes(90);
-            const seed = Math.random().toString().toSeed();
-            const times = [4, 2].toOccurrences().times(time, seed);
+describe("TimeScalar", () => {
+    describe("#scale()", () => {
+        context("given 10 minute date and scale of 2", () => {
+            it("scales 10 minutes to 1800000 milliseconds", () => {
+                const date = new Date(600000);
+                const timeToScale = new Time().setMinutes(10);
+                const scale = 2;
+                const scalar = new TimeScalar(date, scale);
 
-            timesToObservable(times, 0)
-                .scan(0, i => i + 1)
-                .filter(i => i === 6)
-                .onValue(() => done());
+                const result = scalar.scale(timeToScale).getMilliseconds();
+
+                expect(result).to.equal(180000);
+            });
         });
     });
 });

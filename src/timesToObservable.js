@@ -2,8 +2,8 @@ const _ = require("lodash");
 const Bacon = require("baconjs");
 
 // [[Time]] -> Number -> Observable
-function timesToObservable(timess, scale) {
-    return _(timess)
+function timesToObservable(timesList, scale) {
+    return _(timesList)
         .map(times => timesToObservablePrime(times, scale))
         .reduce((bacon, o) => bacon.merge(o), Bacon.never());
 }
