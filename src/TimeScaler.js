@@ -1,14 +1,14 @@
-class TimeScalar {
-    // Date -> Number -> TimeScalar
+class TimeScaler {
+    // Date -> Number -> TimeScaler
     constructor(date, scale) {
         this.date = date;
         this.scale = scale;
     }
 
-    // TimeScalar ~> Time -> Date
+    // TimeScaler ~> Time -> Date
     scale(time) {
         return new Date(time.scale(scale).milliseconds);
     }
 }
 
-module.exports = TimeScalar;
+module.exports = TimeScaler;
