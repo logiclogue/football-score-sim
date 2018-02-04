@@ -1,16 +1,19 @@
 class TimeScaler {
-    // Date -> Number -> TimeScaler
-    constructor(date, scale) {
-        this.date = date;
-        this.scaleFactor = scale;
+    // Date -> Time -> Number -> TimeScaler
+    constructor(dateOffset, timeOffset, scale) {
+        this.dateOffset = dateOffset || new Date(0);
+        this.timeOffset = timeOffset || new Time();
+        this.scaleFactor = scale || 1;
     }
 
     // TimeScaler ~> Time -> Date
     scale(time) {
-        const offsetMilli = this.date.getTime();
+        const dateOffsetMilli = this.dateOffset.getTime();
+        const timeOffsetMilli = this.timeOffset
+            .scale(this.scaleFactor).milliseconds;
         const newMilli = time.scale(this.scaleFactor).milliseconds;
 
-        return new Date(offsetMilli + newMilli);
+        return new Date(dateOffsetMilli + timeOffsetMilli + newMilli);
     }
 }
 
