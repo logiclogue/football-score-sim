@@ -2,12 +2,15 @@ class TimeScaler {
     // Date -> Number -> TimeScaler
     constructor(date, scale) {
         this.date = date;
-        this.scale = scale;
+        this.scaleFactor = scale;
     }
 
     // TimeScaler ~> Time -> Date
     scale(time) {
-        return new Date(time.scale(scale).milliseconds);
+        const offsetMilli = this.date.getTime();
+        const newMilli = time.scale(this.scaleFactor).milliseconds;
+
+        return new Date(offsetMilli + newMilli);
     }
 }
 
