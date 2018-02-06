@@ -14,6 +14,21 @@ function occurrences(mean, sd) {
     };
 }
 
+function occurrences(mean, sd) {
+    const constant = 0.00245 / 1.23;
+    const newContant = constant * sd;
+
+    return (eloDifference, timeLength, seed) => {
+        const newMean = mean + (constant * eloDifference);
+        const s = Math.sqrt((3 * Math.pow(sd, 2)) / Math.pow(Math.PI, 2));
+        const x = updateSeed(seed, eloDifference, timeLength).decimal;
+        const output = newMean + (s * Math.log(x / (1 - x)));
+        const goals = Math.floor(output);
+
+        return goals < 0 ? 0 : goals;
+    };
+}
+
 // (Number -> Number) -> Number -> Number -> Number -> Number
 function occurrences_(f, rand, mean, goalCount) {
     const area = calculateArea(f, mean - 20, goalCount + 0.5);
