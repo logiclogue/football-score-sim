@@ -4,10 +4,10 @@ const calculateArea = require("./calculateArea");
 // Number -> Number -> (Number -> Time -> Seed -> Integer)
 function occurrences(mean, sd) {
     const constant = 0.00245 / 1.23;
-    const newContant = constant * sd;
+    const newConstant = constant * sd;
 
     return (eloDifference, timeLength, seed) => {
-        const f = graph(mean, sd, newContant, eloDifference, timeLength);
+        const f = graph(mean, sd, newConstant, eloDifference, timeLength);
         const rand = updateSeed(seed, eloDifference, timeLength).decimal;
 
         return occurrences_(f, rand, mean, 0);
@@ -16,14 +16,16 @@ function occurrences(mean, sd) {
 
 function occurrences(mean, sd) {
     const constant = 0.00245 / 1.23;
-    const newContant = constant * sd;
+    const newConstant = constant * sd;
 
     return (eloDifference, timeLength, seed) => {
-        const newMean = mean + (constant * eloDifference);
-        const s = Math.sqrt((3 * Math.pow(sd, 2)) / Math.pow(Math.PI, 2));
+        const decimal = timeLength.minutes / 90;
+        const meanScaled = (mean + (newConstant * eloDifference)) * decimal;
+        const sdScaled = sd * decimal
+        const s = Math.sqrt((3 * Math.pow(sdScaled, 2)) / Math.pow(Math.PI, 2));
         const x = updateSeed(seed, eloDifference, timeLength).decimal;
-        const output = newMean + (s * Math.log(x / (1 - x)));
-        const goals = Math.floor(output);
+        const output = meanScaled + (s * Math.log(x / (1 - x)));
+        const goals = Math.round(output);
 
         return goals < 0 ? 0 : goals;
     };
