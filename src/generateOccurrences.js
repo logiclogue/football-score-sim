@@ -1,5 +1,6 @@
 const normalDistribution = require("./normalDistribution");
 const calculateArea = require("./calculateArea");
+const logit = require("./logitFunction");
 
 // Number -> Number -> (Number -> Time -> Seed -> Integer)
 function occurrences(mean, sd) {
@@ -15,20 +16,36 @@ function occurrences(mean, sd) {
 }
 
 function occurrences(mean, sd) {
-    const constant = 0.00245 / 1.23;
-    const newConstant = constant * sd;
+    const constant = (0.00245 / 1.23) * sd;
 
     return (eloDifference, timeLength, seed) => {
-        const decimal = timeLength.minutes / 90;
-        const meanScaled = (mean + (newConstant * eloDifference)) * decimal;
-        const sdScaled = sd * decimal
-        const s = Math.sqrt((3 * Math.pow(sdScaled, 2)) / Math.pow(Math.PI, 2));
+        const meanScaled = scaleMean(constant, timeLength, eloDifference, mean);
+        const sdScaled = scaleStandardDeviation(timeLength, sd);
         const x = updateSeed(seed, eloDifference, timeLength).decimal;
-        const output = meanScaled + (s * Math.log(x / (1 - x)));
+        const output = logit(sdScaled, meanScaled, x);
         const goals = Math.round(output);
 
         return goals < 0 ? 0 : goals;
     };
+}
+
+// Number -> Time -> Number -> Number -> Number
+function scaleMean(constant, timeLength, eloDifference, mean) {
+    const ratio = timeToRatio(timeLength);
+
+    return (mean + (constant * eloDifference)) * ratio;
+}
+
+// Time -> Number -> Number
+function scaleStandardDeviation(timeLength, standardDeviation) {
+    const ratio = timeToRatio(timeLength);
+
+    return ratio * standardDeviation;
+}
+
+// Time -> Number
+function timeToRatio(timeLength) {
+    return timeLength.minutes / 90;
 }
 
 // (Number -> Number) -> Number -> Number -> Number -> Number
