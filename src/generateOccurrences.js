@@ -25,7 +25,7 @@ function occurrences(mean, sd) {
         const output = logit(sdScaled, meanScaled, x);
         const goals = Math.round(output);
 
-        return goals < 0 ? 0 : goals;
+        return goals <= 0 ? 0 : goals;
     };
 }
 

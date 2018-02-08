@@ -37,7 +37,7 @@ describe("shotsOnTarget", () => {
     context("given an elo difference of 500", () => {
         const eloDifference = 500;
 
-        it("has an average of 3.8", () => {
+        it("has an average of 4.4", () => {
             const mean = _(_.range(100))
                 .map(x => seed.append(x))
                 .map(seed => shotsOnTarget(eloDifference, timeLength, seed))
@@ -48,10 +48,7 @@ describe("shotsOnTarget", () => {
                 .map(seed => goals(eloDifference, timeLength, seed))
                 .mean();
 
-            // This should maybe be the average
-            //const ratio = meanGoals / 1.58;
-            //expect(2.39474 * ratio).to.be.closeTo(mean, 0.1);
-            expect(mean).to.be.closeTo(4.3, 0.1);
+            expect(mean).to.be.closeTo(4.4, 0.1);
         });
     });
 });
