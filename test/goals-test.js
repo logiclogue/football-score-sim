@@ -34,7 +34,7 @@ describe("goals()", () => {
         const averageGoals = totalGoals / count;
 
         it("returns an average of approx 1.6", () => {
-            expect(roundValue(averageGoals, 10)).to.equal(1.6);
+            expect(averageGoals).to.be.closeTo(1.6, 0.1);
         });
     });
 });
