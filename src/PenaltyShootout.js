@@ -6,11 +6,11 @@ class PenaltyShootout {
         this.record = record || [[], []];
     }
 
-    // PenaltyShootout ~> Number -> PenaltyShootout
-    attempt(index) {
+    // PenaltyShootout ~> Number -> Boolean -> PenaltyShootout
+    add(index, value) {
         const record = this.record.map((teamRecord, i) => {
             if (i === index) {
-                return _.concat(teamRecord, true);
+                return _.concat(teamRecord, value);
             }
 
             return teamRecord;
