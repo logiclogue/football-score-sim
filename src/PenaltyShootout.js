@@ -20,4 +20,14 @@ class PenaltyShootout {
     }
 }
 
+// Number -> PenaltyShootout
+PenaltyShootout.empty = function (count) {
+    const record = _.chain('_')
+        .repeat(count)
+        .map(x => [])
+        .value();
+
+    return new PenaltyShootout(record);
+};
+
 module.exports = PenaltyShootout;

@@ -13,4 +13,14 @@ describe("PenaltyShootout", () => {
             });
         });
     });
+
+    describe(".empty()", () => {
+        context("given 5", () => {
+            it("returns a penalty shootout of [[], [], [], [], []]", () => {
+                const result = PenaltyShootout.empty(5).record;
+
+                expect(result).to.deep.equal([[], [], [], [], []]);
+            });
+        });
+    });
 });
