@@ -1,4 +1,5 @@
 const _ = require("lodash");
+const Seed = require("./Seed");
 
 class PenaltyShootout {
     // [[Boolean]] -> PenaltyShootout
@@ -17,6 +18,13 @@ class PenaltyShootout {
         });
 
         return new PenaltyShootout(record);
+    }
+
+    // PenaltyShootout ~> Number -> Seed -> PenaltyShootout
+    attempt(index, seed) {
+        const updatedSeed = seed.append(this.record);
+
+        return this.add(index, updatedSeed.decimal < 0.75);
     }
 }
 
