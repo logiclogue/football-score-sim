@@ -26,6 +26,13 @@ class PenaltyShootout {
 
         return this.add(index, updatedSeed.decimal < 0.75);
     }
+
+    // PenaltyShootout ~> Seed -> PenaltyShootout
+    simulate(seed) {
+        return _(this.record)
+            .map((x, i) => i)
+            .reduce((record, i) => record.attempt(i, seed), this);
+    }
 }
 
 // Number -> PenaltyShootout

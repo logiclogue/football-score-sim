@@ -45,6 +45,17 @@ describe("PenaltyShootout", () => {
         });
     });
 
+    describe("#simulate()", () => {
+        it("returns a fully simulated penalty shootout", () => {
+            const shootout = PenaltyShootout.empty(2);
+            const seed = "test".toSeed();
+
+            const result = shootout.simulate(seed).record;
+
+            expect(result).to.deep.equal([[], []])
+        });
+    });
+
     describe(".empty()", () => {
         context("given 5", () => {
             it("returns a penalty shootout of [[], [], [], [], []]", () => {
