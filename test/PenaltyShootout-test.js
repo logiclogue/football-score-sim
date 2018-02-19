@@ -45,6 +45,38 @@ describe("PenaltyShootout", () => {
         });
     });
 
+    describe("#isWin", () => {
+        context("given empty", () => {
+            it("returns false", () => {
+                const shootout = PenaltyShootout.empty(2);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("tie after 5", () => {
+            it("returns false", () => {
+                const shootout = new PenaltyShootout([
+                    [true, false, true, true, true],
+                    [false, true, true, true, true]
+                ]);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("win after 5", () => {
+            it("returns true", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true, true, true],
+                    [true, true, true, true, false]
+                ]);
+
+                expect(shootout.isWin).to.be.true;
+            });
+        });
+    });
+
     describe("#simulate()", () => {
         it("returns a fully simulated penalty shootout", () => {
             const shootout = PenaltyShootout.empty(2);

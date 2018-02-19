@@ -27,6 +27,17 @@ class PenaltyShootout {
         return this.add(index, updatedSeed.decimal < 0.75);
     }
 
+    // PenaltyShootout ~> Boolean
+    get isWin() {
+        const result = _(this.record)
+            .map(xs => _.filter(xs, y => y === true).length)
+            .value();
+
+        console.log(result);
+
+        return false;
+    }
+
     // PenaltyShootout ~> Seed -> PenaltyShootout
     simulate(seed) {
         return _(this.record)
