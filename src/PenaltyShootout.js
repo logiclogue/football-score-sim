@@ -40,9 +40,23 @@ class PenaltyShootout {
 
     // PenaltyShootout ~> Seed -> PenaltyShootout
     simulate(seed) {
-        return _(this.record)
+        const result = _(this.record)
             .map((x, i) => i)
             .reduce((record, i) => record.attempt(i, seed), this);
+
+        //if (this.isWin) {
+            return result;
+        //}
+
+        return result.simulate(seed);
+    }
+
+    // PenaltyShoot ~> Occurrences
+    get goals() {
+        return _(this.record)
+            .map(xs => _.filter(xs, y => y === true))
+            .map(xs => xs.length)
+            .value();
     }
 }
 

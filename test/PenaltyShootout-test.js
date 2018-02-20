@@ -88,6 +88,19 @@ describe("PenaltyShootout", () => {
         });
     });
 
+    describe("#goals", () => {
+        context("[true, true, true], [false, true, true]", () => {
+            it("returns 3, 2", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true],
+                    [false, true, true]
+                ]);
+
+                expect(shootout.goals).to.deep.equal([3, 2]);
+            });
+        });
+    });
+
     describe(".empty()", () => {
         context("given 5", () => {
             it("returns a penalty shootout of [[], [], [], [], []]", () => {
