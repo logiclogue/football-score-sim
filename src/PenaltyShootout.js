@@ -1,5 +1,6 @@
 const _ = require("lodash");
 const Seed = require("./Seed");
+const Occurrences = require("./Occurrences");
 
 class PenaltyShootout {
     // [[Boolean]] -> PenaltyShootout
@@ -28,11 +29,17 @@ class PenaltyShootout {
     }
 
     // PenaltyShootout ~> [Number]
-    get attemptsRemaining() {
-        const lengths = this.record.map(xs => xs.length);
-        const max = _(lengths).concat(5).max();
+    get penaltiesTaken() {
+        return this.record.map(xs => xs.length);
+    }
 
-        if (this.goals.isDraw) {
+    // PenaltyShootout ~> [Number]
+    get attemptsRemaining() {
+        const max = _(this.penaltiesTaken).concat(5).max();
+        const allEqual = _.reduce(this.penaltiesTaken, (b, a) => b === a);
+        const remaining;
+
+        if (this.goals.isDraw && allEqual && max > 5) {
             return [1, 1];
         }
 
@@ -43,13 +50,7 @@ class PenaltyShootout {
 
     // PenaltyShootout ~> Boolean
     get isWin() {
-        const result = _(this.record)
-            .map(xs => _.filter(xs, y => y === true).length)
-            .value();
-
-        console.log(result);
-
-        return false;
+        return _.every(this.attemptsRemaining, remaining => remaining === 0);
     }
 
     // PenaltyShootout ~> Seed -> PenaltyShootout
@@ -70,7 +71,7 @@ class PenaltyShootout {
         return _(this.record)
             .map(xs => _.filter(xs, y => y === true))
             .map(xs => xs.length)
-            .value();
+            .toOccurrences();
     }
 }
 

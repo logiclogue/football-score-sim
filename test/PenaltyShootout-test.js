@@ -139,7 +139,7 @@ describe("PenaltyShootout", () => {
                     [false, true, true]
                 ]);
 
-                expect(shootout.goals).to.deep.equal([3, 2]);
+                expect(shootout.goals.value).to.deep.equal([3, 2]);
             });
         });
     });
