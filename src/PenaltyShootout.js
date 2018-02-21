@@ -27,6 +27,20 @@ class PenaltyShootout {
         return this.add(index, updatedSeed.decimal < 0.75);
     }
 
+    // PenaltyShootout ~> [Number]
+    get attemptsRemaining() {
+        const lengths = this.record.map(xs => xs.length);
+        const max = _(lengths).concat(5).max();
+
+        if (this.goals.isDraw) {
+            return [1, 1];
+        }
+
+        return _(this.record)
+            .map(xs => max - xs.length)
+            .value();
+    }
+
     // PenaltyShootout ~> Boolean
     get isWin() {
         const result = _(this.record)

@@ -88,6 +88,49 @@ describe("PenaltyShootout", () => {
         });
     });
 
+    describe("#attemptsRemaining", () => {
+        context("empty shootout", () => {
+            it("returns 5, 5", () => {
+                const shootout = PenaltyShootout.empty(2);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([5, 5]);
+            });
+        });
+
+        context("[true, true, true], [false, true]", () => {
+            it("returns 2, 3", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true],
+                    [false, true]
+                ]);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([2, 3]);
+            });
+        });
+
+        context("[5 trues, [true, true, true, true, false]]", () => {
+            it("returns 0, 0", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true, true, true],
+                    [true, true, true, true, false]
+                ]);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([0, 0]);
+            });
+        });
+
+        context("[5 trues, 5 trues]", () => {
+            it("returns 1, 1", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true, true, true],
+                    [true, true, true, true, true]
+                ]);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([1, 1]);
+            });
+        });
+    });
+
     describe("#goals", () => {
         context("[true, true, true], [false, true, true]", () => {
             it("returns 3, 2", () => {
