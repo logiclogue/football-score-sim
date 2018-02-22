@@ -36,16 +36,16 @@ class PenaltyShootout {
     // PenaltyShootout ~> [Number]
     get attemptsRemaining() {
         const max = _(this.penaltiesTaken).concat(5).max();
-        const allEqual = _.reduce(this.penaltiesTaken, (b, a) => b === a);
-        const remaining;
+        const remaining = _(this.record)
+            .map(xs => max - xs.length)
+            .value();
+        const allZero = _.every(remaining, x => x === 0);
 
-        if (this.goals.isDraw && allEqual && max > 5) {
+        if (allZero && this.goals.isDraw) {
             return [1, 1];
         }
 
-        return _(this.record)
-            .map(xs => max - xs.length)
-            .value();
+        return remaining;
     }
 
     // PenaltyShootout ~> Boolean

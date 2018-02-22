@@ -1,4 +1,5 @@
 const expect = require("chai").expect;
+const _ = require("lodash");
 const PenaltyShootout = require("../src/PenaltyShootout");
 const Seed = require("../src/Seed");
 
@@ -127,6 +128,28 @@ describe("PenaltyShootout", () => {
                 ]);
 
                 expect(shootout.attemptsRemaining).to.deep.equal([1, 1]);
+            });
+        });
+
+        context("[7 trues, 6 trues]", () => {
+            it("returns 0, 1", () => {
+                const shootout = new PenaltyShootout([
+                    _(7).range().map(x => true).value(),
+                    _(6).range().map(x => true).value()
+                ]);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([0, 1]);
+            });
+        });
+
+        context("[[true, true, false, false], 4 trues]", () => {
+            it("returns 0, 0", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, false, false],
+                    [true, true, true, true]
+                ]);
+
+                expect(shootout.attemptsRemaining).to.deep.equal([0, 0]);
             });
         });
     });
