@@ -76,6 +76,69 @@ describe("PenaltyShootout", () => {
                 expect(shootout.isWin).to.be.true;
             });
         });
+
+        context("empty shootout", () => {
+            it("returns false", () => {
+                const shootout = PenaltyShootout.empty(2);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("[true, true, true], [false, true]", () => {
+            it("returns false", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true],
+                    [false, true]
+                ]);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("[5 trues, [true, true, true, true, false]]", () => {
+            it("returns true", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true, true, true],
+                    [true, true, true, true, false]
+                ]);
+
+                expect(shootout.isWin).to.be.true;
+            });
+        });
+
+        context("[5 trues, 5 trues]", () => {
+            it("returns false", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, true, true, true],
+                    [true, true, true, true, true]
+                ]);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("[7 trues, 6 trues]", () => {
+            it("returns false", () => {
+                const shootout = new PenaltyShootout([
+                    _(7).range().map(x => true).value(),
+                    _(6).range().map(x => true).value()
+                ]);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
+
+        context("[[true, true, false, false], 4 trues]", () => {
+            it("returns true", () => {
+                const shootout = new PenaltyShootout([
+                    [true, true, false, false],
+                    [true, true, true, true]
+                ]);
+
+                expect(shootout.isWin).to.be.false;
+            });
+        });
     });
 
     describe("#simulate()", () => {
@@ -86,71 +149,6 @@ describe("PenaltyShootout", () => {
             const result = shootout.simulate(seed).record;
 
             expect(result).to.deep.equal([[], []])
-        });
-    });
-
-    describe("#attemptsRemaining", () => {
-        context("empty shootout", () => {
-            it("returns 5, 5", () => {
-                const shootout = PenaltyShootout.empty(2);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([5, 5]);
-            });
-        });
-
-        context("[true, true, true], [false, true]", () => {
-            it("returns 2, 3", () => {
-                const shootout = new PenaltyShootout([
-                    [true, true, true],
-                    [false, true]
-                ]);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([2, 3]);
-            });
-        });
-
-        context("[5 trues, [true, true, true, true, false]]", () => {
-            it("returns 0, 0", () => {
-                const shootout = new PenaltyShootout([
-                    [true, true, true, true, true],
-                    [true, true, true, true, false]
-                ]);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([0, 0]);
-            });
-        });
-
-        context("[5 trues, 5 trues]", () => {
-            it("returns 1, 1", () => {
-                const shootout = new PenaltyShootout([
-                    [true, true, true, true, true],
-                    [true, true, true, true, true]
-                ]);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([1, 1]);
-            });
-        });
-
-        context("[7 trues, 6 trues]", () => {
-            it("returns 0, 1", () => {
-                const shootout = new PenaltyShootout([
-                    _(7).range().map(x => true).value(),
-                    _(6).range().map(x => true).value()
-                ]);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([0, 1]);
-            });
-        });
-
-        context("[[true, true, false, false], 4 trues]", () => {
-            it("returns 0, 0", () => {
-                const shootout = new PenaltyShootout([
-                    [true, true, false, false],
-                    [true, true, true, true]
-                ]);
-
-                expect(shootout.attemptsRemaining).to.deep.equal([0, 0]);
-            });
         });
     });
 

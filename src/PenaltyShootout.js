@@ -33,24 +33,12 @@ class PenaltyShootout {
         return this.record.map(xs => xs.length);
     }
 
-    // PenaltyShootout ~> [Number]
-    get attemptsRemaining() {
-        const max = _(this.penaltiesTaken).concat(5).max();
-        const remaining = _(this.record)
-            .map(xs => max - xs.length)
-            .value();
-        const allZero = _.every(remaining, x => x === 0);
-
-        if (allZero && this.goals.isDraw) {
-            return [1, 1];
-        }
-
-        return remaining;
-    }
-
     // PenaltyShootout ~> Boolean
     get isWin() {
-        return _.every(this.attemptsRemaining, remaining => remaining === 0);
+        const max = _(this.penaltiesTaken).concat(5).max();
+        const remaining = this.record.map(xs => max - xs.length);
+
+        return _.every(remaining, attempts => attempts === 0);
     }
 
     // PenaltyShootout ~> Seed -> PenaltyShootout
