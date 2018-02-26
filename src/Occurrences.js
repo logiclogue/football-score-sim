@@ -50,6 +50,11 @@ class Occurrences {
     get isDraw() {
         return _.every(this.value, x => x === this.value[0]);
     }
+
+    // Occurrences ~> _
+    get _() {
+        return _(this.value);
+    }
 }
 
 // Occurrences

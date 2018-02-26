@@ -37,8 +37,19 @@ class PenaltyShootout {
     get isWin() {
         const max = _(this.penaltiesTaken).concat(5).max();
         const remaining = this.record.map(xs => max - xs.length);
+        const winningScore = this.goals._.max();
 
-        return _.every(remaining, attempts => attempts === 0);
+        const winnable = _(remaining)
+            .zipWith(this.goals.value, (remaining, goals) => {
+                return {
+                    remaining: remaining,
+                    goals: goals
+                };
+            })
+            .map(x => x.remaining + x.goals >= winningScore)
+            .value();
+
+        return !_.every(winnable);
     }
 
     // PenaltyShootout ~> Seed -> PenaltyShootout

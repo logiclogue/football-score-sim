@@ -136,7 +136,7 @@ describe("PenaltyShootout", () => {
                     [true, true, true, true]
                 ]);
 
-                expect(shootout.isWin).to.be.false;
+                expect(shootout.isWin).to.be.true;
             });
         });
     });
