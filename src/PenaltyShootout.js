@@ -28,6 +28,17 @@ class PenaltyShootout {
         return this.add(index, updatedSeed.decimal < 0.75);
     }
 
+    // PenaltyShootout ~> Seed -> PenaltyShootout
+    attemptNext(seed) {
+        const index = _.chain(this.record)
+            .map((xs, i) => [i, xs.length])
+            .minBy(pair => pair[1])
+            .thru(pair => pair[0])
+            .value();
+
+        return this.attempt(index, seed);
+    }
+
     // PenaltyShootout ~> [Number]
     get penaltiesTaken() {
         return this.record.map(xs => xs.length);
@@ -50,15 +61,13 @@ class PenaltyShootout {
 
     // PenaltyShootout ~> Seed -> PenaltyShootout
     simulate(seed) {
-        const result = _(this.record)
-            .map((x, i) => i)
-            .reduce((record, i) => record.attempt(i, seed), this);
+        if (this.isWin) {
+            return this;
+        }
 
-        //if (this.isWin) {
-            return result;
-        //}
-
-        return result.simulate(seed);
+        return this
+            .attemptNext(seed)
+            .simulate(seed);
     }
 
     // PenaltyShoot ~> Occurrences

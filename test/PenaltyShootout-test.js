@@ -46,6 +46,30 @@ describe("PenaltyShootout", () => {
         });
     });
 
+    describe("#attemptNext()", () => {
+        context("given [[], []]", () => {
+            it("returns [[true], []]", () => {
+                const shootout = PenaltyShootout.empty(2);
+                const seed = "testing".toSeed();
+                
+                const result = shootout.attemptNext(seed);
+
+                expect(result.record).to.deep.equal([[true], []]);
+            });
+        });
+
+        context("given [[true], []]", () => {
+            it("returns [[true], [true]]", () => {
+                const shootout = new PenaltyShootout([[true], []]);
+                const seed = "testing".toSeed();
+
+                const result = shootout.attemptNext(seed);
+
+                expect(result.record).to.deep.equal([[true], [true]]);
+            });
+        });
+    });
+
     describe("#isWin", () => {
         context("given empty", () => {
             it("returns false", () => {
@@ -148,7 +172,10 @@ describe("PenaltyShootout", () => {
 
             const result = shootout.simulate(seed).record;
 
-            expect(result).to.deep.equal([[], []])
+            expect(result).to.deep.equal([
+                [false, false, true, true, true],
+                [true, false, false, false]
+            ]);
         });
     });
 
