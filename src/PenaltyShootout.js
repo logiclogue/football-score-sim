@@ -40,13 +40,9 @@ class PenaltyShootout {
         const winningScore = this.goals._.max();
 
         const winnable = _(remaining)
-            .zipWith(this.goals.value, (remaining, goals) => {
-                return {
-                    remaining: remaining,
-                    goals: goals
-                };
-            })
-            .map(x => x.remaining + x.goals >= winningScore)
+            .zip(this.goals.value)
+            .map(_.sum)
+            .map(x => x >= winningScore)
             .value();
 
         return !_.every(winnable);
