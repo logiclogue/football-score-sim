@@ -1,3 +1,7 @@
+const Ratings = require("../src/Ratings");
+const Period = require("../src/Period");
+const Time = require("../src/Time");
+
 class Match {
     // [Team] -> Seed -> Match
     constructor(teams, seed) {
@@ -18,6 +22,14 @@ class Match {
     // Match ~> Ratings
     get ratings() {
         return this.teams.map(team => team.rating).toRatings();
+    }
+
+    // Match ~> Period
+    get firstHalf() {
+        const timeLength = new Time().setMinutes(45);
+        const seed = this.seed.append("firstHalf");
+
+        return new Period(timeLength, this.ratings, seed);
     }
 }
 
