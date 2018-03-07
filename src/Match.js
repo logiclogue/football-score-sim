@@ -14,6 +14,11 @@ class Match {
     get away() {
         return this.teams[1];
     }
+
+    // Match ~> Ratings
+    get ratings() {
+        return this.teams.map(team => team.rating).toRatings();
+    }
 }
 
 module.exports = Match;

@@ -5,11 +5,13 @@ const Seed = require("../src/Seed");
 const Team = require("../src/Team");
 
 describe("Match", () => {
-    context("creating the object", () => {
-        const teams = [new Team("Derby", 1200), new Team("Forest", 1100)];
-        const seed = "testing".toSeed();
-        const match = new Match(teams, seed);
+    const derby = new Team("Derby", 1200);
+    const forest = new Team("Forest", 1100);
+    const teams = [derby, forest];
+    const seed = "testing".toSeed();
+    const match = new Match(teams, seed);
 
+    describe("constructor", () => {
         it("sets home", () => {
             expect(match.home).to.equal(teams[0]);
         });
@@ -20,6 +22,12 @@ describe("Match", () => {
 
         it("sets seed", () => {
             expect(match.seed).to.equal(seed);
+        });
+    });
+
+    describe("#ratings", () => {
+        it("maps the ratings of the teams", () => {
+            expect(match.ratings).to.deep.equal([1200, 1100].toRatings());
         });
     });
 });
