@@ -31,6 +31,14 @@ class Match {
 
         return new Period(timeLength, this.ratings, seed);
     }
+
+    // Match ~> Period
+    get secondHalf() {
+        const timeLength = new Time().setMinutes(45);
+        const seed = this.seed.append("secondHalf");
+
+        return new Period(timeLength, this.ratings, seed);
+    }
 }
 
 module.exports = Match;

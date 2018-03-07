@@ -46,4 +46,20 @@ describe("Match", () => {
             expect(match.firstHalf.seed.value).to.equal(expectedValue);
         });
     });
+
+    describe("#secondHalf", () => {
+        it("returns a period of length 45 minutes", () => {
+            expect(match.secondHalf.timeLength.minutes).to.equal(45);
+        });
+
+        it("returns a period with the same ratings", () => {
+            expect(match.secondHalf.ratings).to.deep.equal(match.ratings);
+        });
+
+        it("returns a period with the seed", () => {
+            const expectedValue = seed.append("secondHalf").value;
+
+            expect(match.secondHalf.seed.value).to.deep.equal(expectedValue);
+        });
+    });
 });
