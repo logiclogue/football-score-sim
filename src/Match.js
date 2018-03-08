@@ -49,6 +49,11 @@ class Match {
     get isPenaltyShootout() {
         return false;
     }
+
+    // Match ~> Occurrences
+    get goals() {
+        return this.firstHalf.goals.append(this.secondHalf.goals);
+    }
 }
 
 module.exports = Match;

@@ -1,4 +1,5 @@
 const goals = require("./goals");
+const goalsFromRatings = require("./goalsFromRatings");
 const shotsOnTarget = require("./shotsOnTarget");
 const shotsOffTarget = require("./shotsOffTarget");
 

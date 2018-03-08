@@ -74,4 +74,12 @@ describe("Match", () => {
             expect(match.isPenaltyShootout).to.be.false;
         });
     });
+
+    describe("#goals", () => {
+        it("merges first half goals with second half goals", () => {
+            const goals = match.firstHalf.goals.append(match.secondHalf.goals);
+
+            expect(match.goals.value).to.deep.equal(goals.value);
+        });
+    });
 });
