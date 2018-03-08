@@ -39,6 +39,16 @@ class Match {
 
         return new Period(timeLength, this.ratings, seed);
     }
+
+    // Match ~> Boolean
+    get isExtraTime() {
+        return false;
+    }
+
+    // Match ~> Boolean
+    get isPenaltyShootout() {
+        return false;
+    }
 }
 
 module.exports = Match;

@@ -62,4 +62,16 @@ describe("Match", () => {
             expect(match.secondHalf.seed.value).to.deep.equal(expectedValue);
         });
     });
+
+    describe("#isExtraTime", () => {
+        it("returns false", () => {
+            expect(match.isExtraTime).to.be.false;
+        });
+    });
+
+    describe("#isPenaltyShootout", () => {
+        it("returns false", () => {
+            expect(match.isPenaltyShootout).to.be.false;
+        });
+    });
 });
