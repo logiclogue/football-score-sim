@@ -82,4 +82,12 @@ describe("Match", () => {
             expect(match.goals.value).to.deep.equal(goals.value);
         });
     });
+
+    describe("#winner", () => {
+        it("returns goals winner", () => {
+            const winner = match.goals.winner(match.teams);
+
+            expect(match.winner).to.deep.equal(winner);
+        });
+    });
 });
