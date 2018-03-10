@@ -2,12 +2,10 @@ const expect = require("chai").expect;
 const Match = require("../src/Match");
 const Ratings = require("../src/Ratings");
 const Seed = require("../src/Seed");
-const Team = require("../src/Team");
+const stubs = require("./stubs");
 
 describe("Match", () => {
-    const derby = new Team("Derby", 1200);
-    const forest = new Team("Forest", 1100);
-    const teams = [derby, forest];
+    const teams = stubs.teams;
     const seed = "testing".toSeed();
     const match = new Match(teams, seed);
 
