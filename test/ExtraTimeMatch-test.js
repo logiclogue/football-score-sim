@@ -29,4 +29,12 @@ describe("ExtraTimeMatch", () => {
             expect(period.ratings.value).to.deep.equal(match.ratings.value);
         });
     });
+
+    describe("#secondHalfExtraTime", () => {
+        it("returns a period of 15 minutes", () => {
+            const period = match.secondHalfExtraTime;
+
+            expect(period.timeLength.minutes).to.equal(15);
+        });
+    });
 });
