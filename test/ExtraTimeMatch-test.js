@@ -36,5 +36,18 @@ describe("ExtraTimeMatch", () => {
 
             expect(period.timeLength.minutes).to.equal(15);
         });
+
+        it("returns a period with the seed appended", () => {
+            const period = match.secondHalfExtraTime;
+            const expectedSeed = seed.append("secondHalfExtraTime");
+
+            expect(period.seed.value).to.equal(expectedSeed.value);
+        });
+
+        it("returns a period with the same ratings", () => {
+            const period = match.secondHalfExtraTime;
+
+            expect(period.ratings.value).to.deep.equal(match.ratings.value);
+        });
     });
 });
