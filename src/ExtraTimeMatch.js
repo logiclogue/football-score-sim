@@ -24,10 +24,16 @@ class ExtraTimeMatch extends Match {
         return new Period(timeLength, this.ratings, seed);
     }
 
-    // ExtraTimeMatch ~> Period
+    // ExtraTimeMatch ~> Goals
     get extraTimeGoals() {
         return this.firstHalfExtraTime.goals
             .append(this.secondHalfExtraTime.goals);
+    }
+
+    // @Override
+    // ExtraTimeMatch ~> Goals
+    get goals() {
+        return super.goals.append(this.extraTimeGoals);
     }
 }
 

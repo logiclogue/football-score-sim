@@ -5,7 +5,7 @@ const Seed = require("../src/Seed");
 const stubs = require("./stubs");
 
 describe("ExtraTimeMatch", () => {
-    const seed = "testing 1".toSeed();
+    const seed = "testing 3".toSeed();
     const normalMatch = new Match(stubs.teams, seed)
     const match = new ExtraTimeMatch(normalMatch);
 
@@ -57,6 +57,14 @@ describe("ExtraTimeMatch", () => {
                 .append(match.firstHalfExtraTime.goals);
 
             expect(match.extraTimeGoals.value).to.deep.equal(goals.value);
+        });
+    });
+
+    describe("#goals", () => {
+        it("appends extra time goals to goals", () => {
+            const goals = normalMatch.goals.append(match.extraTimeGoals);
+
+            expect(match.goals).to.deep.equal(goals);
         });
     });
 });
