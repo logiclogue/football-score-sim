@@ -23,6 +23,12 @@ class ExtraTimeMatch extends Match {
 
         return new Period(timeLength, this.ratings, seed);
     }
+
+    // ExtraTimeMatch ~> Period
+    get extraTimeGoals() {
+        return this.firstHalfExtraTime.goals
+            .append(this.secondHalfExtraTime.goals);
+    }
 }
 
 module.exports = ExtraTimeMatch;
