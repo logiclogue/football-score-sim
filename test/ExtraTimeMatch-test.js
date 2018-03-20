@@ -5,9 +5,13 @@ const Seed = require("../src/Seed");
 const stubs = require("./stubs");
 
 describe("ExtraTimeMatch", () => {
-    const seed = "testing 3".toSeed();
+    const seed = "testing 43".toSeed();
     const normalMatch = new Match(stubs.teams, seed)
     const match = new ExtraTimeMatch(normalMatch);
+
+    const decidedMatchSeed = "testing".toSeed();
+    const normalDecidedMatch = new Match(stubs.teams, seed);
+    const decidedMatch = normalDecidedMatch.toExtraTimeMatch();
 
     describe("#firstHalfExtraTime", () => {
         it("returns a period with the time length of 15 minutes", () => {
@@ -61,10 +65,32 @@ describe("ExtraTimeMatch", () => {
     });
 
     describe("#goals", () => {
-        it("appends extra time goals to goals", () => {
-            const goals = normalMatch.goals.append(match.extraTimeGoals);
+        context("game is a draw", () => {
+            it("appends extra time goals to goals", () => {
+                const goals = normalMatch.goals.append(match.extraTimeGoals);
 
-            expect(match.goals).to.deep.equal(goals);
+                expect(match.goals).to.deep.equal(goals);
+            });
+        });
+
+        context("game is decided in normal time", () => {
+            it("returns normal time goals", () => {
+
+            });
+        });
+    });
+
+    describe("#isExtraTime", () => {
+        context("game is a draw", () => {
+            it("returns true", () => {
+                expect(match.isExtraTime).to.be.true;
+            });
+        });
+
+        context("game is decided in normal time", () => {
+            it("returns false", () => {
+                expect(decidedMatch.isExtraTime).to.be.false;
+            });
         });
     });
 });

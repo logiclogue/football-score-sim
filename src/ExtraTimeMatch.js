@@ -35,6 +35,17 @@ class ExtraTimeMatch extends Match {
     get goals() {
         return super.goals.append(this.extraTimeGoals);
     }
+
+    // @Override
+    // ExtraTimeMatch ~> Boolean
+    get isExtraTime() {
+        return super.goals.isDraw;
+    }
 }
+
+// Match ~> ExtraTimeMatch
+Match.prototype.toExtraTimeMatch = function () {
+    return new ExtraTimeMatch(this);
+};
 
 module.exports = ExtraTimeMatch;

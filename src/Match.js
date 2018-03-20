@@ -7,8 +7,6 @@ class Match {
     constructor(teams, seed) {
         this.teams = teams;
         this.seed = seed;
-
-        console.log(this.seed);
     }
 
     // Match ~> Team
