@@ -33,7 +33,11 @@ class ExtraTimeMatch extends Match {
     // @Override
     // ExtraTimeMatch ~> Goals
     get goals() {
-        return super.goals.append(this.extraTimeGoals);
+        if (super.goals.isDraw) {
+            return super.goals.append(this.extraTimeGoals);
+        }
+
+        return super.goals;
     }
 
     // @Override

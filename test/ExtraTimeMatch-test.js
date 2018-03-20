@@ -9,8 +9,8 @@ describe("ExtraTimeMatch", () => {
     const normalMatch = new Match(stubs.teams, seed)
     const match = new ExtraTimeMatch(normalMatch);
 
-    const decidedMatchSeed = "testing".toSeed();
-    const normalDecidedMatch = new Match(stubs.teams, seed);
+    const decidedMatchSeed = "testing 1".toSeed();
+    const normalDecidedMatch = new Match(stubs.teams, decidedMatchSeed);
     const decidedMatch = normalDecidedMatch.toExtraTimeMatch();
 
     describe("#firstHalfExtraTime", () => {
@@ -75,7 +75,9 @@ describe("ExtraTimeMatch", () => {
 
         context("game is decided in normal time", () => {
             it("returns normal time goals", () => {
+                const goals = normalDecidedMatch.goals;
 
+                expect(decidedMatch.goals).to.deep.equal(goals);
             });
         });
     });
