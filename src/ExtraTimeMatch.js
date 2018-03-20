@@ -6,6 +6,8 @@ class ExtraTimeMatch extends Match {
     // Match -> ExtraTimeMatch
     constructor(matchToDecorate) {
         super(matchToDecorate.teams, matchToDecorate.seed);
+
+        this.match = matchToDecorate;
     }
 
     // ExtraTimeMatch ~> Period
@@ -34,16 +36,16 @@ class ExtraTimeMatch extends Match {
     // ExtraTimeMatch ~> Goals
     get goals() {
         if (this.isExtraTime) {
-            return super.goals.append(this.extraTimeGoals);
+            return this.match.goals.append(this.extraTimeGoals);
         }
 
-        return super.goals;
+        return this.match.goals;
     }
 
     // @Override
     // ExtraTimeMatch ~> Boolean
     get isExtraTime() {
-        return super.goals.isDraw;
+        return this.match.goals.isDraw;
     }
 }
 
