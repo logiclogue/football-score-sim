@@ -41,4 +41,28 @@ describe("PenaltyShootoutMatch", () => {
             expect(match.penaltyShootout).to.deep.equal(penaltyShootout);
         });
     });
+
+    describe("#winner", () => {
+        context("given a normal time drawn match", () => {
+            it("returns the winner of the penalty shootout", () => {
+                const isDrawn = match => match.goals.isDraw;
+                const normalMatch = findMatch(stubs.teams, isDrawn);
+                const match = new PenaltyShootoutMatch(normalMatch);
+                const winner = match.penaltyShootout.goals.winner(match.teams);
+
+                expect(match.winner).to.deep.equal(winner);
+            });
+        });
+        
+        context("given a match decided in normal time", () => {
+            it("returns the winner the normal match", () => {
+                const isDecided = match => !match.goals.isDraw;
+                const normalMatch = findMatch(stubs.teams, isDecided);
+                const match = normalMatch.toPenaltyShootoutMatch();
+                const winner = normalMatch.winner;
+
+                expect(match.winner).to.deep.equal(winner);
+            });
+        });
+    });
 });

@@ -25,6 +25,20 @@ class PenaltyShootoutMatch extends Match {
 
         return false;
     }
+
+    // @Override
+    // PenaltyShootoutMatch ~> Team
+    get winner() {
+        if (this.goals.isDraw) {
+            return this.penaltyShootout.goals.winner(this.teams)
+        }
+
+        return this.match.winner;
+    }
 }
+
+Match.prototype.toPenaltyShootoutMatch = function () {
+    return new PenaltyShootoutMatch(this);
+};
 
 module.exports = PenaltyShootoutMatch;
