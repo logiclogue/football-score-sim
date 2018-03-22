@@ -1,4 +1,5 @@
 const Match = require("./Match");
+const PenaltyShootout = require("./PenaltyShootout");
 
 class PenaltyShootoutMatch extends Match {
     // Match -> PenaltyShootoutMatch
@@ -6,6 +7,13 @@ class PenaltyShootoutMatch extends Match {
         super(match.teams, match.seed);
 
         this.match = match;
+    }
+
+    // PenaltyShootoutMatch ~> PenaltyShootout
+    get penaltyShootout() {
+        const seed = this.seed.append("penaltyShootout");
+
+        return new PenaltyShootout().simulate(seed);
     }
 
     // @Override

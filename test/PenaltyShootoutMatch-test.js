@@ -1,5 +1,6 @@
 const expect = require("chai").expect;
 const PenaltyShootoutMatch = require("../src/PenaltyShootoutMatch");
+const PenaltyShootout = require("../src/PenaltyShootout");
 const ExtraTimeMatch = require("../src/ExtraTimeMatch");
 const Match = require("../src/Match");
 const stubs = require("./stubs");
@@ -26,6 +27,18 @@ describe("PenaltyShootoutMatch", () => {
             it("returns false", () => {
                 expect(match.isPenaltyShootout).to.be.false;
             });
+        });
+    });
+
+    describe("#penaltyShootout", () => {
+        it("returns a simulated penalty shootout", () => {
+            const isDrawn = match => match.goals.isDraw;
+            const normalMatch = findMatch(stubs.teams, isDrawn);
+            const match = new PenaltyShootoutMatch(normalMatch);
+            const seed = match.seed.append("penaltyShootout");
+            const penaltyShootout = new PenaltyShootout().simulate(seed);
+
+            expect(match.penaltyShootout).to.deep.equal(penaltyShootout);
         });
     });
 });
