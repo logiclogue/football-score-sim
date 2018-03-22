@@ -8,11 +8,14 @@ const findMatch = require("./findMatch");
 const Seed = require("../src/Seed");
 
 describe("PenaltyShootoutMatch", () => {
+    const isDrawn = match => match.goals.isDraw;
+    const isDecided = match => !match.goals.isDraw;
+    const normalDrawnMatch = findMatch(stubs.teams, isDrawn);
+    const normalDecidedMatch = findMatch(stubs.teams, isDecided);
+
     describe("#isPenaltyShootout", () => {
         context("given a drawn match", () => {
-            const isDrawn = match => match.goals.isDraw;
-            const normalMatch = findMatch(stubs.teams, isDrawn);
-            const match = new PenaltyShootoutMatch(normalMatch);
+            const match = new PenaltyShootoutMatch(normalDrawnMatch);
 
             it("returns true", () => {
                 expect(match.isPenaltyShootout).to.be.true;
@@ -20,9 +23,7 @@ describe("PenaltyShootoutMatch", () => {
         });
 
         context("given a decided match", () => {
-            const isDecided = match => !match.goals.isDraw;
-            const normalMatch = findMatch(stubs.teams, isDecided);
-            const match = new PenaltyShootoutMatch(normalMatch);
+            const match = new PenaltyShootoutMatch(normalDecidedMatch);
 
             it("returns false", () => {
                 expect(match.isPenaltyShootout).to.be.false;
@@ -32,9 +33,7 @@ describe("PenaltyShootoutMatch", () => {
 
     describe("#penaltyShootout", () => {
         it("returns a simulated penalty shootout", () => {
-            const isDrawn = match => match.goals.isDraw;
-            const normalMatch = findMatch(stubs.teams, isDrawn);
-            const match = new PenaltyShootoutMatch(normalMatch);
+            const match = new PenaltyShootoutMatch(normalDrawnMatch);
             const seed = match.seed.append("penaltyShootout");
             const penaltyShootout = new PenaltyShootout().simulate(seed);
 
@@ -45,9 +44,7 @@ describe("PenaltyShootoutMatch", () => {
     describe("#winner", () => {
         context("given a normal time drawn match", () => {
             it("returns the winner of the penalty shootout", () => {
-                const isDrawn = match => match.goals.isDraw;
-                const normalMatch = findMatch(stubs.teams, isDrawn);
-                const match = new PenaltyShootoutMatch(normalMatch);
+                const match = new PenaltyShootoutMatch(normalDrawnMatch);
                 const winner = match.penaltyShootout.goals.winner(match.teams);
 
                 expect(match.winner).to.deep.equal(winner);
@@ -56,10 +53,8 @@ describe("PenaltyShootoutMatch", () => {
         
         context("given a match decided in normal time", () => {
             it("returns the winner the normal match", () => {
-                const isDecided = match => !match.goals.isDraw;
-                const normalMatch = findMatch(stubs.teams, isDecided);
-                const match = normalMatch.toPenaltyShootoutMatch();
-                const winner = normalMatch.winner;
+                const match = normalDecidedMatch.toPenaltyShootoutMatch();
+                const winner = normalDecidedMatch.winner;
 
                 expect(match.winner).to.deep.equal(winner);
             });
