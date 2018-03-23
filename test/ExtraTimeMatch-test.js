@@ -3,6 +3,7 @@ const Match = require("../src/Match");
 const ExtraTimeMatch = require("../src/ExtraTimeMatch");
 const Seed = require("../src/Seed");
 const stubs = require("./stubs");
+const findMatch = require("./findMatch");
 
 describe("ExtraTimeMatch", () => {
     const seed = "testing 43".toSeed();
@@ -12,6 +13,14 @@ describe("ExtraTimeMatch", () => {
     const decidedMatchSeed = "testing 1".toSeed();
     const normalDecidedMatch = new Match(stubs.teams, decidedMatchSeed);
     const decidedMatch = normalDecidedMatch.toExtraTimeMatch();
+
+    const drawnMatchWonInET = findMatch(stubs.teams, match => {
+        return match.isDraw && !match.toExtraTimeMatch().isDraw;
+    }).toExtraTimeMatch();
+
+    const drawnMatch = findMatch(stubs.teams, match => {
+        return match.toExtraTimeMatch().isDraw;
+    }).toExtraTimeMatch();
 
     describe("#firstHalfExtraTime", () => {
         it("returns a period with the time length of 15 minutes", () => {
@@ -92,6 +101,20 @@ describe("ExtraTimeMatch", () => {
         context("game is decided in normal time", () => {
             it("returns false", () => {
                 expect(decidedMatch.isExtraTime).to.be.false;
+            });
+        });
+    });
+
+    describe("#isDraw", () => {
+        context("drawn match in normal time, won in extra time", () => {
+            it("returns false", () => {
+                expect(drawnMatchWonInET.isDraw).to.be.false;
+            });
+        });
+
+        context("drawn match in extra time", () => {
+            it("returns true", () => {
+                expect(drawnMatch.isDraw).to.be.true;
             });
         });
     });

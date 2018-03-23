@@ -35,6 +35,12 @@ class PenaltyShootoutMatch extends Match {
 
         return this.match.winner;
     }
+
+    // @Override
+    // PenaltyShootoutMatch ~> Boolean
+    get isDraw() {
+        return false;
+    }
 }
 
 Match.prototype.toPenaltyShootoutMatch = function () {
