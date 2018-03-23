@@ -60,4 +60,22 @@ describe("PenaltyShootoutMatch", () => {
             });
         });
     });
+
+    describe("#isDraw", () => {
+        context("given a drawn match in normal time", () => {
+            it("returns false", () => {
+                const match = normalDrawnMatch.toPenaltyShootoutMatch();
+
+                expect(match.isDraw).to.be.false;
+            });
+        });
+
+        context("given a decided match in normal time", () => {
+            it("returns false", () => {
+                const match = normalDecidedMatch.toPenaltyShootoutMatch();
+
+                expect(match.isDraw).to.be.false;
+            });
+        });
+    });
 });
