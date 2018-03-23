@@ -59,6 +59,11 @@ class Match {
     get winner() {
         return this.goals.winner(this.teams);
     }
+
+    // Match ~> Boolean
+    get isDraw() {
+        return this.goals.isDraw;
+    }
 }
 
 module.exports = Match;

@@ -3,6 +3,7 @@ const Match = require("../src/Match");
 const Ratings = require("../src/Ratings");
 const Seed = require("../src/Seed");
 const stubs = require("./stubs");
+const findMatch = require("./findMatch");
 
 describe("Match", () => {
     const teams = stubs.teams;
@@ -86,6 +87,24 @@ describe("Match", () => {
             const winner = match.goals.winner(match.teams);
 
             expect(match.winner).to.deep.equal(winner);
+        });
+    });
+
+    describe("#isDraw", () => {
+        context("given a drawn match", () => {
+            const match = findMatch(teams, match => match.goals.isDraw);
+
+            it("returns true", () => {
+                expect(match.isDraw).to.be.true;
+            });
+        });
+
+        context("given a decided match", () => {
+            const match = findMatch(teams, match => !match.goals.isDraw);
+
+            it("returns false", () => {
+                expect(match.isDraw).to.be.false;
+            });
         });
     });
 });
