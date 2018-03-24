@@ -118,4 +118,17 @@ describe("ExtraTimeMatch", () => {
             });
         });
     });
+
+    describe("#periods", () => {
+        it("returns an array containing extra time periods too", () => {
+            const periods = [
+                match.firstHalf,
+                match.secondHalf,
+                match.firstHalfExtraTime,
+                match.secondHalfExtraTime,
+            ];
+
+            expect(match.periods).to.deep.equal(periods);
+        });
+    });
 });

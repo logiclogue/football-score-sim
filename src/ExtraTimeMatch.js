@@ -47,6 +47,17 @@ class ExtraTimeMatch extends Match {
     get isExtraTime() {
         return this.match.goals.isDraw;
     }
+
+    // @Override
+    // ExtraTimeMatch ~> [Period]
+    get periods() {
+        const extraTimePeriods = [
+            this.firstHalfExtraTime,
+            this.secondHalfExtraTime
+        ];
+
+        return this.match.periods.concat(extraTimePeriods);
+    }
 }
 
 // Match ~> ExtraTimeMatch
