@@ -107,4 +107,12 @@ describe("Match", () => {
             });
         });
     });
+
+    describe("#periods", () => {
+        it("returns a list of all the periods", () => {
+            const periods = [match.firstHalf, match.secondHalf];
+
+            expect(match.periods).to.deep.equal(periods);
+        });
+    });
 });

@@ -64,6 +64,11 @@ class Match {
     get isDraw() {
         return this.goals.isDraw;
     }
+
+    // Match ~> [Period]
+    get periods() {
+        return [this.firstHalf, this.secondHalf];
+    }
 }
 
 module.exports = Match;
