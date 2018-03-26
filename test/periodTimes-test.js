@@ -3,6 +3,7 @@ const Period = require("../src/Period");
 const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
 const Seed = require("../src/Seed");
+const times = require("../src/times");
 
 describe("#periodTimes()", () => {
     const seed = "testing".toSeed();
