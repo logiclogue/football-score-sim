@@ -1,5 +1,5 @@
-// Period -> [[Time]]
-function periodTimes(period) {
+// Period -> TimeScaler -> [[Time]]
+function periodTimes(period, timeScaler) {
 
 }
 
