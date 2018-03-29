@@ -14,7 +14,7 @@ describe("#periodTimes()", () => {
     const seed = "testing".toSeed();
     const time = new Time().setMinutes(45);
     const ratings = [1200, 1100].toRatings();
-    const timeScaler = new TimeScaler(new Date(0), new Time(), 1);
+    const timeScaler = new TimeScaler();
 
     context("given no goals period", () => {
         const period = findMatch(stubs.teams, isNilNil).firstHalf;
