@@ -17,12 +17,23 @@ describe("#periodTimes()", () => {
     const timeScaler = new TimeScaler();
 
     context("given no goals period", () => {
-        const period = findMatch(stubs.teams, isNilNil).firstHalf;
+        const period = findMatch(stubs.teams, isScore(0, 0)).firstHalf;
 
         it("returns no times", () => {
             const result = periodTimes(period, timeScaler);
 
             expect(result).to.deep.equal([[], []]);
+        });
+    });
+
+    context("given a 2-1 period", () => {
+        const period = findMatch(stubs.teams, isTwoOne).firstHalf;
+
+        it("returns equivalent of times function", () => {
+            const result = periodTimes(period, timeScaler);
+            const expectedHome = times([2, 1])
+
+            expect(result).to.deep.equal();
         });
     });
 });
@@ -31,4 +42,18 @@ function isNilNil(match) {
     const result = match.firstHalf.goals.value;
 
     return result[0] === 0 && result[1] === 0;
+}
+
+function isTwoOne(match) {
+    const result = match.firstHalf.goals.value;
+
+    return result[0] === 2 && result[1] === 1;
+}
+
+function isScore(home, away) {
+    return match => {
+        const score = match.firstHalf.goals.value;
+
+        return score[0] === home && score[1] === away;
+    };
 }
