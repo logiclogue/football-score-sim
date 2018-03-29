@@ -1,3 +1,5 @@
+const Time = require("./Time");
+
 class TimeScaler {
     // Date -> Time -> Number -> TimeScaler
     constructor(dateOffset, timeOffset, scaleFactor) {
