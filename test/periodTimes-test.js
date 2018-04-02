@@ -33,7 +33,7 @@ describe("#periodTimes()", () => {
 
         it("returns equivalent of times function", () => {
             const goals = period.goals;
-            const result = periodTimes(period, goals, otherSeed, timeScaler);
+            const result = period.times(goals, otherSeed, timeScaler);
             const expectedSeed = period.seed.append(otherSeed);
             const expectedHome = times([2, 1], period.timeLength, expectedSeed);
 
