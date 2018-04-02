@@ -15,12 +15,14 @@ describe("#periodTimes()", () => {
     const time = new Time().setMinutes(45);
     const ratings = [1200, 1100].toRatings();
     const timeScaler = new TimeScaler();
+    const otherSeed = "goals";
 
     context("given no goals period", () => {
         const period = findMatch(stubs.teams, isScore(0, 0)).firstHalf;
 
         it("returns no times", () => {
-            const result = periodTimes(period, timeScaler);
+            const goals = period.goals;
+            const result = periodTimes(period, goals, otherSeed, timeScaler);
 
             expect(result).to.deep.equal([[], []]);
         });
@@ -30,10 +32,12 @@ describe("#periodTimes()", () => {
         const period = findMatch(stubs.teams, isTwoOne).firstHalf;
 
         it("returns equivalent of times function", () => {
-            const result = periodTimes(period, timeScaler);
-            const expectedHome = times([2, 1])
+            const goals = period.goals;
+            const result = periodTimes(period, goals, otherSeed, timeScaler);
+            const expectedSeed = period.seed.append(otherSeed);
+            const expectedHome = times([2, 1], period.timeLength, expectedSeed);
 
-            expect(result).to.deep.equal();
+            expect(result).to.deep.equal(expectedHome);
         });
     });
 });
