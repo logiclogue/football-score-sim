@@ -5,6 +5,26 @@ class PeriodTimes {
     constructor(period) {
         this.period = period;
     }
+
+    // PeriodTimes ~> [[Time]]
+    get goals() {
+        
+    }
+
+    // PeriodTimes ~> [[Time]]
+    get shotsOnTarget() {
+        
+    }
+
+    // PeriodTimes ~> [[Time]]
+    get shotsOffTarget() {
+
+    }
+
+    // PeriodTimes ~> [[Time]]
+    get shots() {
+
+    }
 }
 
 // Period ~> PeriodTimes
