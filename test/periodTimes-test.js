@@ -10,7 +10,7 @@ const TimeScaler = require("../src/TimeScaler");
 const stubs = require("./stubs");
 const findMatch = require("./findMatch");
 
-describe("#periodTimes()", () => {
+describe("periodTimes()", () => {
     const seed = "testing".toSeed();
     const time = new Time().setMinutes(45);
     const ratings = [1200, 1100].toRatings();

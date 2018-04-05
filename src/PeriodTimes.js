@@ -1,4 +1,5 @@
 const Period = require("./Period");
+const times = require("./times");
 
 class PeriodTimes {
     // Period -> PeriodTimes
@@ -8,7 +9,11 @@ class PeriodTimes {
 
     // PeriodTimes ~> [[Time]]
     get goals() {
-        
+        return times(
+            this.period.goals.value,
+            this.period.timeLength,
+            this.period.seed.append("times")
+        );
     }
 
     // PeriodTimes ~> [[Time]]
