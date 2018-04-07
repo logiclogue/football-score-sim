@@ -11,6 +11,11 @@ class MatchTimes {
     get firstHalf() {
         return this.match.firstHalf.toPeriodTimes();
     }
+
+    // MatchTimes ~> PeriodTimes
+    get secondHalf() {
+        return this.match.secondHalf.toPeriodTimes();
+    }
 }
 
 // Match ~> MatchTimes

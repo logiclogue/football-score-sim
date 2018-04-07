@@ -12,12 +12,19 @@ describe("MatchTimes", () => {
     const timesSeed = "goals".toSeed();
     const matchTimes = match.toMatchTimes();
 
-
     describe("#firstHalf", () => {
         it("returns first half as period times", () => {
             const periodTimes = match.firstHalf.toPeriodTimes();
 
             expect(matchTimes.firstHalf).to.deep.equal(periodTimes);
+        });
+    });
+
+    describe("#secondHalf", () => {
+        it("returns second half as period times", () => {
+            const periodTimes = match.secondHalf.toPeriodTimes();
+
+            expect(matchTimes.secondHalf).to.deep.equal(periodTimes);
         });
     });
 });
