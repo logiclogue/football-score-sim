@@ -1,9 +1,15 @@
 const Match = require("./Match");
+const PeriodTimes = require("./PeriodTimes");
 
 class MatchTimes {
     // Match -> MatchTimes
     constructor(match) {
-        this.value = match;
+        this.match = match;
+    }
+
+    // MatchTimes ~> PeriodTimes
+    get firstHalf() {
+        return this.match.firstHalf.toPeriodTimes();
     }
 }
 

@@ -37,7 +37,7 @@ class PeriodTimes {
 }
 
 // Period ~> PeriodTimes
-Period.prototype.toPeriodTimes = function () {
+Period.prototype.toPeriodTimes = function (period) {
     return new PeriodTimes(period);
 };
 
