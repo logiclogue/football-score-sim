@@ -23,7 +23,11 @@ class PeriodTimes {
 
     // PeriodTimes ~> [[Time]]
     get shotsOffTarget() {
-
+        return times(
+            this.period.shotsOffTarget.value,
+            this.period.timeLength,
+            this.period.seed.append("shotsOffTarget").append("times")
+        );
     }
 
     // PeriodTimes ~> [[Time]]
