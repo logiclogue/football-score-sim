@@ -12,7 +12,7 @@ class PeriodTimes {
         return times(
             this.period.goals.value,
             this.period.timeLength,
-            this.period.seed.append("times")
+            this.period.seed.append("goals").append("times")
         );
     }
 

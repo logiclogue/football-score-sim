@@ -16,10 +16,22 @@ describe("PeriodTimes", () => {
             const expectedResult = times(
                 period.goals.value,
                 period.timeLength,
-                period.seed.append("times")
+                period.seed.append("goals").append("times")
             );
 
             expect(periodTimes.goals).to.deep.equal(expectedResult);
+        });
+    });
+
+    describe("#shotsOffTarget", () => {
+        it("returns times result", () => {
+            const expectedResult = times(
+                period.shotsOffTarget.value,
+                period.timeLength,
+                period.seed.append("shotsOffTarget").append("times")
+            );
+
+            expect(periodTimes.shotsOffTarget).to.deep.equal(expectedResult);
         });
     });
 });
