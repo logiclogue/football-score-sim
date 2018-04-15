@@ -1,5 +1,5 @@
 class OccurrenceCollection {
-    // Monoid a => a -> a -> a -> a -> OccurrenceCollection
+    // Monoid a => a -> a -> a -> OccurrenceCollection
     constructor(goals, shotsOnTargetNoGoal, shotsOffTarget) {
         this.goals = goals;
         this.shotsOnTargetNoGoal = shotsOnTargetNoGoal;
