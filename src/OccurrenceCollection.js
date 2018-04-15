@@ -13,7 +13,7 @@ class OccurrenceCollection {
 
     // Monoid a => OccurrenceCollection ~> a
     get shots() {
-        
+        return this.shotsOnTarget.append(this.shotsOffTarget);
     }
 }
 
