@@ -1,8 +1,23 @@
+const _ = require("lodash");
+
 class OccurrenceTimes {
     // [[Number]] -> OccurrenceTimes
     constructor(value) {
         this.value = value;
     }
+
+    // OccurrenceTimes ~> OccurrenceTimes -> OccurrenceTimes
+    append(times) {
+        return _(this.value)
+            .zip(times.value)
+            .map(_.flatten)
+            .toOccurrenceTimes();
+    }
 }
+
+// _ ~> Occurrences
+_.prototype.toOccurrenceTimes = function () {
+    return new OccurrenceTimes(this.value());
+};
 
 module.exports = OccurrenceTimes;
