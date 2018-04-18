@@ -12,4 +12,12 @@ describe("OccurrenceTimes", () => {
             expect(result.value).to.deep.equal([[24, 44, 68], [29]]);
         });
     });
+
+    describe(".empty()", () => {
+        it("returns OccurrenceTimes that has a value of [[], []]", () => {
+            const result = OccurrenceTimes.empty().value;
+
+            expect(result).to.deep.equal([[], []]);
+        });
+    });
 });

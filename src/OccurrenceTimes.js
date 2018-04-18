@@ -20,4 +20,9 @@ _.prototype.toOccurrenceTimes = function () {
     return new OccurrenceTimes(this.value());
 };
 
+// OccurrenceTimes
+OccurrenceTimes.empty = function () {
+    return new OccurrenceTimes([[], []]);
+};
+
 module.exports = OccurrenceTimes;
