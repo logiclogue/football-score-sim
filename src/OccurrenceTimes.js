@@ -1,7 +1,7 @@
 const _ = require("lodash");
 
 class OccurrenceTimes {
-    // [[Number]] -> OccurrenceTimes
+    // [[a]] -> OccurrenceTimes
     constructor(value) {
         this.value = value;
     }
