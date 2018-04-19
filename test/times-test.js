@@ -9,7 +9,7 @@ describe("times()", () => {
     context("given [4, 2]", () => {
         const time = new Time().setMinutes(90);
         const seed = "testing".toSeed();
-        const result = [4, 2].toOccurrences().times(time, seed);
+        const result = [4, 2].toOccurrences().times(time, seed).value;
 
         it("returns a list of two lists", () => {
             expect(result.length).to.equal(2);

@@ -1,15 +1,16 @@
 const _ = require("lodash");
 const Time = require("./Time");
 const Occurrences = require("./Occurrences");
+const OccurrenceTimes = require("./OccurrenceTimes");
 
-// [Number] -> Time -> Seed -> [[Time]]
+// [Number] -> Time -> Seed -> OccurrenceTimes
 function times(occurrencesList, timeLength, seed) {
     const updatedSeed = updateSeed(seed, occurrencesList, timeLength);
 
     return _(occurrencesList)
         .map((occurrences, i) =>
             times_(occurrences, timeLength, updatedSeed.append(i)))
-        .value();
+        .toOccurrenceTimes();
 }
 
 // Number -> Time -> Seed -> [Time]
@@ -46,7 +47,7 @@ function updateSeed(seed, occurrences, timeLength) {
         .append(timeLength);
 }
 
-// Occurrences ~> Time -> Seed -> [[Time]]
+// Occurrences ~> Time -> Seed -> OccurrenceTimes
 Occurrences.prototype.times = function (timeLength, seed) {
     const updatedSeed = seed.append("Occurrences");
 

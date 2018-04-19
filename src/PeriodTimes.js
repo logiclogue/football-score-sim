@@ -7,7 +7,7 @@ class PeriodTimes {
         this.period = period;
     }
 
-    // PeriodTimes ~> [[Time]]
+    // PeriodTimes ~> OccurrenceTimes
     get goals() {
         return times(
             this.period.goals.value,
@@ -16,12 +16,12 @@ class PeriodTimes {
         );
     }
 
-    // PeriodTimes ~> [[Time]]
+    // PeriodTimes ~> OccurrenceTimes
     get shotsOnTarget() {
         
     }
 
-    // PeriodTimes ~> [[Time]]
+    // PeriodTimes ~> OccurrenceTimes
     get shotsOffTarget() {
         return times(
             this.period.shotsOffTarget.value,
@@ -30,7 +30,7 @@ class PeriodTimes {
         );
     }
 
-    // PeriodTimes ~> [[Time]]
+    // PeriodTimes ~> OccurrenceTimes
     get shots() {
 
     }
