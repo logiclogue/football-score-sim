@@ -4,36 +4,33 @@ const RatingDiffAndSeed = require("./RatingDiffAndSeed");
 const Ratings = require("./Ratings");
 
 // Number -> Time -> Seed -> Number -> Number
-function shotsOnTarget(eloDifference, timeLength, seed, goals = 0) {
+function shotsOnTargetNoGoals(eloDifference, timeLength, seed) {
     const updatedSeed = updateSeed(seed);
     const f = generateOccurrences(2.39474, 1.77885);
 
-    return f(eloDifference, timeLength, updatedSeed) + goals;
+    return f(eloDifference, timeLength, updatedSeed);
 }
 
 function updateSeed(seed) {
-    return seed.append("shotsOnTarget");
+    return seed.append("shotsOnTargetNoGoals");
 }
 
 // Ratings -> Time -> Seed -> Occurrences -> Occurrences
-function shotsOnTargetFromRatings(ratings, timeLength, seed, goals) {
-    const goalsToAppend = goals || [0, 0].toOccurrences();
-
+function shotsOnTargetFromRatings(ratings, timeLength, seed) {
     return _(ratings.relative)
         .map(ratings.toRatingDiffAndSeed(seed))
         .map(toShotsOnTarget(timeLength))
-        .toOccurrences()
-        .append(goalsToAppend);
+        .toOccurrences();
 }
 
 // Time -> (RatingDiffAndSeed -> Number)
 function toShotsOnTarget(timeLength) {
-    return o => shotsOnTarget(o.ratingDiff, timeLength, o.seed);
+    return o => shotsOnTargetNoGoals(o.ratingDiff, timeLength, o.seed);
 }
 
 // Ratings ~> Time -> Seed -> Occurrences -> Occurrences
-Ratings.prototype.shotsOnTarget = function (timeLength, seed, goals) {
-    return shotsOnTargetFromRatings(this, timeLength, seed, goals);
+Ratings.prototype.shotsOnTargetNoGoals = function (timeLength, seed) {
+    return shotsOnTargetFromRatings(this, timeLength, seed);
 };
 
-module.exports = shotsOnTarget;
+module.exports = shotsOnTargetNoGoals;
