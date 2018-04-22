@@ -4,7 +4,6 @@ const Period = require("../src/Period");
 const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
 const goals = require("../src/goals");
-const shotsOnTarget = require("../src/shotsOnTarget");
 const shotsOffTarget = require("../src/shotsOffTarget");
 
 describe("Period", () => {
@@ -39,30 +38,12 @@ describe("Period", () => {
         });
     });
 
-    describe("#shotsOnTarget", () => {
-        it("is equal to the return of the shotsOnTarget function", () => {
-            const result = ratings
-                .shotsOnTarget(timeLength, seed, period.goals);
-
-            expect(period.shotsOnTarget).to.deep.equal(result);
-        });
-    });
-
     describe("#shotsOffTarget", () => {
         it("is equal to the return of the shotsOffTarget function", () => {
             const result = ratings
                 .shotsOffTarget(timeLength, seed, period.goals);
 
             expect(period.shotsOffTarget).to.deep.equal(result);
-        });
-    });
-
-    describe("#shots", () => {
-        it("is equal to the sum of shotsOnTarget and shotsOffTarget", () => {
-            const onTarget = period.shotsOnTarget;
-            const offTarget = period.shotsOffTarget;
-
-            expect(period.shots).to.deep.equal(onTarget.append(offTarget));
         });
     });
 });
