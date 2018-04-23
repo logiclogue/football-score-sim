@@ -21,4 +21,15 @@ describe("OccurrenceCollection", () => {
             expect(collection.shots.value).to.deep.equal([8, 8]);
         });
     });
+
+    describe("#map", () => {
+        context("* 2", () => {
+            const newCollection = collection
+                .map(xs => xs.value.map(x => x * 2));
+
+            it("multiplies all by 2", () => {
+                expect(newCollection.goals).to.deep.equal([8, 6]);
+            });
+        });
+    });
 });

@@ -15,6 +15,15 @@ class OccurrenceCollection {
     get shots() {
         return this.shotsOnTarget.append(this.shotsOffTarget);
     }
+
+    // OccurrenceCollection ~> (a -> a) -> OccurrenceCollection
+    map(f) {
+        return new OccurrenceCollection(
+            f(this.goals),
+            this.shotsOnTargetNoGoal,
+            this.shotsOffTarget
+        );
+    }
 }
 
 module.exports = OccurrenceCollection;
