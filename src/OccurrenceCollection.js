@@ -20,8 +20,8 @@ class OccurrenceCollection {
     map(f) {
         return new OccurrenceCollection(
             f(this.goals),
-            this.shotsOnTargetNoGoal,
-            this.shotsOffTarget
+            f(this.shotsOnTargetNoGoal),
+            f(this.shotsOffTarget)
         );
     }
 }

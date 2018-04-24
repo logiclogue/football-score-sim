@@ -25,10 +25,29 @@ describe("OccurrenceCollection", () => {
     describe("#map()", () => {
         context("* 2", () => {
             const newCollection = collection
-                .map(xs => xs.value.map(x => x * 2));
+                .map(xs =>
+                    new Occurrences(xs.value.map(x => x * 2)));
 
-            it("multiplies all by 2", () => {
-                expect(newCollection.goals).to.deep.equal([8, 6]);
+            it("multiplies goals by 2", () => {
+                expect(newCollection.goals.value).to.deep.equal([2, 2]);
+            });
+
+            it("multiplies shotsOnTargetNoGoal by 2", () => {
+                expect(newCollection.shotsOnTargetNoGoal.value)
+                    .to.deep.equal([6, 4]);
+            });
+
+            it("multiplies shotsOffTarget by 2", () => {
+                expect(newCollection.shotsOffTarget.value)
+                    .to.deep.equal([8, 10]);
+            });
+
+            it("multiplies shots by 2", () => {
+                expect(newCollection.shots.value).to.deep.equal([16, 16]);
+            });
+
+            it("multiplies shotsOnTarget by 2", () => {
+                expect(newCollection.shotsOnTarget.value).to.deep.equal([8, 6]);
             });
         });
     });
