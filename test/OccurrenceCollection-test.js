@@ -22,7 +22,7 @@ describe("OccurrenceCollection", () => {
         });
     });
 
-    describe("#map", () => {
+    describe("#map()", () => {
         context("* 2", () => {
             const newCollection = collection
                 .map(xs => xs.value.map(x => x * 2));
