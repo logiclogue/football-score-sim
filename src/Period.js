@@ -15,16 +15,6 @@ class Period {
     get occurrenceCollection() {
 
     }
-
-    // Period ~> Occurrences
-    get goals() {
-        return this.ratings.goals(this.timeLength, this.seed);
-    }
-
-    // Period ~> Occurrences
-    get shotsOffTarget() {
-        return this.ratings.shotsOffTarget(this.timeLength, this.seed);
-    }
 }
 
 module.exports = Period;

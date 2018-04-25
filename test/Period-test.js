@@ -29,21 +29,4 @@ describe("Period", () => {
             expect(period.ratings).to.deep.equal(ratings);
         });
     });
-
-    describe("#goals", () => {
-        it("is equal to the return of the goals function", () => {
-            const result = ratings.goals(timeLength, seed);
-
-            expect(period.goals).to.deep.equal(result);
-        });
-    });
-
-    describe("#shotsOffTarget", () => {
-        it("is equal to the return of the shotsOffTarget function", () => {
-            const result = ratings
-                .shotsOffTarget(timeLength, seed, period.goals);
-
-            expect(period.shotsOffTarget).to.deep.equal(result);
-        });
-    });
 });
