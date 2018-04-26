@@ -3,8 +3,7 @@ const Seed = require("../src/Seed");
 const Period = require("../src/Period");
 const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
-const goals = require("../src/goals");
-const shotsOffTarget = require("../src/shotsOffTarget");
+const goalsFromRatings = require("../src/goalsFromRatings");
 
 describe("Period", () => {
     const seed = "testing".toSeed();
@@ -27,6 +26,14 @@ describe("Period", () => {
     describe("#ratings", () => {
         it("is the given ratings", () => {
             expect(period.ratings).to.deep.equal(ratings);
+        });
+    });
+
+    describe("#occurrences", () => {
+        it("returns an occurrence collection", () => {
+            const goals = ratings.goals(timeLength, seed);
+
+            expect(period.occurrences.goals).to.deep.equal(goals);
         });
     });
 });

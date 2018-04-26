@@ -1,6 +1,4 @@
-const goals = require("./goals");
 const goalsFromRatings = require("./goalsFromRatings");
-const shotsOffTarget = require("./shotsOffTarget");
 const OccurrenceCollection = require("./OccurrenceCollection");
 
 class Period {
@@ -12,8 +10,10 @@ class Period {
     }
 
     // Period ~> OccurrenceCollection
-    get occurrenceCollection() {
-
+    get occurrences() {
+        return new OccurrenceCollection(
+            this.ratings.goals(this.timeLength, this.seed)
+        );
     }
 }
 
