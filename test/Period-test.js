@@ -1,9 +1,10 @@
 const expect = require("chai").expect;
 const Seed = require("../src/Seed");
-const Period = require("../src/Period");
 const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
 const goalsFromRatings = require("../src/goalsFromRatings");
+const occurrencesFromRatings = require("../src/occurrencesFromRatings");
+const Period = require("../src/Period");
 
 describe("Period", () => {
     const seed = "testing".toSeed();
@@ -31,9 +32,9 @@ describe("Period", () => {
 
     describe("#occurrences", () => {
         it("returns an occurrence collection", () => {
-            const goals = ratings.goals(timeLength, seed);
+            const occurrences = ratings.occurrences(timeLength, seed);
 
-            expect(period.occurrences.goals).to.deep.equal(goals);
+            expect(period.occurrences).to.deep.equal(occurrences);
         });
     });
 });
