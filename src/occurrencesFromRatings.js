@@ -1,11 +1,13 @@
 const Ratings = require("../src/Ratings");
 const OccurrenceCollection = require("../src/OccurrenceCollection");
 const goalsFromRatings = require("../src/goalsFromRatings");
+const shotsOnTargetNoGoals = require("../src/shotsOnTargetNoGoals");
 
 // Ratings -> Time -> Seed -> OccurrenceCollection Occurrences
 function occurrencesFromRatings(ratings, time, seed) {
     return new OccurrenceCollection(
-        ratings.goals(time, seed)
+        ratings.goals(time, seed),
+        ratings.shotsOnTargetNoGoals(time, seed)
     );
 }
 
