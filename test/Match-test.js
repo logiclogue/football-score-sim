@@ -74,14 +74,6 @@ describe("Match", () => {
         });
     });
 
-    describe("#goals", () => {
-        it("merges first half goals with second half goals", () => {
-            const goals = match.firstHalf.goals.append(match.secondHalf.goals);
-
-            expect(match.goals.value).to.deep.equal(goals.value);
-        });
-    });
-
     describe("#winner", () => {
         it("returns goals winner", () => {
             const winner = match.goals.winner(match.teams);
@@ -113,6 +105,16 @@ describe("Match", () => {
             const periods = [match.firstHalf, match.secondHalf];
 
             expect(match.periods).to.deep.equal(periods);
+        });
+    });
+
+    describe("#occurrences", () => {
+        it("returns occurrences which are appended from periods", () => {
+            const firstOccurrences = match.firstHalf.occurrences;
+            const secondOccurrences = match.secondHalf.occurrences;
+            const occurrences = firstOccurrences.append(secondOccurrences);
+
+            expect(matches.occurrences).to.deep.equal(occurrences);
         });
     });
 });
