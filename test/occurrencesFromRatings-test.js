@@ -5,6 +5,7 @@ const Time = require("../src/Time");
 const Ratings = require("../src/Ratings");
 const goalsFromRatings = require("../src/goalsFromRatings");
 const shotsOnTargetNoGoals = require("../src/shotsOnTargetNoGoals");
+const shotsOffTarget = require("../src/shotsOffTarget");
 const occurrencesFromRatings = require("../src/occurrencesFromRatings");
 
 describe("occurrencesFromRatings()", () => {
@@ -23,5 +24,11 @@ describe("occurrencesFromRatings()", () => {
         const shots = ratings.shotsOnTargetNoGoals(time, seed);
 
         expect(occurrences.shotsOnTargetNoGoal).to.deep.equal(shots);
+    });
+
+    it("returns an occurrence collection with shotsOffTarget", () => {
+        const shots = ratings.shotsOffTarget(time, seed);
+
+        expect(occurrences.shotsOffTarget).to.deep.equal(shots);
     });
 });
