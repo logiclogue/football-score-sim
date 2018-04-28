@@ -84,7 +84,9 @@ describe("Match", () => {
 
     describe("#isDraw", () => {
         context("given a drawn match", () => {
-            const match = findMatch(teams, match => match.goals.isDraw);
+            const match = findMatch(
+                teams,
+                match => match.occurrences.goals.isDraw);
 
             it("returns true", () => {
                 expect(match.isDraw).to.be.true;

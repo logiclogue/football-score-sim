@@ -57,12 +57,17 @@ class Match {
 
     // Match ~> Boolean
     get isDraw() {
-        return this.goals.isDraw;
+        return this.occurrences.goals.isDraw;
     }
 
     // Match ~> [Period]
     get periods() {
         return [this.firstHalf, this.secondHalf];
+    }
+
+    // Match ~> OccurrenceCollection Occurrences
+    get occurrences() {
+        return this.firstHalf.occurrences.append(this.secondHalf.occurrences);
     }
 }
 
