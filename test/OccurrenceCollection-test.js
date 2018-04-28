@@ -51,4 +51,32 @@ describe("OccurrenceCollection", () => {
             });
         });
     });
+
+    describe("#append()", () => {
+        context("given itself", () => {
+            const newCollection = collection.append(collection);
+
+            it("doubles the goals", () => {
+                const expected = collection.goals.append(collection.goals);
+
+                expect(expected).to.deep.equal(newCollection.goals);
+            });
+
+            it("doubles the shotsOnTargetNoGoal", () => {
+                const shots = newCollection.shotsOnTargetNoGoal;
+                const expected = collection.shotsOnTargetNoGoal
+                    .append(collection.shotsOnTargetNoGoal);
+
+                expect(expected).to.deep.equal(shots);
+            });
+
+            it("doubles the shotsOffTarget", () => {
+                const shots = newCollection.shotsOffTarget;
+                const expected = collection.shotsOffTarget
+                    .append(collection.shotsOffTarget);
+
+                expect(expected).to.deep.equal(shots);
+            });
+        });
+    });
 });

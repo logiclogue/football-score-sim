@@ -1,22 +1,31 @@
 class OccurrenceCollection {
-    // Monoid a => a -> a -> a -> OccurrenceCollection
+    // a -> a -> a -> OccurrenceCollection a
     constructor(goals, shotsOnTargetNoGoal, shotsOffTarget) {
         this.goals = goals;
         this.shotsOnTargetNoGoal = shotsOnTargetNoGoal;
         this.shotsOffTarget = shotsOffTarget;
     }
 
-    // Monoid a => OccurrenceCollection ~> a
+    // Monoid a => OccurrenceCollection a ~> a
     get shotsOnTarget() {
         return this.goals.append(this.shotsOnTargetNoGoal);
     }
 
-    // Monoid a => OccurrenceCollection ~> a
+    // Monoid a => OccurrenceCollection a ~> a
     get shots() {
         return this.shotsOnTarget.append(this.shotsOffTarget);
     }
 
-    // OccurrenceCollection ~> (a -> a) -> OccurrenceCollection
+    // Monoid a => OccurrenceCollection a ~> a
+    append(collection) {
+        return new OccurrenceCollection(
+            this.goals.append(collection.goals),
+            this.shotsOnTargetNoGoal.append(collection.shotsOnTargetNoGoal),
+            this.shotsOffTarget.append(collection.shotsOffTarget)
+        );
+    }
+
+    // OccurrenceCollection a ~> (a -> a) -> OccurrenceCollection a
     map(f) {
         return new OccurrenceCollection(
             f(this.goals),
