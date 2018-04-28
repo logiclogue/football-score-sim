@@ -52,7 +52,7 @@ class Match {
 
     // Match ~> Nullable Team
     get winner() {
-        return this.goals.winner(this.teams);
+        return this.occurrences.goals.winner(this.teams);
     }
 
     // Match ~> Boolean

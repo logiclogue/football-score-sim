@@ -76,7 +76,7 @@ describe("Match", () => {
 
     describe("#winner", () => {
         it("returns goals winner", () => {
-            const winner = match.goals.winner(match.teams);
+            const winner = match.occurrences.goals.winner(match.teams);
 
             expect(match.winner).to.deep.equal(winner);
         });
@@ -94,7 +94,9 @@ describe("Match", () => {
         });
 
         context("given a decided match", () => {
-            const match = findMatch(teams, match => !match.goals.isDraw);
+            const match = findMatch(
+                teams,
+                match => !match.occurrences.goals.isDraw);
 
             it("returns false", () => {
                 expect(match.isDraw).to.be.false;
@@ -116,7 +118,7 @@ describe("Match", () => {
             const secondOccurrences = match.secondHalf.occurrences;
             const occurrences = firstOccurrences.append(secondOccurrences);
 
-            expect(matches.occurrences).to.deep.equal(occurrences);
+            expect(match.occurrences).to.deep.equal(occurrences);
         });
     });
 });
