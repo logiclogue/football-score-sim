@@ -4,11 +4,16 @@ const Ratings = require("../src/Ratings");
 const Seed = require("../src/Seed");
 const stubs = require("./stubs");
 const findMatch = require("./findMatch");
+const traits = require("./traits");
 
 describe("Match", () => {
     const teams = stubs.teams;
     const seed = "testing".toSeed();
     const match = new Match(teams, seed);
+
+    it("is a Match", () => {
+        expect(traits.isMatch(match)).to.be.true;
+    });
 
     describe("constructor", () => {
         it("sets home", () => {
