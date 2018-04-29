@@ -1,8 +1,15 @@
 const Occurrences = require("../src/Occurrences");
 const expect = require("chai").expect;
+const traits = require("./traits");
 const _ = require("lodash");
 
 describe("Occurrences", () => {
+    it("is a Monoid", () => {
+        const occurrences = new Occurrences([]);
+
+        expect(traits.isMonoid(occurrences)).to.be.true;
+    });
+
     describe("#home", () => {
         context("given [4, 2]", () => {
             const goals = new Occurrences([4, 2]);
