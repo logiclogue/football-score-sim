@@ -4,6 +4,7 @@ const ExtraTimeMatch = require("../src/ExtraTimeMatch");
 const Seed = require("../src/Seed");
 const stubs = require("./stubs");
 const findMatch = require("./findMatch");
+const traits = require("./traits");
 
 describe("ExtraTimeMatch", () => {
     const seed = "testing 43".toSeed();
@@ -21,6 +22,10 @@ describe("ExtraTimeMatch", () => {
     const drawnMatch = findMatch(stubs.teams, match => {
         return match.toExtraTimeMatch().isDraw;
     }).toExtraTimeMatch();
+
+    it("is a Match", () => {
+        expect(traits.isMatch(match)).to.be.true;
+    });
 
     describe("#firstHalfExtraTime", () => {
         it("returns a period with the time length of 15 minutes", () => {
@@ -64,29 +69,30 @@ describe("ExtraTimeMatch", () => {
         });
     });
 
-    describe("#extraTimeGoals", () => {
-        it("appends firstHalfExtraTime goals to secondHalfExtraTime", () => {
-            const goals = match.secondHalfExtraTime.goals
-                .append(match.firstHalfExtraTime.goals);
+    describe("#extraTimeOccurrences", () => {
+        it("appends firstHalfExtraTime to secondHalfExtraTime", () => {
+            const occurrences = match.secondHalfExtraTime.occurrences
+                .append(match.firstHalfExtraTime.occurrences);
 
-            expect(match.extraTimeGoals.value).to.deep.equal(goals.value);
+            expect(match.extraTimeOccurrences).to.deep.equal(occurrences);
         });
     });
 
-    describe("#goals", () => {
+    describe("#occurrences", () => {
         context("game is a draw", () => {
-            it("appends extra time goals to goals", () => {
-                const goals = normalMatch.goals.append(match.extraTimeGoals);
+            it("appends extra time to normal time", () => {
+                const occurrences = normalMatch.occurrences
+                    .append(match.extraTimeOccurrences);
 
-                expect(match.goals).to.deep.equal(goals);
+                expect(match.occurrences).to.deep.equal(occurrences);
             });
         });
 
         context("game is decided in normal time", () => {
             it("returns normal time goals", () => {
-                const goals = normalDecidedMatch.goals;
+                const occurrences = normalDecidedMatch.occurrences;
 
-                expect(decidedMatch.goals).to.deep.equal(goals);
+                expect(decidedMatch.occurrences).to.deep.equal(occurrences);
             });
         });
     });

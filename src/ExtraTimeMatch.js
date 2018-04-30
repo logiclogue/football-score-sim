@@ -26,26 +26,26 @@ class ExtraTimeMatch extends Match {
         return new Period(timeLength, this.ratings, seed);
     }
 
-    // ExtraTimeMatch ~> Goals
-    get extraTimeGoals() {
-        return this.firstHalfExtraTime.goals
-            .append(this.secondHalfExtraTime.goals);
+    // ExtraTimeMatch ~> OccurrenceCollection Occurrences
+    get extraTimeOccurrences() {
+        return this.firstHalfExtraTime.occurrences
+            .append(this.secondHalfExtraTime.occurrences);
     }
 
     // @Override
-    // ExtraTimeMatch ~> Goals
-    get goals() {
+    // ExtraTimeMatch ~> OccurrenceCollection Occurrences
+    get occurrences() {
         if (this.isExtraTime) {
-            return this.match.goals.append(this.extraTimeGoals);
+            return this.match.occurrences.append(this.extraTimeOccurrences);
         }
 
-        return this.match.goals;
+        return this.match.occurrences;
     }
 
     // @Override
     // ExtraTimeMatch ~> Boolean
     get isExtraTime() {
-        return this.match.goals.isDraw;
+        return this.match.occurrences.goals.isDraw;
     }
 
     // @Override
