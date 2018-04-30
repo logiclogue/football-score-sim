@@ -5,7 +5,7 @@ const Time = require("../src/Time");
 class ExtraTimeMatch {
     // Match -> ExtraTimeMatch
     constructor(match) {
-        this.match = new Match(match.teams, match.seed);
+        this.match = match;
     }
 
     // ExtraTimeMatch ~> Seed
