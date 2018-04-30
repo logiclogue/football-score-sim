@@ -71,7 +71,7 @@ class ExtraTimeMatch {
 
     // ExtraTimeMatch ~> Boolean
     get isDraw() {
-        return this.match.isDraw;
+        return this.occurrences.goals.isDraw;
     }
 
     // ExtraTimeMatch ~> Boolean
