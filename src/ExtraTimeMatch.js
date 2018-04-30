@@ -86,12 +86,9 @@ class ExtraTimeMatch {
 
     // ExtraTimeMatch ~> [Period]
     get periods() {
-        const extraTimePeriods = [
-            this.firstHalfExtraTime,
-            this.secondHalfExtraTime
-        ];
-
-        return this.match.periods.concat(extraTimePeriods);
+        return this.match.periods
+            .concat(this.firstHalfExtraTime)
+            .concat(this.secondHalfExtraTime);
     }
 }
 

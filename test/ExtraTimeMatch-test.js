@@ -128,8 +128,8 @@ describe("ExtraTimeMatch", () => {
     describe("#periods", () => {
         it("returns an array containing extra time periods too", () => {
             const periods = [
-                match.firstHalf,
-                match.secondHalf,
+                normalMatch.firstHalf,
+                normalMatch.secondHalf,
                 match.firstHalfExtraTime,
                 match.secondHalfExtraTime,
             ];
