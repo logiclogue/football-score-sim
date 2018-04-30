@@ -8,6 +8,36 @@ class ExtraTimeMatch {
         this.match = new Match(match.teams, match.seed);
     }
 
+    // ExtraTimeMatch ~> Seed
+    get seed() {
+        return this.match.seed;
+    }
+
+    // ExtraTimeMatch ~> Team
+    get home() {
+        return this.match.home;
+    }
+
+    // ExtraTimeMatch ~> Team
+    get away() {
+        return this.match.away;
+    }
+
+    // ExtraTimeMatch ~> [Team]
+    get teams() {
+        return this.match.teams;
+    }
+
+    // ExtraTimeMatch ~> Ratings
+    get ratings() {
+        return this.match.ratings;
+    }
+
+    // ExtraTimeMatch ~> Nullable Team
+    get winner() {
+        return this.occurrences.goals.winner(this.teams);
+    }
+
     // ExtraTimeMatch ~> Period
     get firstHalfExtraTime() {
         const timeLength = new Time().setMinutes(15);
@@ -30,7 +60,6 @@ class ExtraTimeMatch {
             .append(this.secondHalfExtraTime.occurrences);
     }
 
-    // @Override
     // ExtraTimeMatch ~> OccurrenceCollection Occurrences
     get occurrences() {
         if (this.isExtraTime) {
@@ -40,13 +69,21 @@ class ExtraTimeMatch {
         return this.match.occurrences;
     }
 
-    // @Override
+    // ExtraTimeMatch ~> Boolean
+    get isDraw() {
+        return this.match.isDraw;
+    }
+
     // ExtraTimeMatch ~> Boolean
     get isExtraTime() {
         return this.match.occurrences.goals.isDraw;
     }
 
-    // @Override
+    // ExtraTimeMatch ~> Boolean
+    get isPenaltyShootout() {
+        return this.match.isPenaltyShootout;
+    }
+
     // ExtraTimeMatch ~> [Period]
     get periods() {
         const extraTimePeriods = [
