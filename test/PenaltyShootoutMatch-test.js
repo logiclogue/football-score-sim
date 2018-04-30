@@ -13,6 +13,10 @@ describe("PenaltyShootoutMatch", () => {
     const normalDrawnMatch = findMatch(stubs.teams, isDrawn);
     const normalDecidedMatch = findMatch(stubs.teams, isDecided);
 
+    it("is a Match", () => {
+        expect(traits.isMatch(match))
+    });
+
     describe("#isPenaltyShootout", () => {
         context("given a drawn match", () => {
             const match = new PenaltyShootoutMatch(normalDrawnMatch);

@@ -1,11 +1,9 @@
 const Match = require("./Match");
 const PenaltyShootout = require("./PenaltyShootout");
 
-class PenaltyShootoutMatch extends Match {
+class PenaltyShootoutMatch {
     // Match -> PenaltyShootoutMatch
     constructor(match) {
-        super(match.teams, match.seed);
-
         this.match = match;
     }
 
