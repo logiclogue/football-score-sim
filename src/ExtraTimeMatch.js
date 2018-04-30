@@ -2,12 +2,10 @@ const Match = require("../src/Match");
 const Period = require("../src/Period");
 const Time = require("../src/Time");
 
-class ExtraTimeMatch extends Match {
+class ExtraTimeMatch {
     // Match -> ExtraTimeMatch
-    constructor(matchToDecorate) {
-        super(matchToDecorate.teams, matchToDecorate.seed);
-
-        this.match = matchToDecorate;
+    constructor(match) {
+        this.match = new Match(match.teams, match.seed);
     }
 
     // ExtraTimeMatch ~> Period
