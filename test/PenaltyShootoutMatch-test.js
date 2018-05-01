@@ -6,15 +6,18 @@ const Match = require("../src/Match");
 const stubs = require("./stubs");
 const findMatch = require("./findMatch");
 const Seed = require("../src/Seed");
+const traits = require("./traits");
 
 describe("PenaltyShootoutMatch", () => {
-    const isDrawn = match => match.goals.isDraw;
-    const isDecided = match => !match.goals.isDraw;
+    const isDrawn = match => match.occurrences.goals.isDraw;
+    const isDecided = match => !match.occurrences.goals.isDraw;
     const normalDrawnMatch = findMatch(stubs.teams, isDrawn);
     const normalDecidedMatch = findMatch(stubs.teams, isDecided);
 
     it("is a Match", () => {
-        expect(traits.isMatch(match))
+        const match = normalDrawnMatch.toPenaltyShootoutMatch();
+
+        expect(traits.isMatch(match)).to.be.true;
     });
 
     describe("#isPenaltyShootout", () => {

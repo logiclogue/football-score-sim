@@ -7,6 +7,16 @@ class PenaltyShootoutMatch {
         this.match = match;
     }
 
+    // PenaltyShootoutMatch ~> Seed
+    get seed() {
+        return this.match.seed;
+    }
+
+    // PenaltyShootoutMatch ~> [Team]
+    get teams() {
+        return this.match.teams;
+    }
+
     // PenaltyShootoutMatch ~> PenaltyShootout
     get penaltyShootout() {
         const seed = this.seed.append("penaltyShootout");
@@ -14,20 +24,23 @@ class PenaltyShootoutMatch {
         return new PenaltyShootout().simulate(seed);
     }
 
-    // @Override
+    // PenaltyShootoutMatch ~> Occurrences
+    get occurrences() {
+        return this.match.occurrences;
+    }
+
     // PenaltyShootoutMatch ~> Boolean
     get isPenaltyShootout() {
-        if (this.goals.isDraw) {
+        if (this.occurrences.goals.isDraw) {
             return true;
         }
 
         return false;
     }
 
-    // @Override
     // PenaltyShootoutMatch ~> Team
     get winner() {
-        if (this.goals.isDraw) {
+        if (this.occurrences.goals.isDraw) {
             return this.penaltyShootout.goals.winner(this.teams)
         }
 
