@@ -17,6 +17,11 @@ class PenaltyShootoutMatch {
         return this.match.teams;
     }
 
+    // PenaltyShootoutMatch ~> Team
+    get home() {
+        return this.match.home;
+    }
+
     // PenaltyShootoutMatch ~> PenaltyShootout
     get penaltyShootout() {
         const seed = this.seed.append("penaltyShootout");
