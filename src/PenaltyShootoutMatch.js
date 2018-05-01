@@ -22,6 +22,21 @@ class PenaltyShootoutMatch {
         return this.match.home;
     }
 
+    // PenaltyShootoutMatch ~> Team
+    get away() {
+        return this.match.away;
+    }
+
+    // PenaltyShootoutMatch ~> Ratings
+    get ratings() {
+        return this.match.ratings;
+    }
+
+    // PenaltyShootoutMatch ~> Boolean
+    get isExtraTime() {
+        return this.match.isExtraTime;
+    }
+
     // PenaltyShootoutMatch ~> PenaltyShootout
     get penaltyShootout() {
         const seed = this.seed.append("penaltyShootout");
@@ -52,10 +67,14 @@ class PenaltyShootoutMatch {
         return this.match.winner;
     }
 
-    // @Override
     // PenaltyShootoutMatch ~> Boolean
     get isDraw() {
         return false;
+    }
+
+    // PenaltyShootoutMatch ~> [Period]
+    get periods() {
+        return this.match.periods;
     }
 }
 
