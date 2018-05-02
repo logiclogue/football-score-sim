@@ -1,6 +1,6 @@
-const Ratings = require("../src/Ratings");
-const Period = require("../src/Period");
-const Time = require("../src/Time");
+const Ratings = require("./Ratings");
+const Period = require("./Period");
+const Time = require("./Time");
 
 class Match {
     // [Team] -> Seed -> Match
