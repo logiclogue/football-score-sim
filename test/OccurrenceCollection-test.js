@@ -1,6 +1,7 @@
 const expect = require("chai").expect;
 const OccurrenceCollection = require("../src/OccurrenceCollection");
 const Occurrences = require("../src/Occurrences");
+const traits = require("./traits");
 
 describe("OccurrenceCollection", () => {
     const goals = new Occurrences([1, 1]);
@@ -9,6 +10,10 @@ describe("OccurrenceCollection", () => {
     const collection = new OccurrenceCollection(
         goals, shotsOnTargetNoGoal, shotsOffTarget
     );
+
+    it("is an OccurreceCollection", () => {
+        expect(traits.isOccurrenceCollection(collection)).to.be.true;
+    });
 
     describe("#shotsOnTarget", () => {
         it("returns goals appended to shotsOnTargetNoGoal", () => {
