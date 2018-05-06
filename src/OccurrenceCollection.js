@@ -16,7 +16,8 @@ class OccurrenceCollection {
         return this.shotsOnTarget.append(this.shotsOffTarget);
     }
 
-    // Monoid a => OccurrenceCollection a ~> OccurrenceCollection a -> OccurrenceCollection a
+    // Monoid a => OccurrenceCollection a ~> OccurrenceCollection a
+    // -> OccurrenceCollection a
     append(collection) {
         return new OccurrenceCollection(
             this.goals.append(collection.goals),
