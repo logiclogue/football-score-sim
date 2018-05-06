@@ -25,7 +25,7 @@ class OccurrenceCollection {
         );
     }
 
-    // OccurrenceCollection a ~> (a -> a) -> OccurrenceCollection a
+    // OccurrenceCollection a ~> (a -> b) -> OccurrenceCollection b
     map(f) {
         return new OccurrenceCollection(
             f(this.goals),
