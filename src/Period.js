@@ -10,7 +10,7 @@ class Period {
         this.seed = seed;
     }
 
-    // Period ~> OccurrenceCollection
+    // Period ~> OccurrenceCollection Occurrences
     get occurrences() {
         return this.ratings.occurrences(this.timeLength, this.seed);
     }
