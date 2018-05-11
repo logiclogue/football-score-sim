@@ -10,7 +10,7 @@ function occurrenceCollectionToTimes(collection, time, seed) {
 // OccurrenceCollection Occurrences ~> Time -> Seed
 // -> OccurrenceCollection OccurrenceTimes
 OccurrenceCollection.prototype.toTimes = function (time, seed) {
-    return occurrenceCollectionToTimes(this);
+    return occurrenceCollectionToTimes(this, time, seed);
 };
 
 module.exports = occurrenceCollectionToTimes;
