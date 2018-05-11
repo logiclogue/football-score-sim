@@ -8,7 +8,7 @@ const Time = require("../src/Time");
 describe("occurrenceCollectionToTimes()", () => {
     context("45 mins, testing seed", () => {
         const seed = "testing".toSeed();
-        const timeLength = new Time().setMinutes();
+        const timeLength = new Time().setMinutes(45);
         const result = toTimes(stubs.occurrenceCollection, timeLength, seed);
 
         it("returns the same for the prototype method", () => {
@@ -19,9 +19,18 @@ describe("occurrenceCollectionToTimes()", () => {
 
         it("returns expected times for goals", () => {
             const goals = stubs.occurrenceCollection.goals;
-            const expected = goals.times(timeLength, seed);
+            const goalsSeed = seed.append("goals");
+            const expected = goals.times(timeLength, goalsSeed);
 
             expect(result.goals).to.deep.equal(expected);
+        });
+
+        it("returns expected times for shotsOnTargetNoGoal", () => {
+            const shots = stubs.occurrenceCollection.shotsOnTargetNoGoal;
+            const shotsSeed = seed.append("shotsOnTargetNoGoal");
+            const expected = shots.times(timeLength, shotsSeed);
+
+            expect(result.shostOnTargetNoGoals).to.deep.equal(expected);
         });
     });
 });
