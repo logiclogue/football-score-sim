@@ -55,6 +55,23 @@ describe("OccurrenceCollection", () => {
                 expect(newCollection.shotsOnTarget.value).to.deep.equal([8, 6]);
             });
         });
+
+        context("passes through the seed", () => {
+            const newCollection = collection.map((_, seed) => seed);
+
+            it("returns 'goals' for goals", () => {
+                expect(newCollection.goals).to.equal("goals");
+            });
+
+            it("returns 'shotsOnTargetNoGoal' for shotsOnTargetNoGoal", () => {
+                expect(newCollection.shotsOnTargetNoGoal)
+                    .to.equal("shotsOnTargetNoGoal");
+            });
+
+            it("returns 'shotsOffTarget' for shotsOffTarget", () => {
+                expect(newCollection.shotsOffTarget).to.equal("shotsOffTarget");
+            });
+        });
     });
 
     describe("#append()", () => {

@@ -29,9 +29,9 @@ class OccurrenceCollection {
     // OccurrenceCollection a ~> (a -> b) -> OccurrenceCollection b
     map(f) {
         return new OccurrenceCollection(
-            f(this.goals),
-            f(this.shotsOnTargetNoGoal),
-            f(this.shotsOffTarget)
+            f(this.goals, "goals"),
+            f(this.shotsOnTargetNoGoal, "shotsOnTargetNoGoal"),
+            f(this.shotsOffTarget, "shotsOffTarget")
         );
     }
 }
