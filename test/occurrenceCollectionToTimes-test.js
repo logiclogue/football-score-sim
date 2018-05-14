@@ -30,7 +30,7 @@ describe("occurrenceCollectionToTimes()", () => {
             const shotsSeed = seed.append("shotsOnTargetNoGoal");
             const expected = shots.times(timeLength, shotsSeed);
 
-            expect(result.shostOnTargetNoGoals).to.deep.equal(expected);
+            expect(result.shotsOnTargetNoGoal).to.deep.equal(expected);
         });
     });
 });

@@ -4,9 +4,7 @@ const times = require("./times");
 // OccurrenceCollection Occurrences -> Time -> Seed
 // -> OccurrenceCollection OccurrenceTimes
 function occurrenceCollectionToTimes(collection, time, seed) {
-    const newSeed = seed.append("goals");
-
-    return collection.map(o => o.times(time, newSeed));
+    return collection.map((o, name) => o.times(time, seed.append(name)));
 }
 
 // OccurrenceCollection Occurrences ~> Time -> Seed
