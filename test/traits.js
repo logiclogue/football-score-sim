@@ -39,6 +39,12 @@ module.exports = {
         ]);
     },
 
+    isZippable: function (obj) {
+        return hasProps(obj, [
+            'zip'
+        ]);
+    },
+
     isOccurrenceCollection: function (obj) {
         return isAll([
             hasProps(obj, [
