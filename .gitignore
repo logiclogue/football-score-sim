@@ -1,5 +1,7 @@
 node_modules
+lib
 
-*.swp
-\#*#
 .vscode
+.merlin
+
+*.bs.js
