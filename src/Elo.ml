@@ -1,5 +1,4 @@
 type q_val = float
-type probability = float
 
 let calculate_q rating = 10.0 ** (rating /. 400.0)
 
